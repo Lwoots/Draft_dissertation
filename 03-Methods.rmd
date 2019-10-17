@@ -1,0 +1,311 @@
+# Methods
+
+## Library preparation
+
+**Quantus** (QuantusTM fluorometer, Promega corporation, Madison USA) using (QuantiFluorR dsDNA System, Promega corporation, Madison USA)
+
+\-    Dye = 1990 ul 1X TE buffer 10ul dye
+
+\-    Blank = 100ul 1X TE buffer, 100 ul dye
+
+\-    Std = 98 ul 1X TE buffer, 100 ul dye, 2 ul dna standard
+
+\-    Samples = 99 ul TE buffer, 100 ul dye, 1 ul sample
+
+Gives reading of DNA concentration
+
+ 
+
+**Dilution**
+
+Need 200 ng DNA in 26 ul liquid. Liquid used was MilliQ water to dilute our TE buffer elute a bit.
+
+Calculations: Vol sample used = 200/quantus concentration. MilliQ water added = 26 ul – vol sample used.
+
+ 
+
+**Sonication** (Covaris Focused-ultrasonicator M220, software Covaris SonoLabTM 2013 Version 7.2.1.0, Woburn Massachusetts 01801 www.covarisinc.com)
+
+Transfer diluted sample into covaris tubes
+
+Sonicated for 75 secs @ temp of between 18 and 20C
+
+Avg Incident power 10 Watts, Peak Incident power 50W, Duty factor 20%, cycles/burst 200)
+
+Aiming for 350 bp
+
+ 
+
+**LIBRARY PREPARATION**
+
+NEBNxet Ultra II DNA Library Prep Kit for Illumina. New England Biolabs inc.
+
+Note: We were using half the recommended reagent quantities with the same amount of DNA (200ng)
+
+www.neb.com
+
+ 
+
+**End Prep** repairing torn ends after sonication
+
+Kit enzymes and buffer added. In thermocycler for 30 mins @ 20C and 30 mins @ 65C
+
+ 
+
+**Adapter ligation** adds adapters to the repaired ends
+
+Add master mix and ligation enhancer
+
+In thermocycler for 15 mins @ 20C
+
+ 
+
+**USER,** in previous step adapters attach to the ends of two different strands, USER enzymes cuts the adapters in half 
+
+In thermocycler for 15 mins @ 37C
+
+ 
+
+**Size selection of DNA fragments**
+
+Add 13 ul AMPure magnetic beads to 95 ul of the library. Should bind to long fragments. Discard the beads with the long fragments and keep supernatant. Add 5ul beads to supernatant. All dna except shortest fragments should bind to the beads. Discard supernatant. Wash and re elute beads in 10mM tris.
+
+ 
+
+**PCR enrichment**
+
+ 
+
+Clean pipettes and bench with bleach 
+
+Add master mix from kit and two different index primers – i7 and i5
+
+NEBNext Multiplex Oligos for Illumina (Dual Index Primer Set 1) #E7600S New England Biolabs Inc. 
+
+ 
+
+Thermocycler conditions
+
+ 
+
+Initial denaturation - 30s @ 98C
+
+ 
+
+Denaturation – 10s @ 98C
+
+Annealing/Extension – 75s @ 65C
+
+Repeat above for 7 or 8 cycles 
+
+ 
+
+Final extension – 5 mins @ 65C
+
+ 
+
+**Clean up of PCR amplification**
+
+ 
+
+Add 22.5 ul Ampure magnetic beads to sample.
+
+Discard supernatant and wash beads with 80% ethanol
+
+Elute beads in 16.5 ul 10mM tris.
+
+Transfer 15.5 ul supernantant to new well.
+
+ 
+
+**Library quality check**
+
+ 
+
+Quantus as above for library concentration
+
+ 
+
+Check fragment size distribution using Agilent Technologies 4200 Tapestation
+
+And Agilent Technologies 4200 Tapestation Controller software A.02.02 (SR1)
+
+\+ get average fragment size using the region tool in Agilent Technologies 4200 Tapestation Analysis software A.02.02 (SR1)
+
+Using DS1000 tapes
+
+3 ul buffer from kit + 1 ul sample. Vortex and spin down. Ladder from kit.
+
+ 
+
+Aiming for a library concentration of 4 ng/ul and avg fragment size of 450.
+
+In reality mine were much more concentrated with a frag size of ~500
+
+ 
+
+If libraries failed, either rePCR, re size selected, or redo from the beginning.
+
+rePCR – primers Universal primers P05 and P07 from bait kit.
+
+ 
+
+ 
+
+**SEQUENCING PREPARATION**
+
+ 
+
+**Normalising samples**
+
+ 
+
+All libraries need to be at a concentration of 10 nM.
+
+Calculate current molarity: (Lib. Conc)/(Avg. frag size * 660) *1000000
+
+(The 660 is the average molecular weight of a base pair)
+
+ 
+
+Add 5 ul of sample to a well.
+
+Calculate the amount of water needed to dilute to 10 nM with (lib. Molarity – 10)/2
+
+ 
+
+**Pooling samples**
+
+ 
+
+I didn’t have to worry about pooling by relatedness or quality as all mine were pretty similar.
+
+ 
+
+Add 10 ul of 24 samples (12 samples in the case of the MiSeq) to a 1.5 ml epi. Vac dry for 30-40 mins in miVac DUO concentrator (genevac)
+
+ 
+
+Elute in 8 ul of 10 mM tris
+
+ 
+
+**HYBRIDISATION**
+
+ 
+
+Kit used:
+
+Arbor Biosciences myBaits® Target Capture Kit Box 1 Ref#190206-30 and Box 2
+
+Arborbiosci.com
+
+Hybridisation capture for targeted NGS Manual v.4.01
+
+ 
+
+**Reaction assembly**
+
+ 
+
+Mix together Hyb reagents and baits
+
+Mix together blocks
+
+ 
+
+Add libraries to block mixture
+
+Incubate at 95C for 5 mins
+
+ 
+
+Bring hybridization mixture to 95C
+
+Add to libraries/block mixture
+
+ 
+
+Incubate at 65C for 16hours
+
+ 
+
+**Clean up**
+
+ 
+
+Prepare wash buffer and heat to 65C
+
+ 
+
+Wash beads from kit (not Ampure) with binding buffer 3 times and resuspend in binding buffer, warm to 65C
+
+ 
+
+Add libraries/block mixture to beads and incubate for 5 mins @ 65C
+
+ 
+
+Pellet, wash and resuspend beads three times. Discard supernatant
+
+ 
+
+**Resuspension and amplification**
+
+ 
+
+Elute beads in 30 ul of Tris and Tween-20 solution 
+
+Add Universal primers P05 and P07 and blue mastermix from library kit.
+
+ 
+
+Thermocycler program:
+
+ 
+
+98C for 2 mins
+
+ 
+
+98C for 20s
+
+55C for 30s
+
+72C for 45s 
+
+Repeat above three for 12 cycles
+
+ 
+
+72C for 5 mins
+
+ 
+
+ 
+
+**Prep for MiSeq**
+
+ 
+
+Normalise to 4mM (My library was pretty much there anyway at 3.8 mM, so skipped this step)
+
+ 
+
+Dilute 2M NaOH to 0.2M NaOH
+
+ 
+
+Add 5ul library to 5ul NaOH (denaturing)
+
+ 
+
+Add 990 Hyb buffer from illumina kit
+
+ 
+
+Take 330 ul of that solution and dilute it with 270 ul more buffer to make a 11 pM solution.
+
+ 
+
+Load into MiSeq

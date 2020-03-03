@@ -309,3 +309,14 @@ Take 330 ul of that solution and dilute it with 270 ul more buffer to make a 11 
  
 
 Load into MiSeq
+
+
+
+## Phylogenetic methods
+
+
+
+**Read trimming and quality control**
+
+The raw reads were cleaned and trimmed from the dataset using trimmomatic V0.39 (ref). First, Illuminaclip palindrome mode using the reference file TruSeq3-PE.fa removed Illumina sequencing adaptors. Palindrome mode had the following settings: SeedMismatches = 1, palindromeClipThreshold = 30, simpleClipThreshold = 6, minAdapterLength  =  2; keepBothReads = T RUE.  Second, poor quality reads were trimmed with the Maxinfo option. Maxinfo balances the utility of retaining reads of an informative length against the costs of incorrect bases. Initially, Maxinfo is lenient towards potential error calls at a shorter read length, and becomes more strict as read length increases. The settings used were targetLength = 40 and strictness = 85. Finally, reads shorter than 36 bases were removed using MinLength. Read quality and adaptor content of the remaining reads were checked using FastQC 0.11.8 
+

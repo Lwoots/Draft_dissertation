@@ -338,11 +338,21 @@ The Hybpiper pipeline was also used to assemble the cleaned reads of a full geno
 
 Paralogs are genes related by an ancestral duplication event, rather than by sharing a common origin as is the case with orthologous genes (Koonin 2005). A key assumption of phylogenetics is that the genes used within an analysis are orthologous. Fortunately, HypPiper is able to identify potential paralogs. If HybPiper 1.3.1 recovers two or more similar contigs that cover at least 85% of the coding region's reference sequence, it flags the region as containing potential paralogs. Note that two similar length contigs for a gene may also indicate the presence of an allele. The two can be differentiated by constructing a gene tree. A gene is paralogous if the main contigs cluster separately to the alternative contigs, as this indicates a gene duplication event. Alternatively, main and secondary contigs grouping as sisters within a gene would suggest alleles.
 
-In this analysis, HybPiper flagged 50 genes with paralog warnings. Within each gene, the number of samples flagged with paralogs varied between 1 and 39 samples. I disregarded genes with less than 2 flagged samples, as these were more likely to be alleles rather than paralogs. This left 18 genes that contained potential paralogs. HybPiper contains a script, paralog_retriever.py that will extract both the main and secondary contigs for a gene into a fasta file. Each resulting fasta was then aligned with MAFFT, followed by genetree construction using IQtree.  The trees were inspected in Geneious. While it wasn't always clear cut whether the tree exhibited paralogs or not, I errored on the side of caution and removed any gene that wasn't obviously allelic. Therefore a total of # genes were deemed paralogs, and were removed from the dataset.
+In this analysis, HybPiper flagged 50 genes with paralog warnings. Within each gene, the number of samples flagged with paralogs varied between 1 and 39 samples. I disregarded genes with less than 2 flagged samples, as these were more likely to be alleles rather than paralogs. This left 18 genes that contained potential paralogs. HybPiper contains a script, paralog_retriever.py that will extract both the main and secondary contigs for a gene into a fasta file. Each resulting fasta was then aligned with MAFFT, followed by genetree construction using IQtree 1.6.11.  The trees were inspected in Geneious. While it wasn't always clear cut whether the tree exhibited paralogs or not, I errored on the side of caution and removed any gene that wasn't obviously allelic. Therefore a total of # genes were deemed paralogs, and were removed from the dataset.
 
 
 
-Two sets of genes were chosen for further phylogenetic analysis. One, refered to as the full coverage dataset (FCD), retained genes that were present in all 109 samples, outgroups and rice included. This was a total of 242 (check) genes. The other, referred to as the ninety percent coverage dataset (NCD), retained genes that were present in at least 90% of all samples. This cut off was chosen as a compromise between missing data, and using as many genes as possible. These dataset divisions were used for exons, supercontigs, and introns, giving six datasets in total.
+Two sets of genes were chosen for further phylogenetic analysis. One, refered to as the full coverage dataset (FCD), retained genes that were present in all 109 samples, outgroups and rice included. This was a total of 242 (check) genes. The other, referred to as the ninety percent coverage dataset (NCD), retained genes that were present in at least 90% of all samples. This cut off was chosen as a compromise between missing data, and using as many genes as possible. These dataset divisions were used for exons, supercontigs, and introns, giving six datasets in total. Individual genes were aligned using MAFFT 7.427 with the settings --localpair --maxiterate 1000. The resulting alignments were then trimmed of gappy and poorly aligned regions with TrimAL 1.2. 
+
+
+
+**Maximum likelihood trees** 
+
+The alignments were concatenated using AMAS (ref), which also generates a file delimiting where each gene starts in the concatenated alignment. Each gene is expect to have a different rate and pattern of evolution. Therefore each gene should be fitted with a best fit model. IQtree is able to fit 200 odd models of evolution to the genes. To reduce parameter space, it is best to join genes with similar models of information. IQtree can implement Lanfear's partitionfinder2. Due to the high computational burden, I choose to use a less strict searching algorithm rcluster, which ... 
+
+I then ran IQtree with 1000 ultrafast bootstraps, and -alrt 1000. With these support metrics, a node is considered to have good support if ...
+
+tree and support
 
 
 
@@ -350,9 +360,7 @@ Two sets of genes were chosen for further phylogenetic analysis. One, refered to
 
 
 
-**Maximum likelihood trees** 
-
-Each dataset was aligned using MAFFT 7.427 using the settings --localpair --maxiterate 1000.
+As coalescent-based methods are less sensitive to missing data, I used only the ninety-percent coverage dataset for this analysis 
 
 
 

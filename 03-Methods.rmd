@@ -334,13 +334,23 @@ A full genome of _Oryza sativa_ was downloaded from genbank ( https://www.ncbi.n
 
 
 
+The cleaned reads of a full genome of _Oryza sativa_ Japonica cultivar were downloaded from genbank (https://www.ncbi.nlm.nih.gov/sra/SRR10389404). The reads were assembled using HybPiper. This approach was used it was able to reconstruct introns and exons for # genes, rather than the 175 exon only regions recovered via blast.
+
+
+
 **Chloroplast**
 
 
 
-**Identification of paralogs, gene choice and alignment**
+**Identification of paralogs, gene choice**
 
-A paralog is  If HybPiper 1.3.1 recovers two or more similar contigs that cover at least 85% of the coding region's reference sequence, it flags the region as containing potential paralogs. for a  
+A paralog is  If HybPiper 1.3.1 recovers two or more similar contigs that cover at least 85% of the coding region's reference sequence, it flags the region as containing potential paralogs. 
+
+50 genes showed paralog warnings. Within each gene, the number of samples flagged with paralogs varied between 1 and 39 samples. I disregarded genes with less than 2 flagged samples, as these were likely to be alleles rather than paralogs. This left 18 genes that contained potential paralogs. HybPiper contains a script, paralog_retriever.py that will extract both the main and alternative contig into a fasta file. Each fasta was aligned with MAFFT, and a gene tree was constructed using IQtree. A gene contains paralogs if the main contigs cluster separately to the alternative contigs, as this indicates an ancient gene duplication event. Main and alternative contigs grouping as sisters suggest alleles. The trees were inspected in Geneious. While it wasn't always clear cut whether the tree exhibited paralogs or not, I errored on the side of caution and removed any gene that wasn't obviously allelic. Therefore a total of # genes were deemed paralogs. 
+
+
+
+Two sets of genes were chosen for further phylogenetic analysis. One, refered to as the full coverage dataset (FCD), retained genes that were present in all 109 samples, outgroups and rice included. This was a total of 242 (check) genes. The other, referred to as the ninety percent coverage dataset (NCD), retained genes that were present in at least 90% of all samples. This cut off was chosen as a compromise between missing data, and using as many genes as possible. These dataset divisions were used for exons, supercontigs, and introns, giving six datasets in total.
 
 
 
@@ -349,6 +359,8 @@ A paralog is  If HybPiper 1.3.1 recovers two or more similar contigs that cover 
 
 
 **Maximum likelihood trees** 
+
+Each dataset was aligned using MAFFT 7.427 using the settings --localpair --maxiterate 1000.
 
 
 

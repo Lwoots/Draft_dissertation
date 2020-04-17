@@ -6,177 +6,25 @@
 
  
 
-## Library preparation
+##Library preparation for targeted enrichment
 
 
 
-The DNA concentration present in the extracts was measured with a QuantusTM fluorometer (Promega corporation, Madison USA) using the using QuantiFluorR dsDNA System kit (Promega corporation, Madison USA). The samples were diluted to 200 ng DNA in 26 $\mu$l with Milli-Q water. The DNA was then sheared to fragments an average of 350 bp long by sonicating them for 75s with a Covaris Focused-ultrasonicator M220 (Woburn Massachusetts 01801 www.covarisinc.com)
+Library preparation and hybridisation was carried out at the Sackler Phylogenomic Laboratory, within the Jodrell Laboratory at Royal Botanic Gardens, Kew (Richmond, Surrey, UK). The DNA concentration present in the extracts was measured with a QuantusTM fluorometer (Promega corporation, Madison USA) using the using QuantiFluorR dsDNA System kit (Promega corporation, Madison USA). The samples were diluted to 200 ng DNA in 26 $\mu$l with Milli-Q water. The DNA was then sheared to fragments an average of 350 bp long by sonicating them for 75s with a Covaris Focused-ultrasonicator M220 (Woburn Massachusetts 01801 www.covarisinc.com)
 
 
 
-Library preparation was completed using NEBNxet Ultra II DNA Library Prep Kit for Illumina (New England Biolabs), using half the recommended volumes to maximise use of reagents and indexes. AMPure magnetic beads were used for size selection of DNA fragments. Libraries were indexed with the NEBNext Multiplex Oligos for Illumina (Dual Index Primer Set 1, New England Biolabs), and enriched with the following thermocycler conditions: Initial denaturation for 30s at 98$^\circ$C, 7 cycles of denaturation for 10s at 98$^\circ$C, annealing and extension for 75s at 65$^\circ$C, followed by a final extension for 5 mins at 65$^\circ$C. The resulting enriched libraries were cleaned with AMPure beads, and the quality of the libraries were checked using Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). A library was considered good quality if it had a concentration of greater than 4 ng/$\mu$l and avg fragment size of 450 bp to 500 bp. If a library failed the quality check, it was either re-amplified, underwent size selection again, or was entirely repeated from the beginning of the process. 
-
- 
-
-**SEQUENCING PREPARATION**
+Library preparation was completed using NEBNxet Ultra II DNA Library Prep Kit for Illumina (New England Biolabs), using half the recommended volumes to maximise use of reagents and indexes. AMPure magnetic beads were used for size selection of DNA fragments. Libraries were indexed with the NEBNext Multiplex Oligos for Illumina (Dual Index Primer Set 1, New England Biolabs), and enriched with the following thermocycler conditions: Initial denaturation for 30s at 98$^\circ$C, 7 cycles of denaturation for 10s at 98$^\circ$C, annealing and extension for 75s at 65$^\circ$C, followed by a final extension for 5 mins at 65$^\circ$C. The resulting enriched libraries were cleaned with AMPure beads, and the quality of the libraries were checked using Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). A library was considered good quality if it had a concentration of greater than 4 ng.$\mu$l^-1^ and avg fragment size of 450 bp to 500 bp. If a library failed the quality check, it was either re-amplified, underwent size selection again, or was entirely repeated from the beginning of the process. 
 
  
 
-**Normalising samples**
+## Hybridisation and sequencing preparation
+
+
+
+Libraries were normalised to a concentration of 10 nM and 10 $\mu$l per sample was pooled into batches of 12 or 24 samples per reaction. The pools were vacuum dried using a miVac Duo Concentrator (Genevac, UK) and subsequently eluted in 8 $\mu$l of 10 mM tris buffer. The pools were enriched using the Angiosperms-353 v 1 target capture kit (Johnson et al., 2018) following the manufacturers instructions (Arbor Biosciences, Ann Arbor, Michigan, USA). Hybridisation took place for 16h at 65$^\circ$C, and the resulting product was amplified with 12 cycles of PCR. The reaction quality was checked using a Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). Reactions were normalised to 4mM and pooled. Sequencing took place either at Macrogen (Seoul, South Korea) or on an Illumina® MiSeq at Royal Botanic Gardens, Kew (Richmond, Surrey, UK). Both produced 2 x 150 bp reads.
 
  
-
-All libraries need to be at a concentration of 10 nM.
-
-Calculate current molarity: (Lib. Conc)/(Avg. frag size * 660) *1000000
-
-(The 660 is the average molecular weight of a base pair)
-
- 
-
-Add 5 ul of sample to a well.
-
-Calculate the amount of water needed to dilute to 10 nM with (lib. Molarity – 10)/2
-
- 
-
-**Pooling samples**
-
- 
-
-I didn’t have to worry about pooling by relatedness or quality as all mine were pretty similar.
-
- 
-
-Add 10 ul of 24 samples (12 samples in the case of the MiSeq) to a 1.5 ml epi. Vac dry for 30-40 mins in miVac DUO concentrator (genevac)
-
- 
-
-Elute in 8 ul of 10 mM tris
-
- 
-
-**HYBRIDISATION**
-
- 
-
-Kit used:
-
-Arbor Biosciences myBaits® Target Capture Kit Box 1 Ref#190206-30 and Box 2
-
-Arborbiosci.com
-
-Hybridisation capture for targeted NGS Manual v.4.01
-
- 
-
-**Reaction assembly**
-
- 
-
-Mix together Hyb reagents and baits
-
-Mix together blocks
-
- 
-
-Add libraries to block mixture
-
-Incubate at 95C for 5 mins
-
- 
-
-Bring hybridization mixture to 95C
-
-Add to libraries/block mixture
-
- 
-
-Incubate at 65C for 16hours
-
- 
-
-**Clean up**
-
- 
-
-Prepare wash buffer and heat to 65C
-
- 
-
-Wash beads from kit (not Ampure) with binding buffer 3 times and resuspend in binding buffer, warm to 65C
-
- 
-
-Add libraries/block mixture to beads and incubate for 5 mins @ 65C
-
- 
-
-Pellet, wash and resuspend beads three times. Discard supernatant
-
- 
-
-**Resuspension and amplification**
-
- 
-
-Elute beads in 30 ul of Tris and Tween-20 solution 
-
-Add Universal primers P05 and P07 and blue mastermix from library kit.
-
- 
-
-Thermocycler program:
-
- 
-
-98C for 2 mins
-
- 
-
-98C for 20s
-
-55C for 30s
-
-72C for 45s 
-
-Repeat above three for 12 cycles
-
- 
-
-72C for 5 mins
-
- 
-
- 
-
-**Prep for MiSeq**
-
- 
-
-Normalise to 4mM (My library was pretty much there anyway at 3.8 mM, so skipped this step)
-
- 
-
-Dilute 2M NaOH to 0.2M NaOH
-
- 
-
-Add 5ul library to 5ul NaOH (denaturing)
-
- 
-
-Add 990 Hyb buffer from illumina kit
-
- 
-
-Take 330 ul of that solution and dilute it with 270 ul more buffer to make a 11 pM solution.
-
- 
-
-Load into MiSeq
-
-
 
 ## Phylogenetic methods
 
@@ -193,10 +41,6 @@ The raw reads were cleaned using trimmomatic V0.39 (ref). First, Illuminaclip pa
 Reads were assembled using the pipeline HybPiper 1.3.1 (ref).  HybPiper consists of a series of python scripts that use SPAdes (ref) and other bioinfomatic tools to assemble reads to a target file. The pipeline first sorts and groups together individual reads for a gene by mapping each read to the gene sequence in the target file.  Once the reads are sorted by gene, they are de novo assembled using SPAdes, and then realigned to the reference sequence. If multiple contigs are assembled per gene, the contig with either the greatest depth or greatest similarity to the reference file is chosen for the consensus sequence. Hybpiper gives the option of two different mapping algorithms, BLASTX and bwa. I ran the pipeline using BLASTX, as it is a less strict algorithm than bwa, therefore maximising the number of reads mapped and the lengths of the final sequences. A coverage of four reads was considered sufficient to create a consensus sequence. Reads were mapped to a multi-species, amino acid target file matching the probes from the Angiosperm 353 baitset. In the case of a multi-species target file, such as the one used here, HybPiper can determine which target sequence for a gene is the most suitable given the sample.
 
 The Hybpiper pipeline was also used to assemble the cleaned reads of a full genome of _Oryza sativa_ Japonica cultivar downloaded from Genbank (https://www.ncbi.nlm.nih.gov/sra/SRR10389404).
-
-
-
-**Chloroplast**
 
 
 

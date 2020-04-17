@@ -1,154 +1,20 @@
 # Methods
 
+## DNA extraction
+
+
+
+ 
+
 ## Library preparation
 
-**Quantus** (QuantusTM fluorometer, Promega corporation, Madison USA) using (QuantiFluorR dsDNA System, Promega corporation, Madison USA)
 
-\-    Dye = 1990 ul 1X TE buffer 10ul dye
 
-\-    Blank = 100ul 1X TE buffer, 100 ul dye
+The DNA concentration present in the extracts was measured with a QuantusTM fluorometer (Promega corporation, Madison USA) using the using QuantiFluorR dsDNA System kit (Promega corporation, Madison USA). The samples were diluted to 200 ng DNA in 26 $\mu$l with Milli-Q water. The DNA was then sheared to fragments an average of 350 bp long by sonicating them for 75s with a Covaris Focused-ultrasonicator M220 (Woburn Massachusetts 01801 www.covarisinc.com)
 
-\-    Std = 98 ul 1X TE buffer, 100 ul dye, 2 ul dna standard
 
-\-    Samples = 99 ul TE buffer, 100 ul dye, 1 ul sample
 
-Gives reading of DNA concentration
-
- 
-
-**Dilution**
-
-Need 200 ng DNA in 26 ul liquid. Liquid used was MilliQ water to dilute our TE buffer elute a bit.
-
-Calculations: Vol sample used = 200/quantus concentration. MilliQ water added = 26 ul – vol sample used.
-
- 
-
-**Sonication** (Covaris Focused-ultrasonicator M220, software Covaris SonoLabTM 2013 Version 7.2.1.0, Woburn Massachusetts 01801 www.covarisinc.com)
-
-Transfer diluted sample into covaris tubes
-
-Sonicated for 75 secs @ temp of between 18 and 20C
-
-Avg Incident power 10 Watts, Peak Incident power 50W, Duty factor 20%, cycles/burst 200)
-
-Aiming for 350 bp
-
- 
-
-**LIBRARY PREPARATION**
-
-NEBNxet Ultra II DNA Library Prep Kit for Illumina. New England Biolabs inc.
-
-Note: We were using half the recommended reagent quantities with the same amount of DNA (200ng)
-
-www.neb.com
-
- 
-
-**End Prep** repairing torn ends after sonication
-
-Kit enzymes and buffer added. In thermocycler for 30 mins @ 20C and 30 mins @ 65C
-
- 
-
-**Adapter ligation** adds adapters to the repaired ends
-
-Add master mix and ligation enhancer
-
-In thermocycler for 15 mins @ 20C
-
- 
-
-**USER,** in previous step adapters attach to the ends of two different strands, USER enzymes cuts the adapters in half 
-
-In thermocycler for 15 mins @ 37C
-
- 
-
-**Size selection of DNA fragments**
-
-Add 13 ul AMPure magnetic beads to 95 ul of the library. Should bind to long fragments. Discard the beads with the long fragments and keep supernatant. Add 5ul beads to supernatant. All dna except shortest fragments should bind to the beads. Discard supernatant. Wash and re elute beads in 10mM tris.
-
- 
-
-**PCR enrichment**
-
- 
-
-Clean pipettes and bench with bleach 
-
-Add master mix from kit and two different index primers – i7 and i5
-
-NEBNext Multiplex Oligos for Illumina (Dual Index Primer Set 1) #E7600S New England Biolabs Inc. 
-
- 
-
-Thermocycler conditions
-
- 
-
-Initial denaturation - 30s @ 98C
-
- 
-
-Denaturation – 10s @ 98C
-
-Annealing/Extension – 75s @ 65C
-
-Repeat above for 7 or 8 cycles 
-
- 
-
-Final extension – 5 mins @ 65C
-
- 
-
-**Clean up of PCR amplification**
-
- 
-
-Add 22.5 ul Ampure magnetic beads to sample.
-
-Discard supernatant and wash beads with 80% ethanol
-
-Elute beads in 16.5 ul 10mM tris.
-
-Transfer 15.5 ul supernantant to new well.
-
- 
-
-**Library quality check**
-
- 
-
-Quantus as above for library concentration
-
- 
-
-Check fragment size distribution using Agilent Technologies 4200 Tapestation
-
-And Agilent Technologies 4200 Tapestation Controller software A.02.02 (SR1)
-
-\+ get average fragment size using the region tool in Agilent Technologies 4200 Tapestation Analysis software A.02.02 (SR1)
-
-Using DS1000 tapes
-
-3 ul buffer from kit + 1 ul sample. Vortex and spin down. Ladder from kit.
-
- 
-
-Aiming for a library concentration of 4 ng/ul and avg fragment size of 450.
-
-In reality mine were much more concentrated with a frag size of ~500
-
- 
-
-If libraries failed, either rePCR, re size selected, or redo from the beginning.
-
-rePCR – primers Universal primers P05 and P07 from bait kit.
-
- 
+Library preparation was completed using NEBNxet Ultra II DNA Library Prep Kit for Illumina (New England Biolabs), using half the recommended volumes to maximise use of reagents and indexes. AMPure magnetic beads were used for size selection of DNA fragments. Libraries were indexed with the NEBNext Multiplex Oligos for Illumina (Dual Index Primer Set 1, New England Biolabs), and enriched with the following thermocycler conditions: Initial denaturation for 30s at 98$^\circ$C, 7 cycles of denaturation for 10s at 98$^\circ$C, annealing and extension for 75s at 65$^\circ$C, followed by a final extension for 5 mins at 65$^\circ$C. The resulting enriched libraries were cleaned with AMPure beads, and the quality of the libraries were checked using Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). A library was considered good quality if it had a concentration of greater than 4 ng/$\mu$l and avg fragment size of 450 bp to 500 bp. If a library failed the quality check, it was either re-amplified, underwent size selection again, or was entirely repeated from the beginning of the process. 
 
  
 
@@ -356,7 +222,7 @@ I then reconstructed ML trees on the merged partition datasets using IQtree v. F
 
 
 
-
+The histories of genes often differ from the history of a species due to incomplete lineage sorting, horizontal transfer etc resulting in gene trees that differ from the true species tree. The multi-species coalescent model describes  Astral is a summary based method that is consistent with msc. Astral uses quartets
 
 Individual gene trees were constructed from the loci alignments using IQTree with the default settings. ASTRAL-III v5.6.3. As coalescent-based methods are less sensitive to missing taxa (Hosner 2016, Sayyari 2017), I used only the ninety-percent coverage datasets for this analysis.
 

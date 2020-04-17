@@ -66,9 +66,7 @@ I then reconstructed ML trees on the merged partition datasets using IQtree v. F
 
 
 
-The histories of genes often differ from the history of a species due to incomplete lineage sorting, horizontal transfer etc resulting in gene trees that differ from the true species tree. The multi-species coalescent model describes  Astral is a summary based method that is consistent with msc. Astral uses quartets
-
-Individual gene trees were constructed from the loci alignments using IQTree with the default settings. ASTRAL-III v5.6.3. As coalescent-based methods are less sensitive to missing taxa (Hosner 2016, Sayyari 2017), I used only the ninety-percent coverage datasets for this analysis.
+The evolutionary history of a gene often differs from the history of a species due to incomplete lineage sorting, horizontal gene transfer and hybridisation resulting in gene trees that differ from the true species tree. Concatenated ML methods are unlikely to capture these patterns. Conversely, the multi-species coalescent model allows the history genes to be modeled separately from the species history, therefore allowing for processes such as ILS to occur. Summary-based methods of species tree estimation such as ASTRAL are consistent with multi-species coalescent theory, and are therefore thought to be more accurate than ML for large datasets. Astral estimates the species tree that has the most quartets that are shared with the gene trees. Individual gene trees were constructed from the loci alignments using IQTree with the default settings. ASTRAL-III v5.6.3 was used to infer the species tree from the individual gene trees. As coalescent-based methods are less sensitive to missing taxa (Hosner 2016, Sayyari 2017), I used only the ninety-percent coverage datasets for this analysis.
 
 
 

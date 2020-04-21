@@ -1,0 +1,14 @@
+# Introduction to the dissertation
+
+Accurate species limits are important in many spheres of life. Conservation decisions are made based on the abundance and range of a species, and may determine whether the species goes extinct. Human health and safety also depends clear species boundaries. Inaccurate species can impact production of medicine, as in this example, or toxicology, as in this examples. It also decreases efficiency to find cures, eg malaria vectors. In the research field, species underpin the results of evolutionary hypotheses, our understanding of biodiversity generation, and our study of ecosystem function. Currently, it is estimated that xxx species are yet to be discovered, but the recent rise in genetic work suggests that there may be far more, due to a phenomenon know as cryptic species. 
+
+Cryptic species are typically morphologically similar, but genetically distinct (@Struck2018). Often, cryptic species are two or more unique species that were previously classified as a single species. (@Pfenninger2007, @Bickford2007).  Taxonomists traditionally describe species based on morphology, as differences in morphology implied reproductive isolation, an important criteria for species delimitation under the Biological Species Concept. However, mate recognition techniques such as calls, smells, and colour spectra that we are unable to see. More genetic data is revealing more and more cryptic species across taxa and biomes. Could account for a substantial fraction of undiscovered species (@Struck2018). Most studies in marine creatures and zoo things, much less in plants. 
+
+
+
+Very important to describe all cryptic species as affects conservation, ecological and evolutionary understanding, human vectors (Chenuil2019). 
+
+
+
+Struck 2018 and 2019
+

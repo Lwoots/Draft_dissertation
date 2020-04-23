@@ -1,14 +1,43 @@
 # Introduction to the dissertation
 
-Accurately defined species limits are important in many spheres of life. Categorisation and protection of endangered species are often based the species' range and abundance. on conservation decisions Conservation decisions are made based and inconsistencies in species delimitation will impact the true abundance and range of a species, and may determine whether a species goes extinct. Human health and safety also depends clear species boundaries. For example, incorrect species descriptions can impact production of medicine, as in this example, or toxicology, as in this examples. It also decreases efficiency to find cures, eg malaria vectors (@Lobo2015). In the research field, species underpin the results of evolutionary hypotheses, our understanding of biodiversity generation, and our study of ecosystem function. Currently, it is thought that 8.7 million species exist on the planet (@Mora2011), but the recent rise in genetic techniques for species delimitation suggests that there may be far more, due to hidden taxa known as cryptic species (@Scheffers2012, @Adams2014, @Struck2018). 
+Accurately defined species limits are important in many spheres of life. For example, categorisation and protection of endangered species are often based the species' range and abundance. Inconsistencies in species delimitation will mean that these conservation decisions are made on incorrect information, and may determine whether or not species management prevents extinction (@Chenuil2019). This impacts everything from endangered species to fishing stocks. Human health and safety also depends clear species boundaries. For example, incorrect species descriptions can impede the creation of new medicines biopharmacy, as in this example. It also decreases efficiency to find effective treatments, for example malaria vectors are different species, warranting different treatments (@Lobo2015), or toxicology, as in this examples.. In the research field, species underpin the results of evolutionary hypotheses, our understanding ecological interactions, and our study of ecosystem function. Currently, it is thought that 8.7 million species exist on the planet (@Mora2011), but the recent rise in genetic techniques for species delimitation suggests that there may be far more, predominantly due to hidden taxa known as cryptic species (@Scheffers2012, @Adams2014, @Struck2018). 
 
-Cryptic species are morphologically similar, but genetically distinct taxa (@Struck2018). Often, cryptic species are classified as a single species, only to be found to consist of two or more unique taxa (@Pfenninger2007, @Bickford2007). Taxonomists traditionally describe species based on morphology, as differences in morphology imply reproductive isolation, an important criteria for species delimitation under the Biological Species Concept (Mayr). However, the genetic distinctness of morphologically similar taxa shows that mate recognition techniques such as calls, smells, and colour spectra that we are unable to see may be equally important in reproductive isolation. Cryptic species are being discovered in abundance across all taxa and biomes. Nearly 60% of recently described species are considered cryptic. However, most studies in marine creatures and zoo things, much less in plants. 
+Cryptic species are morphologically similar, but genetically distinct taxa (@Struck2018). Often, cryptic species are classified as a single species, only to be found to consist of two or more unique taxa (@Pfenninger2007, @Bickford2007). Despite their similarities in appearance, cryptic species have been shown to play different functional and ecological roles. Taxonomists have traditionally described species based on morphology, as differences in morphology imply reproductive isolation, an important criterion for species delimitation under the Biological Species Concept (Mayr). However, the genetic distinctness of morphologically similar taxa shows that mate recognition techniques such as calls, smells, and colour spectra that we are unable to see may be equally important in reproductive isolation. Cryptic species are being discovered in abundance across all taxa and biomes. For example, nearly 60% of recently described mammalian species are from cryptic complexes (@Ceballos2009). However, there is a bias in cryptic species research, as most studies have been conducted on marine and zoo things, and few in plants (@Bickford2007). 
+
+The generation of cryptic species is both evolutionarily intriguing and understudied. Speciation studies have tended to concentrate on adaptive radiations, where large changes in morphology are accompanied by rapid genetic changes. Arguably, the reverse is equally interesting. Why would some species maintain the same morphology while diverging genetically? Several explanations have been postulated to date. Firstly, that cryptic species have recently diverged from their common ancestor and not enough time has passed for the species to have accumulated phenotypic differences. Secondly, convergent and parallel evolution, where unrelated species evolve a similar morphology due to shared environmental pressures. Finally, species may undergo stasis, where morphology remains unchanging for millions of years. This could be due to stablizing selection, where there are strong environmental drivers making a single phenotype strongly advantagous. Alternatively, morphological stasis may be a result of environmental stasis/niche conservatism. Species track suitable habitat, and widespread ecological change may result in suitable habitat becoming isolated, reducing geneflow between species and creating vicariant species. This is known as non-adaptive speciation. 
+
+the species complex may be undergoing neutral evolution, where geographic isolation followed by stable environments result in a gradual drift in genetic similarity.  
 
 
 
-Very important to describe all cryptic species as affects conservation, ecological and evolutionary understanding, human vectors (@Chenuil2019). 
+Drivers of non cryptic speciation
+
+Opposite of an adaptive radiation (@Struck2019)
 
 
 
 Struck 2018 and 2019
 
+Swift
+
+Rundell 2009
+
+
+
+ ways of generating cryptic species (@Struck2019): recent divergence, convergence, parallelism and stasis
+
+recent speciation = not enough time to generate morph differences, maybe bse selection is focusing on behavioural/physiological/etc traits
+
+
+
+convergence/parallelism = same phenotype evolved independently
+
+stasis = no morphological change over prolonged length of time (stablizing selection, lack of genetic diversity, niche tracking, developmental constraints)
+
+neutral - genetic drift in isolated populations
+
+
+
+
+
+Directional selection on ecological, behavioral, or reproductive traits that have no observed morphological correlates might foster cryptic speciation and be a mechanism that drives cryptic diversification(@Bickford2007)

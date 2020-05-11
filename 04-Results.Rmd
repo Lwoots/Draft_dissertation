@@ -1,0 +1,1096 @@
+F
+
+# Results
+
+---
+title: "Untitled"
+author: "Lara Wootton"
+date: "11/05/2020"
+
+output: html_document
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = TRUE)
+if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
+```
+
+
+
+## Phylogenetic results
+
+
+
+**Alignment and tree stats**
+
+* Length of alignments
+
+* Number of loci
+
+* Missing data
+
+* Informative sites
+
+* %GC
+
+* Sequencing quality - number of reads, quality of reads 
+
+* MiSeq vs HybSeq similar
+
+  
+
+  I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgroup. There was an average of XXX 2x150 bp reads per samples, which decreased to XXX per sample after trimming. Of those, an average of XXX per sample were mapped to target loci. Phylogenies generated from the ninety-coverage, full-coverage, exon, intron and supercontig datasets contained similar topologies. Therefore, only the ninety-coverage supercontig dataset will be presented here.
+
+The ninety-coverage dataset contained 235 loci, each represented by a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp in length, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to XXX.
+
+**Major topological findings**
+
+The ML and coalescent methods both generated trees with a similar topology and good internal support. There are six major clades that are consistent in both phylogenies, called here the Australian, Rehmanni., Ramosa, Rupestris and Lowlands clades Across the tree, major clades are separated by long branches. In The MQS tree, branch lengths representThe Rupestris, Ramosa, and Rehmannii clades show a distinct pattern of very short internal branches towards the crown of the clade, followed by longer branches towards the tips. Conversely, the Lowland clade has longer branch lengths overall, and a more evenly distributed branch length pattern across the clade. 
+
+
+
+The Australian clade consists of _M. stipoides_ and _T. laevis_. Originally, these specimens were meant as outgroups, but were unexpectedly reconstructed as sister to the Rupestris clade. This relationship is well supported in both WL and MQS trees (BS = , QS = ). This relationship suggests that earlier treatments of were correct in defining the Australian genera of _Microlaena_ and _Tetrarrhena_ as part of _Ehrharta_. However, the long branch lengths of these taxa in the ML tree suggest that considerable divergence has occurred since the split.
+
+
+
+The Rupestris clade contains both _E. setacea_ and _E. rupestris_. These species are clearly not monophyletic, with individuals from different species forming subclades The clade consists of multiple minor clades. Even the subspecies are not always monophyletic. The internal branch support is the weakest of all the major clades, which is reflected in incongruencies between the ML and MQS trees. 
+
+Contrary previous work, the Dura clade is sister to the Ramosa/Rehmannii and Lowlands clades rather than to Rupestris. Consisting of _E. microlaena_ and _E. dura_, the clade is highly distinct and has good support (BS = ).
+
+_E. rehmannii_ and _E. ramosa_ form closely related sister clades. _E. rehmannii_ forms a monophyletic clade in both trees (BS = , QS =). In the ML tree, the three subspecies form monophyletic subclades, while in the MQS tree _E. rehmanni rehmannii_ is split. Conversely, the two subspecies of _E. ramosa_ do not form clear clades, although _E. ramosa_ as a whole is monophyletic.  
+
+
+
+The Lowlands clade consists of species occurring predominately the the Namaqua lowlands of South Africa. Both trees find identical relationships between species in this clade, which is backed up by almost full support on every internal node. This clade is consistent with previous phylogenies The notable exception is _E. calycina_, which is split into its robust and gracile forms.
+
+```{r, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="Maximum-likelihood tree constructed using IQtree. Red numbers show ultrafast bootstraps. Branch lengths represent number of substitutions. The outgroup branch length, coloured grey, has been shortened by a factor of 2.5 for clarity."}
+#ML tree
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
+tree <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
+tree <- root(tree, outgroup = "Oryza_sativa", resolve.root = T) #Re-root
+
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree$tip.label[tree$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Species[[i]],
+        paste("(",
+        species_names$SampleID[[i]],
+        ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+tree$tip.label[tree$tip.label == "Tetrarrhena laevis () "] <- "Tetrarrhena laevis"
+tree$tip.label[tree$tip.label == "Microlaena stipoides () "] <- "Microlaena stipoides"
+
+#For visualisation purposes, cut the outgroup branch length by half
+tree$edge.length[length(tree$edge.length)] <- tree$edge.length[length(tree$edge.length)]/2
+
+gg_tree <- ggtree(tree, right = T)
+d <- gg_tree$data
+d <- d[!d$isTip,]
+d <- d[!d$label=="Root",]
+d <- separate(d, label, into = c("LRT", "bootstrap"), sep = "/", remove = F)
+da <- d[d$node %in% c(167, 119, 217, 118,117, 120,168,170,189,171,113),]
+
+low <- gg_tree$data
+lowl <- low[low$node %in% c(111,203,204,205,206,207,208,
+                            209,210,211,212,213,214,215,
+                            216,114,115,116,112),]
+lowl <- separate(lowl, label, into = c("LRT", "bootstrap"), sep = "/", remove = F)
+lowl$bootstrap[lowl$node == 111] <- "100"
+
+tree_group <- groupClade(tree, .node = 217)
+
+ggtree(tree_group, aes(colour = group), right = T) +
+    scale_colour_manual(values = c("grey", "black")) +
+    geom_tiplab(size = 2, colour = "black") +
+    geom_treescale(x = -0.001) +
+    geom_nodelab(data = da, aes(label = bootstrap),
+                 size = 2.5,
+                 colour = "red",
+                 nudge_x = -0.0033,
+                 nudge_y = -0.69) +
+    geom_nodelab(data = lowl, aes(label = bootstrap),
+                 size = 2.5,
+                 colour = "red",
+                 nudge_x = -0.0033,
+                 nudge_y = -0.69)+
+    geom_rootedge(rootedge = 0.01)+
+    
+    #Major clades
+    
+    geom_cladelabel(node = 167, 
+                    label = "Australian clade",
+                    offset = 0.022,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.5) +
+    geom_cladelabel(node = 113, 
+                    label = "Lowlands clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.2,
+                    offset = 0.035,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.001) +
+    geom_cladelabel(node = 189, 
+                    label = "Rehmannii clade",
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.2,
+                    offset = 0.055,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.001) +
+    geom_cladelabel(node = 171, 
+                    label = "Ramosa clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.2,
+                    offset = 0.062,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.001
+    ) +
+    geom_cladelabel(node = 120, 
+                    label = "Rupestris clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.3,
+                    offset = 0.07,
+                    #angle = 90,
+                   # hjust = 0.5,
+                    offset.text = 0.001) +
+    geom_cladelabel(node = 168, 
+                    label = "Dura clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.3,
+                    offset = 0.025,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.001) +
+    geom_cladelabel(node = 116, 
+                    label = "Dummy clade", 
+                    #align = T,
+                    colour = "white",
+                    fontsize = 3,
+                    extend = 0.3,
+                    offset = 0.14,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.001) 
+
+
+```
+
+
+```{r, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="MQS tree made with ASTRAL II. Branch lengths represent coalescent units. Tip branches are an arbitrary length. Red numbers show quartet scores"}
+
+if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
+
+tree <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
+
+tree$edge.length[is.na(tree$edge.length)] <- 0.35 #tip branches
+
+tree <- root(tree, outgroup = "Oryza_sativa", resolve.root = T)
+
+tree$edge.length[1] <- 0.1 #root branch
+
+#Rename tips
+
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree$tip.label[tree$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Species[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+tree$tip.label[tree$tip.label == "Tetrarrhena laevis () "] <- "Tetrarrhena laevis"
+tree$tip.label[tree$tip.label == "Microlaena stipoides () "] <- "Microlaena stipoides"
+
+
+
+gg_tree <- ggtree(tree, right = T)
+d <- gg_tree$data
+d <- d[!d$isTip,]
+d <- d[!d$label=="Root",]
+da <- d[d$node %in% c(127, 184, 131, 185, 199, 132, 217, 136, 135, 137),]
+da$label[da$label == "1"] <- "1.00"
+
+
+low <- gg_tree$data
+lowl <- low[low$node %in% c(128,129,130,121,
+                            122,123,124,125,126,
+                            111,112,113,114,115,
+                            116,117,118,119,120),]
+
+lowl$label[lowl$label == "1"] <- "1.00"
+lowl$label[lowl$label == "0.6"] <- "0.60"
+
+ggtree(tree, right = T) +
+    geom_treescale(x = -0.18) +
+    geom_tiplab(size = 2, colour = "black") +
+    geom_rootedge(rootedge = 0.3) +
+    geom_nodelab(data = da, aes(label = label),
+                 size = 2.5,
+                 nudge_x = -0.15,
+                 nudge_y = -0.72,
+                 colour = "#DF0101"
+    ) +
+    geom_nodelab(data = lowl, aes(label = label),
+                 size = 2.5,
+                 nudge_x = -0.15,
+                 nudge_y = -0.72,
+                 colour = "#DF0101"
+    ) +
+    
+    #Major clades
+    
+    geom_cladelabel(node = 136, 
+                    label = "Australian clade",
+                    offset = 1.2,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.5,
+                    offset.text = 0.04) +
+    geom_cladelabel(node = 127, 
+                    label = "Lowlands clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.2,
+                    offset =1.4,
+                    angle = 90,
+                    hjust = 0.5,
+                    offset.text = 0.04) +
+    geom_cladelabel(node = 185, 
+                    label = "Rehmannii clade",
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.2,
+                    offset = 2.6,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.04) +
+    geom_cladelabel(node = 199, 
+                    label = "Ramosa clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.2,
+                    offset = 2.5,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.04
+    ) +
+    geom_cladelabel(node = 137, 
+                    label = "Rupestris clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.3,
+                    offset = 2,
+                    angle = 0,
+                    #hjust = 0.5,
+                    offset.text = 0.04) +
+    geom_cladelabel(node = 133, 
+                    label = "Dura clade", 
+                    #align = T,
+                    colour = "#1D4F9F",
+                    fontsize = 3,
+                    extend = 0.3,
+                    offset = 1,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    offset.text = 0.04)
+
+```
+
+## Minor clades
+
+
+
+### Rehmannii
+
+
+
+The Rehmannii clade consists of three minor clades, which largely correspond to the existing subspecies of _E. rehmannii_: _E. rehmannii filiformis_, _E. rehmannii subspicata_, and _E. rehmanni rehmannii_. Although both trees show strong internal branch support for these clades, the tree topology is not identical. In the ML tree, the Filiformis and Subspicata clades are sisters, whereas in the MQS tree, Subspicata is sister to Rehmannii s.s. The Filiformis group has an identical topology in both trees, despite a poor support (QS = 0.52) for the Fernkloof-Cape Peninsula relationship in the MQS tree. A single _E. rehmannii filiformis_ sample from Agulhas was placed in the Subspicata clade in both trees. Rehmannii s.s formed a well supported clade in the ML tree (BS = 95). Conversely, it formed a grade in the MQS tree.
+
+```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+
+
+if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
+
+
+#ML####
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
+
+tree_ml <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
+tree_ml <- root(tree_ml, outgroup = "Oryza_sativa", resolve.root = T)
+
+
+#Rename tips
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree_ml$tip.label[tree_ml$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Short_name[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+reh_clade <- extract.clade(tree_ml, 189)
+reh_tree <- ggtree(reh_clade, right = T)
+reh_dat <- reh_tree$data
+
+reh_dat2 <- reh_dat[!reh_dat$isTip,]
+reh_dat2 <- separate(reh_dat2, label, into = c("LRT", "bootstrap"), sep = "/", remove = F)
+
+ml_reh <- ggtree(reh_clade, size = 1, right = T) +
+    geom_tiplab(size = 3.7, offset = 0.001) +
+    geom_treescale(x = -0.002, width = 0.005) +
+    geom_rootedge(rootedge = 0.004) +
+    geom_nodelab(data = reh_dat2, aes(label = bootstrap),
+                 nudge_x = -0.0013,
+                 nudge_y = -0.10,
+                 colour = "#DF0101",
+                 size = 3) +
+    geom_cladelabel(node = 23, 
+                    label = "Subspicata clade",
+                    colour = "#F3A10E",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    align = T,
+                    hjust = 0.5,
+                    fontsize = 4.5) +
+    geom_hilight(node=23, fill="#F3A10E", alpha = 0.15, extend = 0.03) +
+    
+    geom_cladelabel(node = 27, 
+                    label = "Rehmannii s.s. clade",
+                    colour = "#297AB1",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    hjust = 0.5,
+                    align = T,
+                    fontsize = 4.5) +
+    geom_hilight(node=27, fill="#297AB1", alpha = 0.15, extendto = 0.046) +
+    
+    geom_cladelabel(node = 18, 
+                    label = "Filiformis clade",
+                    colour = "#0AB276",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    hjust = 0.5,
+                    align = T,
+                    fontsize = 4.5) +
+    geom_hilight(node=18, fill="#0AB276", alpha = 0.15, extendto = 0.048)
+
+
+#Astral ####
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
+
+tree_ast <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
+
+tree_ast$edge.length[is.na(tree_ast$edge.length)] <- 0.35 #tip branches
+
+tree_ast <- root(tree_ast, outgroup = "Oryza_sativa", resolve.root = T)
+
+#Rename tips
+
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree_ast$tip.label[tree_ast$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Short_name[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+reh_ast_clade <- extract.clade(tree_ast, 185)
+
+reh_tree_ast <- ggtree(reh_ast_clade, right = T)
+
+reh_tree_ast <- flip(reh_tree_ast, 24,19)
+
+reh_ast_dat <- reh_tree_ast$data
+reh_ast_dat <- reh_ast_dat[!reh_ast_dat$isTip,]
+reh_ast_dat$label[reh_ast_dat$label == "1"] <- "1.00"
+
+
+ast_reh <- ggtree(reh_ast_clade, right = T, size = 1, ladderize = T) +
+    geom_tiplab(size = 3.7, offset = 0.02) +
+    geom_rootedge(rootedge = 0.05) +
+    geom_treescale(x = -0.05)+
+    geom_nodelab(data = reh_ast_dat, aes(label = label),
+                 nudge_x = -0.06,
+                 nudge_y = -0.12,
+                 colour = "#DF0101",
+                 size = 3) +
+    geom_cladelabel(node = 26, 
+                    label = "Subspicata clade",
+                    colour = "#F3A10E",
+                    extend = 0.2,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.5,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_hilight(node=26, fill="#F3A10E", alpha = 0.15, extendto = 2.15) +
+    
+    geom_cladelabel(node = 17, 
+                    label = "Rehmannii s.s. clade",
+                    colour = "#297AB1",
+                    extend = 0.55,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.7,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_cladelabel(node = 25, 
+                    label = "",
+                    colour = "#297AB1",
+                    extend = 0.55,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0,
+                    fontsize = 4.5,
+                    align = T)+
+    geom_hilight(node=25, fill="#297AB1", alpha = 0.15, extendto = 2) +
+    geom_hilight(node=17, fill="#297AB1", alpha = 0.15, extendto = 2) +
+    
+    geom_cladelabel(node = 19, 
+                    label = "Filiformis clade",
+                    colour = "#0AB276",
+                    extend = 0.3,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.5,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_hilight(node=19, fill="#0AB276", alpha = 0.15, extendto = 1.9) 
+
+ast_reh <- flip(ast_reh, 24,19)
+
+
+ggpubr::ggarrange(ml_reh, ast_reh)
+```
+
+
+### Ramosa  
+
+The two subspecies of _E. ramosa_, _E. ramosa ramosa_ and _E. ramosa aphylla_, are not exclusively monophyletic. However, both trees support a clade of _E. ramosa aphylla_ that occur from the Cape Peninsula to Betty's Bay (BS = 100, QS = 0.95). Within this Aphylla clade the topology varies between the trees, with particularly weak support for the placement of individuals from Leopardskloof and Cape Peninsula in the MQS tree. Individuals sampled from the same population in the Cape Peninsula are not recovered as sister taxa (sequencing bias?). There is also evidence for an Eastern ramosa group occurring from Swellendam to the Swartberg. In the MQS tree they form a reasonably well supported clade (QS = 0.88), while in the ML tree the taxa from a grade with Boosmansbos and Marloth sister to the rest of the Ramosa clade. The remaining taxa fall into a loose group that mainly occur inland in the mid and western regions of the WC. E. aphylla and ramosa that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree. The pattern suggests potential sympatric speciation, but more fine scale data are needed to confirm this.
+
+```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+
+#Ramosa
+
+if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
+
+
+#ML####
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
+
+tree_ml <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
+tree_ml <- root(tree_ml, outgroup = "Oryza_sativa", resolve.root = T)
+
+#Rename tips
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree_ml$tip.label[tree_ml$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Short_name[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+ram_clade <- extract.clade(tree_ml, 171)
+ram_tree <- ggtree(ram_clade, right = T)
+ram_dat <- ram_tree$data
+
+ram_dat2 <- ram_dat[!ram_dat$isTip,]
+ram_dat2 <- separate(ram_dat2, label, into = c("LRT", "bootstrap"), sep = "/", remove = F)
+
+
+ml_ram <- ggtree(ram_clade, size = 1, right = T) +
+    geom_tiplab(size = 3.7, offset = 0.001) +
+    geom_treescale(x = -0.002, width = 0.005) +
+    geom_rootedge(rootedge = 0.004) +
+    geom_nodelab(data = ram_dat2, aes(label = bootstrap),
+                 nudge_x = -0.0017,
+                 nudge_y = -0.17,
+                 colour = "#DF0101",
+                 size = 3) +
+    geom_cladelabel(node = 31, 
+                    label = "Aphylla clade",
+                    colour = "#00A0B0",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    align = T,
+                    hjust = 0.5,
+                    fontsize = 4.5) +
+    geom_hilight(node=31, fill="#00A0B0", alpha = 0.2, extend = 0.03) +
+    geom_cladelabel(node = 23, 
+                    label = "Western ramosa clade",
+                    colour = "#9BC53D",
+                    extend = 0.35,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    align = T,
+                    hjust = 0.5,
+                    fontsize = 4.5) +
+    geom_hilight(node=23, fill="#9BC53D", alpha = 0.2, extend = 0.03) +
+   
+    geom_cladelabel(node = 37, 
+                    label = "Eastern ramosa clade",
+                    colour = "#CC333F",
+                    extend = 1.5,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    align = T,
+                    hjust = 0.62,
+                    fontsize = 4.5) +
+    geom_cladelabel(node = 35, 
+                    label = "",
+                    colour = "#CC333F",
+                    extend = 0.45,
+                    offset = 0.035,
+                    offset.text = 0.0015,
+                    angle = 90,
+                    align = T,
+                    hjust = 0.5,
+                    fontsize = 4.5) +
+    geom_hilight(node=36, fill="#CC333F", alpha = 0.2, extendto = 0.05) +
+    geom_hilight(node=35, fill="#CC333F", alpha = 0.2, extendto = 0.05)
+    
+
+#Astral ####
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
+
+tree_ast <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
+
+tree_ast$edge.length[is.na(tree_ast$edge.length)] <- 0.35 #tip branches
+
+tree_ast <- root(tree_ast, outgroup = "Oryza_sativa", resolve.root = T)
+
+
+#Rename tips
+
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree_ast$tip.label[tree_ast$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Short_name[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+ram_ast_clade <- extract.clade(tree_ast, 199)
+
+ram_tree_ast <- ggtree(ram_ast_clade, right = T)
+ram_tree_ast <- flip(ram_tree_ast,22,28)
+ram_tree_ast <- flip(ram_tree_ast,23,24)
+
+ram_ast_dat <- ram_tree_ast$data
+ram_ast_dat <- ram_ast_dat[!ram_ast_dat$isTip,]
+ram_ast_dat[ram_ast_dat == "1"] <- "1.00"
+ram_ast_dat[ram_ast_dat == "0.7"] <- "0.70"
+ram_ast_dat[ram_ast_dat == "0.4"] <- "0.40"
+
+ast_ram <- ggtree(ram_ast_clade, right = T, size = 1, ladderize = T) +
+    geom_tiplab(size = 3.7, offset = 0.02) +
+    geom_rootedge(rootedge = 0.05) +
+    geom_treescale(x = -0.05, width = 0.08)+
+    geom_nodelab(data = ram_ast_dat, aes(label = label),
+                 nudge_x = -0.07,
+                 nudge_y = -0.17,
+                 colour = "#DF0101",
+                 size = 3) +
+    geom_cladelabel(node = 24, 
+                    label = "Aphylla clade",
+                    colour = "#00A0B0",
+                    extend = 0.2,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.5,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_hilight(node=24, fill="#00A0B0", alpha = 0.2, extendto = 1.8) +
+    geom_cladelabel(node = 34, 
+                    label = "Eastern ramosa clade",
+                    colour = "#CC333F",
+                    extend = 0.5,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.5,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_hilight(node=34, fill="#CC333F", alpha = 0.2, extendto = 1.7)+
+    geom_cladelabel(node = 28, 
+                    label = "Western ramosa clade",
+                    colour = "#9BC53D",
+                    extend = 0.8,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.4,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_cladelabel(node = 23, 
+                    label = "",
+                    colour = "#9BC53D",
+                    extend = 0.4,
+                    offset = 1.4,
+                    offset.text = 0.05,
+                    angle = 90,
+                    hjust = 0.5,
+                    fontsize = 4.5,
+                    align = T) +
+    geom_hilight(node=28, fill="#9BC53D", alpha = 0.2, extendto = 1.5) +
+    geom_hilight(node=23, fill="#9BC53D", alpha = 0.2, extendto = 1.5)
+ast_ram <- flip(ast_ram, 22, 28)
+ast_ram <- flip(ast_ram,23,24)
+
+ggpubr::ggarrange(ml_ram, ast_ram)
+
+
+```
+
+
+
+### Rupestris
+
+_E. setacea_ and _E. rupestris_ are highly polyphyletic. The two species form a single lineage characterised by extremely short internal branch lengths. Poor internal support. Subspecies 
+
+Trees reconstructed similar subclades, but the internal support for these clades tended to be weak, so the relationships of these subclades are hard to determine.
+
+Subspecies are intermingled and even internally split - eg setacea  
+
+
+
+_E. rupestris rupestris_ is reconstructed into two different clades, one, the Eastern rupestris clade, from Seweweeks and Swartberg, and the other, Rupestis s.s. the remaining taxa. Their placement on the two trees is highly incongruent. The ML tree places Eastern rupestris as sister to the rest of the clade with strong support (BS = 100), while the MQS tree reconstructs the same group in the middle of the clade.
+
+Dodii (BS = 96, QS = 95), Scabra (BS = 100, QS = 1.00, check 1640) and Uniflora (BS = 100, QS = 1.00) are shown to be strongly supported monophyletic groups in both trees. Uniflora in particular appeared to be highly differentiated from the rest of the clade with relatively long internal branch length.  
+
+Conversely, _E. setacea setacea_ was polyphyletic and split into two groups, the Fernkloof and Setacea clades. The Fernkloof clade consists of _E. setacea setacea_ and _E. setacea disticha_ taxa collected from Fernkloof reserve in Hermanus, and well as _E. setacea disticha_ from the nearby Buffelstalberg in Betty's Bay. The remaining taxa identified as _E. setacea setacea_ formed a large, poorly supported clade in in the MQS tree (QS = 0.56), and a grade in the ML tree. The internal support within this group was poor in both trees, with the result of high incongruence between the two phylogenies. The ML tree also placed an individual identified as an _E. rupestris tricostata_ within this clade.
+
+
+
+Similarly, _E. rupestris tricostata_ also formed two distinct clades. The first, called the Restiod tricostata clade (BS = 100, QS = 0.97), consist of taxa from the Cape Peninsula to Hermanus. These resemble Restionaceae with long culms and reduced leaves. The internal topology is well supported and similar in both trees. The other Leafy tricostata clade occurs further inland, from Ceres via Swellendam to Robinson's pass near Mosselbay. In the MQS tree this clade is moderately well supported (QS = 0.70), while in the ML tree the taxon from Robinson's pass is sister to the Rupestris s.s clade, although this is poorly supported (BS = 52)
+
+```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rupestris clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+
+#Ruprestris minor clades
+
+if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
+
+
+#ML####
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
+
+tree_ml <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
+tree_ml <- root(tree_ml, outgroup = "Oryza_sativa", resolve.root = T)
+
+
+#Rename tips
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree_ml$tip.label[tree_ml$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Short_name[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+rup_clade <- extract.clade(tree_ml, 120)
+
+rup_tree <- ggtree(rup_clade, right = T)
+rup_dat <- rup_tree$data
+
+rup_dat2 <- rup_dat[!rup_dat$isTip,]
+rup_dat2 <- separate(rup_dat2, label, into = c("LRT", "bootstrap"), sep = "/", remove = F)
+
+ml_rup <- ggtree(rup_clade, size = 1, right = T) +
+    geom_tiplab(size = 3.7, offset = 0.001) +
+    geom_treescale(x = -0.002, width = 0.005) +
+    geom_rootedge(rootedge = 0.004) +
+    geom_nodelab(data = rup_dat2, aes(label = bootstrap),
+                 nudge_x = -0.0019,
+                 nudge_y = -0.33,
+                 colour = "#DF0101",
+                 size = 3) +
+    geom_cladelabel(node = 95, 
+                    label = "East. rupestris",
+                    colour = "#1D72F5",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=95, fill="#1D72F5", alpha = 0.15, extend = 0.031) +
+    
+    geom_cladelabel(node = 89, 
+                    label = "Fernkloof",
+                    colour = "#DF0101",
+                    extend = 0.6,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.54,
+                    fontsize = 4) +
+    geom_cladelabel(node = 94, 
+                    label = "",
+                    colour = "#DF0101",
+                    extend = 0.45,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=89, fill="#DF0101", alpha = 0.15, extendto = 0.045) +
+    geom_hilight(node=94, fill="#DF0101", alpha = 0.15, extendto = 0.045) +
+    
+    geom_cladelabel(node = 84, 
+                    label = "Uniflora",
+                    colour = "#9471B4",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=84, fill="#9471B4", alpha = 0.15, extend = 0.0355) +
+    geom_cladelabel(node = 85, 
+                    label = "Restiod tricost.",
+                    colour = "#FF9326",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=85, fill="#FF9326", alpha = 0.15, extend = 0.037) +
+    
+    geom_cladelabel(node = 76, 
+                    label = "Dodii",
+                    colour = "#77CE61",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=76, fill="#77CE61", alpha = 0.15, extend = 0.032) +
+    
+    geom_cladelabel(node = 55, 
+                    label = "Setacea",
+                    colour = "#0089B2",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=55, fill="#0089B2", alpha = 0.15, extendto = 0.05) +
+    geom_hilight(node=53, fill="#0089B2", alpha = 0.15, extendto = 0.05) +
+    
+    geom_cladelabel(node = 73, 
+                    label = "Scabra",
+                    colour = "#F2B950",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=73, fill="#F2B950", alpha = 0.15, extend = 0.031) +
+    
+    geom_cladelabel(node = 71, 
+                    label = "Leafy tricost.",
+                    colour = "#027368",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.0012,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=71, fill="#027368", alpha = 0.15, extend = 0.034) +
+    
+    geom_cladelabel(node = 67, 
+                    label = "Rupestris s.s",
+                    colour = "#CC1577",
+                    extend = 0.3,
+                    offset = 0.035,
+                    offset.text = 0.001,
+                    angle = 0,
+                    align = T,
+                    #hjust = 0.5,
+                    fontsize = 4) +
+    geom_hilight(node=67, fill="#CC1577", alpha = 0.15, extend = 0.03) +
+    geom_cladelabel(node = 89, 
+                    label = "blank",
+                    colour = "#DF0101",
+                    extend = 0.71,
+                    offset = 0.049,
+                    offset.text = 0.0012,
+                    angle = 90,
+                    align = T,
+                    alpha = 0,
+                    #hjust = 0.54,
+                    fontsize = 4)
+
+#Astral ###########
+
+
+setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
+
+tree_ast <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
+tree_ast$edge.length[is.na(tree_ast$edge.length)] <- 0.30 #tip branches
+tree_ast <- root(tree_ast, outgroup = "Oryza_sativa", resolve.root = T)
+
+
+#Rename tips
+
+species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
+
+species_names$Collection <- as.character(species_names$Collection)
+for (i in 1:nrow(species_names)) {
+    tree_ast$tip.label[tree_ast$tip.label == species_names$Collection[[i]]] <- paste(
+        species_names$Short_name[[i]],
+        paste("(",
+              species_names$SampleID[[i]],
+              ")", sep = ""),
+        species_names$Locality[[i]]
+        
+    )
+}
+
+tree_ast$tip.label[tree_ast$tip.label == "uniflora (1572) Cape Peninsula"] <- "uniflora (1572) Cape Pen."
+
+tree_ast$tip.label[tree_ast$tip.label == "tricostata (1594 repeat) Fernkloof"] <- "tricostata (1594 rep.) Fernkloof"
+
+rup_ast_clade <- extract.clade(tree_ast, 137)
+
+rup_tree_ast <- ggtree(rup_ast_clade, right = T)
+rup_ast_dat <- rup_tree_ast$data
+rup_ast_dat <- rup_ast_dat[!rup_ast_dat$isTip,]
+rup_ast_dat[rup_ast_dat == "1"] <- "1.00"
+rup_ast_dat[rup_ast_dat == "0.4"] <- "0.40"
+rup_ast_dat[rup_ast_dat == "0.6"] <- "0.60"
+rup_ast_dat[rup_ast_dat == "0.7"] <- "0.70"
+
+
+ast_rup <- ggtree(rup_ast_clade, right = T, size = 1, ladderize = T) +
+    geom_tiplab(size = 3.7, offset = 0.02) +
+    geom_rootedge(rootedge = 0.05) +
+    geom_treescale(x = -0.05, width = 0.10)+
+    geom_nodelab(data = rup_ast_dat, aes(label = label),
+                 nudge_x = -0.15,
+                 nudge_y = -0.35,
+                 colour = "#DF0101",
+                 size = 3) +
+    geom_cladelabel(node = 50, 
+                    label = "Rupestris s.s",
+                    colour = "#CC1577",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 0,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=50, fill="#CC1577", alpha = 0.15, extend = 2.2) +
+    
+    geom_cladelabel(node = 57, 
+                    label = "Uniflora",
+                    colour = "#9471B4",
+                    extend = 0.2,
+                    offset = 1.95,
+                    offset.text = 0.05,
+                    angle = 0,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=57, fill="#9471B4", alpha = 0.15, extend = 1.95) +
+    
+    geom_cladelabel(node = 58, 
+                    label = "Restiod tricost. ",
+                    colour = "#FF9326",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    angle = 0,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=58, fill="#FF9326", alpha = 0.15, extend = 2.3) +
+    
+    geom_cladelabel(node = 62, 
+                    label = "Fernkloof",
+                    colour = "#DF0101",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=62, fill="#DF0101", alpha = 0.15, extend = 2.2) +
+    
+    geom_cladelabel(node = 70, 
+                    label = "East. rupestris",
+                    colour = "#1D72F5",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=70, fill="#1D72F5", alpha = 0.15, extend = 2.2) +
+    
+    geom_cladelabel(node = 73, 
+                    label = "Scabra",
+                    colour = "#F2B950",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=73, fill="#F2B950", alpha = 0.15, extend = 2.2) +
+    
+    geom_cladelabel(node = 77, 
+                    label = "Leafy tricost.",
+                    colour = "#027368",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=77, fill="#027368", alpha = 0.15, extend = 2.1) +
+    
+    geom_cladelabel(node = 81, 
+                    label = "Dodii",
+                    colour = "#77CE61",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=81, fill="#77CE61", alpha = 0.15, extend = 2.2) +
+    
+    geom_cladelabel(node = 86, 
+                    label = "Setacea",
+                    colour = "#0089B2",
+                    extend = 0.2,
+                    offset = 1.5,
+                    offset.text = 0.05,
+                    #angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    align = T) +
+    geom_hilight(node=86, fill="#0089B2", alpha = 0.15, extend = 2.5) +
+    
+    geom_cladelabel(node = 54, 
+                    label = "Blank",
+                    colour = "red",
+                    extend = 0.21,
+                    offset = 2.33,
+                    offset.text = 0.05,
+                    angle = 90,
+                    #hjust = 0.5,
+                    fontsize = 4,
+                    alpha = 0,
+                    align = T)
+    
+ggpubr::ggarrange(ml_rup, ast_rup)
+
+
+
+```
+

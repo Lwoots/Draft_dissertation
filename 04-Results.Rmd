@@ -1,13 +1,12 @@
-F
-
-# Results
-
 ---
-title: "Untitled"
+title: "Phylogenetic results"
 author: "Lara Wootton"
 date: "11/05/2020"
-
-output: html_document
+output: 
+  word_document:
+      reference_docx:
+          draft_stylesV1.docx
+---
 
 ```{r setup, include=F}
 knitr::opts_chunk$set(echo = TRUE)
@@ -21,37 +20,19 @@ p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
 
 
-**Alignment and tree stats**
 
-* Length of alignments
 
-* Number of loci
+I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgroup. There was an average of XXX 2x150 bp reads per samples, which decreased to XXX per sample after trimming. Of those, an average of XXX per sample were mapped to target loci. Phylogenies generated from the ninety-coverage, full-coverage, exon, intron and supercontig datasets contained similar topologies. Therefore, only results obtained from the ninety-coverage supercontig dataset are presented.
 
-* Missing data
+The ninety-coverage dataset contained 235 loci, each represented in a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp long, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to 84.
 
-* Informative sites
+**Broad tree stucture**
 
-* %GC
+The maximum-likelihood (ML) and maximum quartet support (MQS) methods yielded well-supported, topologically-similar trees (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). In both trees, six major clades (here termed the Australian, Rehmannii, Ramosa, Rupestris, Dura and Lowland clades) are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the MQS tree numbers of coalescent units (generations/effective population size). TIn the Rupestris, Ramosa and Rehmannii clades, internal branches tend to be very short relative to both the stem and terminal branches, resulting in a “broomstick” morphology (ref) (Figure \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Rupestris clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta*. The Rupestris clade is composed of two species, *E. setacea* and *E. rupestris*, neither of which is monophyletic. 
 
-* Sequencing quality - number of reads, quality of reads 
+The montane Dura clade (BS = 100, LPP = 1.00), comprising *E. dura* and *E. microlaena*, is resolved with strong support (BS = 100, LPP = 1.00) as sister to a well-supported clade (BS = 100, LPP = 1.00) comprising the Rehmannii, Ramosa and Lowland clades. Within this clade, the Rehmannii (BS = 100, LPP = 1.00) and Ramosa clades (BS = 100, LPP = 1.00), each comprising a single species, are resolved as sisters with strong support (BS = 100, LPP = 1.00). The monophyly of the Lowland clade, which comprises species occurring predominately at low to mid elevations in the GCFR, is also well supported (BS = 100, LPP = 1.00), with the two analyses resolving the internal relationships of this clade identically and with maximum support (BS = 100, LPP = 1.00) on most nodes. Relationships within the Lowlands clade are largely consistent with those reported by Verboom et al. (2003).
 
-* MiSeq vs HybSeq similar
 
-  
-
-  I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgroup. There was an average of XXX 2x150 bp reads per samples, which decreased to XXX per sample after trimming. Of those, an average of XXX per sample were mapped to target loci. Phylogenies generated from the ninety-coverage, full-coverage, exon, intron and supercontig datasets contained similar topologies. Therefore, only the ninety-coverage supercontig dataset will be presented here.
-
-The ninety-coverage dataset contained 235 loci, each represented by a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp in length, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to 84.
-
-**Major topological findings**
-
-The maximum-likelihood (ML) and maximum quartet support (MQS) methods both generated trees with a similar topology and good internal support (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). There are six major clades that are consistently resolved in both phylogenies, called here the Australian, Rehmannii, Ramosa, Rupestris, Dura and Lowlands clades. Across the trees, major clades are separated by long branches, which represent the number of substitutions in the ML tree, and coalescent units (generations/effective population size) in the MQS tree. The Rupestris, Ramosa, and Rehmannii clades show a distinct pattern of very short internal branches towards the crown of the clade, followed by longer branches towards the tips (Figure \@ref(fig:MLtree)). Conversely, the Lowland clade has longer branch lengths overall, and a more evenly distributed branch length pattern across the clade. Although there overall structure of the tree is well resolved and congruent between the trees, individual taxon placement within major clades do show some incongruencies.
-
-The Australian clade consists of _M. stipoides_ and _T. laevis_. Originally, these specimens were meant as outgroups, but were unexpectedly reconstructed as sister to the Rupestris clade. This relationship is well supported in both WL and MQS trees (BS = 100, LPP = 1.00). This relationship suggests that earlier treatments were correct in defining the Australian genera of _Microlaena_ and _Tetrarrhena_ as part of _Ehrharta_. However, the long branch lengths of these taxa in the ML tree suggest that considerable divergence has occurred since the split between Rupestris and the Australian clade.
-
-The Lowlands clade consists of species occurring predominately at low elevations, especially in the Namaqua region of South Africa. Both trees find identical relationships between species in this clade, which is backed up by full support on almost every internal node (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). This clade is consistent with previous phylogenies. The notable exception is _E. calycina_, which is split into its robust and gracile forms. Contrary previous work, the Dura clade is sister to the Ramosa/Rehmannii and Lowlands clades rather than to Rupestris. Consisting of _E. microlaena_ and _E. dura_, the clade is highly divurged and has good support (BS = 100, LPP = 1.00).
-
-The Rupestris clade contains both _E. setacea_ and _E. rupestris_. These species are clearly polyphyletic, with individuals from different species forming sister subclades.  Even the subspecies are not always monophyletic. For example, _E. setacea setacea_ and _E. rupestris tricostata_ are each split into two groups. The internal branch support of Rupestris is the weakest of all the major clades, which is reflected in incongruencies between the ML and MQS trees. The Rehmannii and Ramosa clades are resolved as closely related sisters, each consisting of a single species. _E. rehmannii_ forms a monophyletic clade in both trees (BS = 100, LPP = 1.00), with evidence for monophylly in its subspecies as well (Figure \@ref(fig:MLtree)). Conversely, the two subspecies of _E. ramosa_ do not form clear clades, although _E. ramosa_ as a whole is monophyletic (BS = 100, LPP = 1.00).  
 
 
 
@@ -323,11 +304,15 @@ ggtree(tree, right = T) +
 
 
 
-### Rehmannii
+### Rehmannii clade
 
 
 
 The Rehmannii clade consists of three subgroups, which largely correspond to the existing subspecies of _E. rehmannii_: _E. rehmannii filiformis_, _E. rehmannii subspicata_, and _E. rehmanni rehmannii_. Although both trees show strong internal branch support for these clades, the tree topology is not identical. In the ML tree, the Filiformis and Subspicata subgroups are sisters, whereas in the MQS tree, Subspicata is sister to Rehmannii s.s. The Filiformis group has an identical topology in both trees, despite low support (LPP = 0.52) for the Fernkloof-Cape Peninsula relationship in the MQS tree. A single _E. rehmannii filiformis_ sample from Agulhas was placed in the Subspicata clade in both trees. Rehmannii s.s formed a well supported clade in the ML tree (BS = 95). Conversely, it formed a grade in the MQS tree.
+
+
+
+The ML and MQS analyses resolve three groups within the Rehmannii clade (Filiformis, Subspicata and Rehmannii groups) which correspond broadly to the existing subspecies of *E. rehmannii*, namely subsp. *filiformis*, subsp. *subspicata*, and subsp. *rehmannii*. Where the ML analysis identified all three groups as monophyletic with moderate to strong support (BS = 99, 77, 95, respectively), with the the Filiformis and Subspicata subgroups being sister lineages (BS = 97), the MQS analysis identifies only the Filiformis and Subspicata groups as monophyletic (LPP = 0.83, 0.96, respectively), the Rehmannii group being paraphyletic (LPP = 0.97, 0.85). Interestingly, a sample from near Agulhas, initially identified as *E. rehmannii* subsp. *filiformis* (TV1658), is placed in the Subspicata clade by both analyses.
 
 ```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
 
@@ -515,6 +500,12 @@ ggpubr::ggarrange(ml_reh, ast_reh)
 ### Ramosa  
 
 The two subspecies of _E. ramosa_, _E. ramosa ramosa_ and _E. ramosa aphylla_, are not resolved as exclusively monophyletic. However, both trees support a supgroup of _E. ramosa aphylla_ that occur from the Cape Peninsula to Betty's Bay (BS = 100, QS = 0.95). Within this Aphylla subgroup the topology varies between the trees, with particularly weak support for the placement of individuals from Leopardskloof and Cape Peninsula in the MQS tree. Individuals sampled from the same population in the Cape Peninsula are not recovered as sister taxa (sequencing bias?). There is also evidence for an Eastern ramosa group occurring from Swellendam to the Swartberg. In the MQS tree they form a reasonably well supported clade (LPP = 0.88), while in the ML tree the taxa from a grade with the Boosmansbos and Marloth taxa resolving as sister to the rest of the Ramosa clade. The remaining taxa fall into a loose group that mainly occur inland in the mid and western regions of the Western Cape. _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree. The pattern suggests potential sympatric speciation, but more fine scale data are needed to confirm this.
+
+
+
+The Ramosa clade consists of three subgroups, here called Aphylla, Eastern ramosa and Western ramosa
+
+
 
 ```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
 

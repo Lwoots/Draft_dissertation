@@ -4,57 +4,36 @@ The accurate definition of species limits is crucial, as the ability to differen
 
 Cryptic species are morphologically similar, but genetically distinct taxa (@Struck2018). Often, cryptic species are initially classified as a single species, only to be found to consist of two or more unique taxa (@Pfenninger2007, @Bickford2007). Despite their similarities in appearance, cryptic species have been shown to play different functional and ecological roles (nematode paper). Taxonomists have traditionally described species based on morphology, as differences in appearance imply reproductive isolation, an important criterion for species delimitation under the Biological Species Concept (Mayr). However, the genetic distinctness of morphologically similar taxa implies that mate recognition techniques, such as calls, smells, and colour spectra that we are unable to see, may be equally important in reproductive isolation. Cryptic species are being discovered in abundance across all taxa and biomes. For example, nearly 60% of recently described mammalian species are from cryptic complexes (@Ceballos2009). However, there is a bias in cryptic species research, as many studies have been conducted on marine tiny creatures, and few in plants (@Bickford2007). 
 
-The generation of cryptic species is both evolutionarily intriguing and understudied. Several different mechanisms that could cause cryptic speciation have been postulated to date. A commonly cited mechanism is that cryptic species are young (ref). If sister species have recently diverged from their common ancestor, not enough time may have passed for the species to have accumulated noticeable phenotypic differences (@Struck2019). Alternatively, cryptic species may be generated under convergent or parallel evolution (@Tang2019), where unrelated species evolve a similar morphology due to shared environmental pressures. For example, @Swift2016 found that jellyfish species from distantly related ancestors converged on the same morphology after moving from a marine environment to a lake environment. Finally, species may undergo stasis, where their morphology remains unchanging for millions of years despite extensive genetic divergence (@Wada2013, @Struck2019). Stasis due to stabilising selection can occur when strong environmental drivers make a single phenotype strongly advantageous. Morphological stasis may also be a result of niche conservatism. Here, species track suitable habitat, rather than adapting to environmental variation. Widespread ecological change may result in suitable habitat becoming isolated, reducing geneflow between populations and creating vicariant species (@Kozak2006). This process is known as non-adaptive speciation, as species diverge not in response to selection, but due to neutral processes such as drift. May explain later sympatry, if species secondarily expand their original range to encompass that of closely related taxa.
+The generation of cryptic species is both evolutionarily intriguing and understudied. Several different mechanisms that could cause cryptic speciation have been postulated to date. A commonly cited mechanism is that cryptic species are young (ref). If sister species have recently diverged from their common ancestor, not enough time may have passed for the species to have accumulated noticeable phenotypic differences (@Struck2019). Alternatively, cryptic species may be generated under convergent or parallel evolution (@Tang2019), where unrelated species evolve a similar morphology due to shared environmental pressures. For example, @Swift2016 found that jellyfish species from distantly related ancestors converged on the same morphology after moving from a marine environment to a lake environment. Finally, species may undergo stasis, where their morphology remains unchanging for millions of years despite extensive genetic divergence (@Wada2013, @Struck2019). Stasis due to stabilising selection can occur when strong environmental drivers make a single phenotype strongly advantageous. Morphological stasis may also be a result of niche conservatism. Here, species track suitable habitat, rather than adapting to environmental variation. Widespread ecological change may result in suitable habitat becoming isolated, reducing geneflow between populations and creating vicariant species (@Kozak2006). This process is known as non-ecological speciation, as species diverge not in response to selection, but due to neutral processes such as drift (@Rundell2009). May explain later sympatry, if species secondarily expand their original range to encompass that of closely related taxa. 
+
+Elaborate on adaptive vs non adaptive here?
+
+The Greater Cape Floristic Region (GCFR) is a hotspot of biological diversity, with over 9000 species despite its relatively small size (Manning&Goldblatt2012, Myers2017).  The GCFR contains an abundance of different habitats. The rugged Cape Fold mountains extend north and east and rise to 2249 m at their highest. The It is unsurprising then, that adaptive, ecological speciation has been used to explain the high species richness, especially in large genera such as _Erica_ and _Aspalathus_. There is an abundance of different habitats in the Cape. Variance in degree in amount and seasonality of rainfall, temperature and soil. Notably, the rugged mountain ranges that divide the region provide a wealth of microclimates. The extreme environmental gradients found in this landscape have rightly been cited as a important driver of speciation. However, recent research as suggested that the mountainous region may experience non adaptive, and thus cryptic speciation. The historical conditions are theoretically perfect. XXX million years ago the cape was a lot wetter. As the landscape dried, suitable habitats for moisture loving species retreated up the mountains. These niches may have been stable for a long time. As species tracked their preferred habitat, populations became isolated by the valleys and kloofs, gradually diverging through genetic drift. It is therefore possible that the cape is even more diverse than previously thought, potentially with a host of cryptic species occuring at high elevations. 
+
+
+
+The Greater Cape Floristic Region (GCFR) is a hotspot of biological diversity, with over 9000 species despite its relatively small size (@Manning&Goldblatt2012, @Myers2017). The prevailing explanation for the wealth of plant species is adaptive ecological speciation, driven by both historical and current conditions in the Cape. During the mid-Miocene, the Cape was far less arid, and supported a tropical, moisture-dependent flora (@Linder2003, @Dupont2011). However, the region shifted to a more arid, winter-rainfall system during the late-Miocene, which has been attributed to a combination of factors, including the development of the Benguela Upwelling system, changes in Antarctic glaciation and tectonic uplift of the Eastern rim of southern Africa (@siesser1980, @Zachos2001, @Dupont2011, @Rommerskirchen2011). The increased aridification triggered speciation events in many GCFR clades (Dupont2011, Verboom2009). A variety of ecological gradients exist in the present day. The rugged Cape Fold mountains extend into the north and east of the GCFR, and rise to 2249 m at their highest. Climatic conditions become increasing moist and cool towards the summits, creating strong moisture gradients along the mountain slopes. Coupled with highly variable soil characteristics (@Cramer2019), it is unsurprising that ecological speciation often cited as a driver of species richness in the Cape. However, recent literature has postulated a
+
+
+
+The same scenario of aridification with the retention of moist habitats  
+
+Yet, over 30% of these species are contained in just 11 clades (Linder 2003). 
 
 
 
 
 
-Struck 2018 and 2019
-
-Swift
-
-Rundell 2009
+The rugged Cape Fold mountains extend into the north and east of the region, and rise to 2249 m at their highest. Climatic conditions become increasing moist and cool towards the summits, creating strong ecological gradients along the mountain slopes. 
 
 
 
+The cape is species rich
 
+Adaptive speciation prevailing explanation
 
-convergence/parallelism = same phenotype evolved independently
-
-stasis = no morphological change over prolonged length of time (stablizing selection, lack of genetic diversity, niche tracking, developmental constraints)
-
-neutral - genetic drift in isolated populations
-
-
-
-
-
-Directional selection on ecological, behavioral, or reproductive traits that have no observed morphological correlates might foster cryptic speciation and be a mechanism that drives cryptic diversification(@Bickford2007)
-
-
-
-We support recent arguments
-
-that the long-term stability of an ecological niche has
-
-profound consequences for the build-up of species
-
-diversity because it causes species to track their preferred
-
-habitats in the face of environmental change, promoting
-
-vicariant fragmentation and formation of new evolutionary
-
-lineages (@Kozak2006)
-
-
-
-
-
-
-
-The Cape Floristic Region is a hotspot of biological diversity, with over 9000 species despite its relatively small size (Manning&Goldblatt2012, Myers2017). Adaptive, ecological speciation has been used to explain the high species richness, especially in large genera such as _Erica_ and _Aspalathus_. There is an abundance of different habitats in the Cape. Variance in degree in amount and seasonality of rainfall, temperature and soil. Notably, the rugged mountain ranges that divide the region provide a wealth of microclimates. The extreme environmental gradients found in this landscape have rightly been cited as a important driver of speciation. However, recent research as suggested that the mountainous region may experience non adaptive, and thus cryptic speciation. The historical conditions are theoretically perfect. XXX million years ago the cape was a lot wetter. As the landscape dried, suitable habitats for moisture loving species retreated up the mountains. These niches may have been stable for a long time. As species tracked their preferred habitat, populations became isolated by the valleys and kloofs, gradually diverging through genetic drift. It is therefore possible that the cape is even more diverse than previously thought, potentially with a host of cryptic species occuring at high elevations. 
+- current reasons
+- historical reasons
 
 
 

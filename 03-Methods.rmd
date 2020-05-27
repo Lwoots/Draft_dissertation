@@ -1,28 +1,31 @@
-# Methods
+# Methods section
+
+## Field sampling
+
+
+
+Field sampling of the mid- and high-elevation clades were conducted between November 2019 and January 2020. Sampling locations were chosen to cover as much of each taxon's range as possible, and encompassed much of the Western Cape, South Africa. The number of localities per taxon varied between 2 for the range restricted _E. setacea disticha_ and _E. setacea uniflora_, and 12 for the widespread _E. ramosa ramosa_. Between four and six individuals per population were collected from each locality, and were pressed to make voucher specimens. Young leaf and culm tissue from each voucher was silica-dried immediately  and stored in an airtight container at -20C to prevent DNA degradation. Additionally, collections made by GA Verboom of lowlands taxa during August 2018 were also used in this study. Most lowlands taxa were sampled in Namaqualand, and each taxon is represented by a single individual.  
+
+
 
 ## DNA extraction
 
 
 
- 
+DNA extraction of four individuals per population was undertaken at the systematics laboratory in HW Pearson, University of Cape Town. One hundred mg of frozen, silica-dried leaf and culm tissue was finely ground in liquid nitrogen using a mortar and pestle. Sterilised silica and a spatula tip of PVP was added to each sample before grinding, to increase friction and decrease extract polysaccharide content respectively. The DNA was extracted using a modified cetyl-trimethylammonium bromide (CTAB) method. CTAB solution and 2-Mercaptoethanol were added to the ground extracts. Next, 24:1 chloroform:isoamyl solution was added to remove solvents, and the DNA was precipitated using isopropanol at −20C. The precipitates were then washed three times with 70% ethanol. The resulting extracts were then RNAse treated, and purified using AMPure magnetic beads following the manufacturers instructions. The concentration and purity of each extract was checked using a NanoDrop ND-1000 spectrophotometer (ThermoFisher Scientific, Waltham, MA USA). Samples with concentrations ≥50 ng/μl and 260/280 absorbance ratios between 1.7 and 2 were used for genotyping-by-sequencing (GBS), while those with concentrations ≥25 ng/μl were used for targeted enrichment.
 
-##Library preparation for targeted enrichment
+## Library preparation for targeted enrichment
 
-
-
-Library preparation and hybridisation was carried out at the Sackler Phylogenomic Laboratory, within the Jodrell Laboratory at Royal Botanic Gardens, Kew (Richmond, Surrey, UK). The DNA concentration present in the extracts was measured with a QuantusTM fluorometer (Promega corporation, Madison USA) using the using QuantiFluorR dsDNA System kit (Promega corporation, Madison USA). The samples were diluted to 200 ng DNA in 26 $\mu$l with Milli-Q water. The DNA was then sheared to fragments an average of 350 bp long by sonicating them for 75s with a Covaris Focused-ultrasonicator M220 (Woburn Massachusetts 01801 www.covarisinc.com)
-
-
+Library preparation and hybridisation for targeted enrichment was carried out at the Sackler Phylogenomic Laboratory, within the Jodrell Laboratory at Royal Botanic Gardens, Kew (Richmond, Surrey, UK). The DNA concentration present in the extracts was measured with a QuantusTM fluorometer (Promega corporation, Madison USA) using the using QuantiFluorR dsDNA System kit (Promega corporation, Madison USA). The samples were diluted to 200 ng DNA in 26 $\mu$l with Milli-Q water. The DNA was then sheared to fragments an average of 350 bp long by sonicating them for 75s with a Covaris Focused-ultrasonicator M220 (Woburn Massachusetts 01801 www.covarisinc.com)
 
 Library preparation was completed using NEBNxet Ultra II DNA Library Prep Kit for Illumina (New England Biolabs), using half the recommended volumes to maximise use of reagents and indexes. AMPure magnetic beads were used for size selection of DNA fragments. Libraries were indexed with the NEBNext Multiplex Oligos for Illumina (Dual Index Primer Set 1, New England Biolabs), and enriched with the following thermocycler conditions: Initial denaturation for 30s at 98$^\circ$C, 7 cycles of denaturation for 10s at 98$^\circ$C, annealing and extension for 75s at 65$^\circ$C, followed by a final extension for 5 mins at 65$^\circ$C. The resulting enriched libraries were cleaned with AMPure beads, and the quality of the libraries were checked using Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). A library was considered good quality if it had a concentration of greater than 4 ng.$\mu$l^-1^ and avg fragment size of 450 bp to 500 bp. If a library failed the quality check, it was either re-amplified, underwent size selection again, or was entirely repeated from the beginning of the process. 
 
  
 
-## Hybridisation and sequencing preparation
+## Hybridisation and targeted enrichment sequencing preparation
 
 
-
-Libraries were normalised to a concentration of 10 nM and 10 $\mu$l per sample was pooled into batches of 12 or 24 samples per reaction. The pools were vacuum dried using a miVac Duo Concentrator (Genevac, UK) and subsequently eluted in 8 $\mu$l of 10 mM tris buffer. The pools were enriched using the Angiosperms-353 v 1 target capture kit (Johnson et al., 2018) following the manufacturers instructions (Arbor Biosciences, Ann Arbor, Michigan, USA). Hybridisation took place for 16h at 65$^\circ$C, and the resulting product was amplified with 12 cycles of PCR. The reaction quality was checked using a Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). Reactions were normalised to 4mM and pooled. Sequencing took place either at Macrogen (Seoul, South Korea) or on an Illumina® MiSeq at Royal Botanic Gardens, Kew (Richmond, Surrey, UK). Both produced 2 x 150 bp reads.
+Libraries were normalised to a concentration of 10 nM and 10 $\mu$l per sample was pooled into batches of 12 or 24 samples per reaction. The pools were vacuum dried using a miVac Duo Concentrator (Genevac, UK) and subsequently eluted in 8 $\mu$l of 10 mM tris buffer. The pools were enriched using the Angiosperms-353 v 1 target capture kit (Johnson et al., 2018) following the manufacturers instructions (Arbor Biosciences, Ann Arbor, Michigan, USA). Hybridisation took place for 16h at 65$^\circ$C, and the resulting product was amplified with 12 cycles of PCR. The reaction quality was checked using a Agilent Technologies 4200 Tapestation (Agilent Technologies, Palo Alto, California, USA). Reactions were normalised to 4mM and pooled. Sequencing took place either at Macrogen (Seoul, South Korea) or on an Illumina® MiSeq at Royal Botanic Gardens, Kew (Richmond, Surrey, UK). Both produce 2 x 150 bp reads.
 
  
 
@@ -64,11 +67,29 @@ I then reconstructed ML trees on the merged partition datasets using IQtree v. F
 
 **Multi-species coalescent trees**
 
-
-
-The evolutionary history of a gene often differs from the history of a species due to incomplete lineage sorting, horizontal gene transfer and hybridisation resulting in gene trees that differ from the true species tree. Concatenated ML methods are unlikely to capture these patterns. Conversely, the multi-species coalescent model allows the history genes to be modeled separately from the species history, therefore allowing for processes such as ILS to occur. Summary-based methods of species tree estimation such as ASTRAL are consistent with multi-species coalescent theory, and are therefore thought to be more accurate than ML for large datasets. Astral estimates the species tree that has the most quartets that are shared with the gene trees. Individual gene trees were constructed from the loci alignments using IQTree with the default settings. ASTRAL-III v5.6.3 was used to infer the species tree from the individual gene trees. As coalescent-based methods are less sensitive to missing taxa (Hosner 2016, Sayyari 2017), I used only the ninety-percent coverage datasets for this analysis.
-
+The evolutionary history of a gene often differs from the history of a species due to incomplete lineage sorting, horizontal gene transfer and hybridisation resulting in gene trees that differ from the true species tree. Concatenated ML methods are unlikely to capture these patterns. Conversely, the multi-species coalescent model allows the history genes to be modeled separately from the species history, therefore allowing for processes such as ILS to occur. Summary-based methods of species tree estimation such as ASTRAL are consistent with multi-species coalescent theory, and are therefore thought to be more accurate than ML for large datasets. Astral estimates the species tree that has the most quartets that are shared with the gene trees. Individual gene trees were constructed from the loci alignments using IQTree with the default settings. ASTRAL-III v5.6.3 was used to infer the species tree from the individual gene trees. As coalescent-based methods are less sensitive to missing taxa (Hosner 2016, Sayyari 2017, Molloy2018), I used only the ninety-percent coverage datasets for this analysis.
 
 
 
+## GBS 
+
+
+
+How we chose which populations to sequence
+
+Four DNA extracts per population were sent to Novogene Genome Sequencing Company Ltd. in Beijing, China for library preparation and sequencing following Novogene's protocols. In brief, each DNA sample was digested with restriction enzymes, and the resulting fragments were ligated to barcoded adaptors. The samples are then PCR amplified, pooled and size-selected. A Qubit® 2.0 fluorometer and a Agilent® 2100 bioanalyzer were used to check the concentration and insert sizes of the completed libraries. The samples were sequenced using paired-end sequencing on a Illumina platform, with a read length of 144 bp. The raw data is then filtered to remove paired reads where either read is adaptor contaminated, has ambiguous nucleotides accounting for > 10 % of the read, or where more than 50% of either read consists of poor quality nucleotides. (Why did they need a reference genome?).
+
+The dDocent pipeline (ref) was used to map and call SNPs. The pipeline was run separately on each of the Rehmannii, Ramosa and Rupestris clades. First, the reads are trimmed using Trimmomatic to remove any remaining reads with adaptor contamination, or bases below a quality score of 20, or contain a five base pair window with an average quality score of less than ten. The reads were then mapped to a reference genome (link to ncbi) using the MEM algorithm of BWA with the default settings (-A 1 -B 4 -O 6). SNPs are then called using using FreeBayes v1.2.0 (Garrison & Marth, 2012), which is a Bayesian-based variant detection program. The SNPs were then concatenated into a variant call file (VCF) using VCFtools v3.0 (Danecek et al., 2011). The SNPs then underwent several filtering steps before use in analyses. I kept only variants that had been genotyped in at least 10% of individuals, with a minimum quality score of 30, and a sequencing depth of three reads.
+
+
+
+## Morphological measurements and analysis
+
+
+
+Morphological traits of four flowering individuals per population in the high elevation clades were measured using either digital vernier callipers or a dissection microscope. If a given population had fewer than four flowering individuals. Only one individual per taxon for the low-elevation clades was phenotyped. Where possible, individuals were corresponding to the phylogeny tips were selected, although occasionally another individual from the same population had to be used if the original sequenced individual was not in flower.  For _E. microlaena_ a herbarium specimen (Verboom 695) from the same locality as our collection was used, as all our voucher specimens were under-developed. In total, 18 floral and vegetative traits were measured, as shown in Table. Potentially informative ratios of these traits, for example spikelet shape (spikelet width x spikelet length), were also used in downstream analyses (Table).
+
+
+
+Results from the phylogenetic and GBS analyses were used to inform the structure of the morphological analysis. Each major high-elevation clade was analysed separately in order to examine fine-scale variation, and individuals were grouped according to potential new taxa, rather than existing taxonomy. A principal components analysis was used to visualise morphological similarities between taxa. Linear discriminant analyses to maximise the distance between groups. I also present univariate boxplots of particularly informative traits.
 

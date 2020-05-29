@@ -3,20 +3,22 @@ title: "Phylogenetic results"
 author: "Lara Wootton"
 date: "11/05/2020"
 output: 
-  word_document:
-      reference_docx:
-          draft_stylesV1.docx
+  pdf_document
 ---
 
 ```{r setup, include=F}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(cache = T,
+                      echo=FALSE, warning=FALSE, message=FALSE)
+
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
-p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr, tidyverse, here)
+
+
 ```
 
 
 
-## Phylogenetic results
+## Sequencing results
 
 
 
@@ -26,7 +28,7 @@ I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgro
 
 The ninety-coverage dataset contained 235 loci, each represented in a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp long, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to 84.
 
-**Broad tree stucture**
+## Phylogenetic results
 
 The maximum-likelihood (ML) and maximum quartet support (MQS) methods yielded well-supported, topologically-similar trees (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). In both trees, six major clades (here termed the Australian, Rehmannii, Ramosa, Rupestris, Dura and Lowland clades) are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the MQS tree numbers of coalescent units (generations/effective population size). TIn the Rupestris, Ramosa and Rehmannii clades, internal branches tend to be very short relative to both the stem and terminal branches, resulting in a “broomstick” morphology (ref) (Figure \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Rupestris clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta*. The Rupestris clade is composed of two species, *E. setacea* and *E. rupestris*, neither of which is monophyletic. 
 
@@ -300,28 +302,44 @@ ggtree(tree, right = T) +
 
 ```
 
-## Minor clades
+## Species delimitation
 
 
 
 ### Rehmannii clade
 
 
-
+#### Phylogenetic relationships
 The Rehmannii clade consists of three subgroups, which largely correspond to the existing subspecies of _E. rehmannii_: _E. rehmannii filiformis_, _E. rehmannii subspicata_, and _E. rehmanni rehmannii_. Although both trees show strong internal branch support for these clades, the tree topology is not identical. In the ML tree, the Filiformis and Subspicata subgroups are sisters, whereas in the MQS tree, Subspicata is sister to Rehmannii s.s. The Filiformis group has an identical topology in both trees, despite low support (LPP = 0.52) for the Fernkloof-Cape Peninsula relationship in the MQS tree. A single _E. rehmannii filiformis_ sample from Agulhas was placed in the Subspicata clade in both trees. Rehmannii s.s formed a well supported clade in the ML tree (BS = 95). Conversely, it formed a grade in the MQS tree.
 
 
 
 The ML and MQS analyses resolve three groups within the Rehmannii clade (Filiformis, Subspicata and Rehmannii groups) which correspond broadly to the existing subspecies of *E. rehmannii*, namely subsp. *filiformis*, subsp. *subspicata*, and subsp. *rehmannii*. Where the ML analysis identified all three groups as monophyletic with moderate to strong support (BS = 99, 77, 95, respectively), with the the Filiformis and Subspicata subgroups being sister lineages (BS = 97), the MQS analysis identifies only the Filiformis and Subspicata groups as monophyletic (LPP = 0.83, 0.96, respectively), the Rehmannii group being paraphyletic (LPP = 0.97, 0.85). Interestingly, a sample from near Agulhas, initially identified as *E. rehmannii* subsp. *filiformis* (TV1658), is placed in the Subspicata clade by both analyses.
 
-```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+### GBS results
+
+The sNMF results at K = 3 for the Rehmannii clade largely corroborated the phylogenetic results, as the three potential ancestral gene pools are largely sorted into each subclade. Filiformis is largely homogeneous across the sampled populations, with the exception of LW1. Occurring in the Cape Peninsula, LW1 shows potential gene flow with both Subspicata and Rehmannii s.s genepools. Collection 1658 was originally identified as an _E. rehmannii filiformis_, but it was placed within the Subspicata clade within the phylogenies.  The sNMF results support this relationship, as 1658 shares a large proportion of its ancestry with the other Subspicata collections. Interestingly, the three populations sampled from the Agulhas area, 1658, 1659 and 1660, had reasonably different profiles. In particular, 1660 shares a slightly greater proportion of ancestry with Filiformis than with Subspicata. 
+
+At the K = 10 level, there is strong population level genetic structuring, with almost every locality consisting of a distinct gene pool. This is particularly apparent in Filiformis. Within Subspicata, there appears to be gene flow between a Cape Peninsula population (LW1) and an Agulhas population (1659), but not within Agulhas populations (1658, 1659, 1660). There may also be slight gene flow between Betty's Bay and the Cape Peninsula (1590, LW1). Of the three clades, Rehmannii shows the most gene flow between populations at this level. There is large amounts of geneflow between Robinson's pass and Nature's valley (1649 and 1652), as well as some between Nature's Valley and Joubertina. However, it should be noted that these relationships were only present in 39 % of sNMF runs.
+
+
+A PCOA of the GBS data largely agrees with sNMF findings. Each clade formed a distinct cluster in PC1 vs PC2. Subspicata was somewhat dispersed, with each population forming a tight cluster within the greater cloud. Filiformis and Subspicata showed strong variation along PC3 and PC4 respectively.
+
+
+
+### Morphology
+
+PCA - lots of overlap between rehmannii and subspicata, and highly varied with groups. However, Rehmannii tended to be taller, with a greater number of spikelets and an inflorescence that extended further above the leaves. Filiformis formed a reasonably cohesive group with a few outliers. This clade is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms and smaller and fewer spikelets. 
+\newpage
+
+```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
 
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
 p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
 
-#ML####
+#ML###
 
 setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
 
@@ -397,7 +415,7 @@ ml_reh <- ggtree(reh_clade, size = 1, right = T) +
     geom_hilight(node=18, fill="#0AB276", alpha = 0.15, extendto = 0.048)
 
 
-#Astral ####
+#Astral ###
 
 setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
 
@@ -496,6 +514,211 @@ ast_reh <- flip(ast_reh, 24,19)
 ggpubr::ggarrange(ml_reh, ast_reh)
 ```
 
+```{r reh_ce,}
+
+means <- read.csv(here("Data", "rehmannii_ce.csv"))
+
+plot(means$k, means$ce,
+     ylab = "Cross-entropy", xlab = "Ancestral gene pool (K)", 
+     pch = 19, cex = 1.2)
+
+points(x = 3, y = means$ce[3],
+       col = "red2",
+       pch = 19, cex = 1.2)
+points(x = 10, y = means$ce[10],
+       col = "forest green",
+       pch = 19, cex = 1.2)
+
+```
+
+
+```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = F, fig.height=3.2}
+
+library(pophelper)
+library(gridExtra)
+library(label.switching)
+library(tidyr)
+
+
+clump_file3 <-readQ(here("Data", "calc.clumpp.merged.K3.txt"))
+
+
+#population assignments
+pop_names <- read.table(here("Data", "popmap_rehmannii_reordered"), stringsAsFactors=F)
+
+clade_names <- c(
+    rep("Filiformis", 16),
+    rep("Subspicata", 20),
+    rep("Rehmannii s.s", 12)
+)
+
+
+group_labs <- data.frame(collection = pop_names, clade = clade_names)
+names(group_labs)[1] <- "collection"
+group_labs <- separate(group_labs, 
+                       col = collection, 
+                       into = c("letter", "pop_id"),
+                       sep = "A")
+group_labs <- group_labs[,2:3]
+group_labs$clade <- as.character(group_labs$clade)
+
+my_colours <- c("#0AB276", #fili
+                "#F3A10E", #sub
+                "#297AB1" #reh
+                ) 
+
+
+p3 <- plotQ(clump_file3, 
+            showsp = F,
+            splab = "",
+            barsize = 1,
+            grplab = group_labs,
+            grplabsize = 3,
+            grplabheight = 0,
+            clustercol = my_colours,
+            linepos = 0.9,
+            linealpha = 1,
+            linesize = 1,
+            pointalpha = 1,
+            pointsize = 3,
+            showdiv = T,
+            divtype = 1,
+            divgrp = "clade",
+            divsize = 2.1,
+            grplabpos = 0.6,
+            panelratio = c(10,1),
+            showtitle = T,
+            titlelab = "K = 3, 100/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.981",
+            titlesize = 14,
+            titlecol = "black",
+            titlespacer = 5,
+            basesize = 0,
+            exportplot = F,
+            returnplot = TRUE)
+
+grid.arrange(p3$plot[[1]])
+
+
+#K = 10
+
+
+
+clump_file <- readQ(here("Data", "calc.clumpp.merged.K10.txt"))
+
+my_colours <- c(
+  "#1D72F5","#DF0101","#77CE61", "#FF9326","#A945FF","#0089B2","#FDF060","#FFA6B2","#BFF217","#60D5FD"
+)
+
+
+p4 <- plotQ(clump_file, 
+            showsp = F,
+            splab = "",
+            barsize = 1,
+            grplab = group_labs,
+            grplabsize = 3,
+            grplabheight = 0,
+            clustercol = my_colours,
+            linepos = 0.9,
+            linealpha = 1,
+            linesize = 1,
+            pointalpha = 1,
+            pointsize = 3,
+            showdiv = T,
+            divtype = 1,
+            divgrp = "clade",
+            divsize = 2.1,
+            grplabpos = 0.6,
+            panelratio = c(10,1),
+            showtitle = T,
+            titlelab = "K = 10, 39/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.972",
+            titlesize = 14,
+            titlecol = "black",
+            titlespacer = 5,
+            basesize = 0,
+            exportplot = F,
+            returnplot = TRUE)
+
+grid.arrange(p4$plot[[1]])
+```
+
+```{r, fig.height=6.4}
+#ggpubr::ggarrange(grid.arrange(p3$plot[[1]]), grid.arrange(p4$plot[[1]]), nrow = 2)
+
+#cowplot::plot_grid(grid.arrange(p3$plot[[1]]), grid.arrange(p4$plot[[1]]), nrow = 2)
+```
+
+
+```{r, include=F, fig.height=4}
+
+library("vcfR")
+library("adegenet")
+library("dartR")
+library("plotly")
+library("here")
+
+vcf <- read.vcfR(here("Data", "Final_lenient_rehmannii_28Apr.vcf"))
+
+pop.assign<- read.csv(here("Data", "rehmannii_pop_assignment.csv"), header=T)
+dat.pop.assign<-data.frame(pop.assign$Species_current, pop.assign$Pop)
+colnames(dat.pop.assign)[colnames(dat.pop.assign)=="V1"] <- "pop.assign"
+
+dat.pop.assign <- dat.pop.assign %>% 
+  mutate(clade_labs =
+         case_when(pop.assign.Species_current %in% c("E_rehmannii_filiformis") ~ "Filiformis", 
+                   pop.assign.Species_current %in% c("E_rehmannii_rehmannii") ~ "Rehmannii s.s",
+                   pop.assign.Species_current %in% c("E_rehmannii_subspicata") ~ "Subspicata"
+                   )
+)
+
+dat.pop.assign$clade_labs[dat.pop.assign$pop.assign.Pop == "A1658"] <- "Subspicata"
+
+#convert vcf to genlight
+gl <- vcfR2genlight(vcf)
+
+##Assign pop names so that R knows how to colour the PCoA points
+strata(gl)<-data.frame(dat.pop.assign)
+setPop(gl)<-~clade_labs
+
+#Before PCoA, find & exclude the SNPs with missing data:
+toRemove <- is.na(glMean(gl, alleleAsUnit = FALSE)) 
+gl.na <- gl[, !toRemove]
+
+
+my_colours <- c("#0AB276", #fili
+                "#F3A10E", #sub
+                "#297AB1" #reh
+) 
+
+my_theme <- theme_bw() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid = element_blank(),
+        legend.key = element_rect(fill = NA, color = "grey"),
+        legend.background = element_blank()
+  )
+
+
+pc<-gl.pcoa(gl.na, nfactors=5) 
+pcoa_plot1 <- gl.pcoa.plot(pc, gl.na,labels="legend", xaxis=1, yaxis=2)
+
+p1 <- pcoa_plot1 + my_theme +
+          scale_colour_manual(values = my_colours, name = " ") +
+          geom_point(size = 4)
+
+pcoa_plot2 <- gl.pcoa.plot(pc, gl.na,labels="legend", xaxis=3, yaxis=4)
+
+p2 <- pcoa_plot2 + my_theme +
+  scale_colour_manual(values = my_colours, name = " ") +
+  geom_point(size = 4) 
+
+
+```
+
+```{r pca_reh, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+
+ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.07, label.y = 0.98)
+
+
+```
 
 ### Ramosa  
 

@@ -1,0 +1,25 @@
+﻿Trait,Description
+Plant height,Length from rhizome to inflorescence tip
+Vegetation height,Length from rhizome to second highest leaf (ie excluding flag leaf)
+Leaf width,Width at the widest point of a representative leaf
+Leaf length,Length from base to tip of a representative leaf 
+Sheath length,Length of sheath subtending measured leaf
+Internode distance,"Length between two nodes, measured in lowest 3rd of specimen, unless other internodes judged more representative."
+Culm diameter,Measured in lowest 3rd of specimen
+Inflorescence length,Length of a representative inflorescence
+Spikelet number ,Count of spikelets in a representative inflorescence
+Pedicel length,
+Glume length outer,Length from base of spikelet to the tip of outer glume
+Glume length inner,Length from base of spikelet to the tip of inner glume
+Spikelet width,"Measured a third of the way up the spikelet, just before the glumes flare. Glumes are included, except for spp. such as tricostata where the glumes are reduced"
+Spikelet length,Length from the base of spikelet to the tip of longest lemma
+Lemma length outer,"Length from base of spikelet with glumes removed, to tip of outer lemma"
+Lemma length inner,"Length from base of spikelet with glumes removed, to tip of inner lemma"
+Striation number,Count of striations on inner lemma
+Relative sheath length,"Sheath length/Internode distance, measures extent to which the internode is enclosed by the sheath"
+Relative leaf length,Leaf length/Sheath length
+Glume enclosure,"Glume length outer/Spikelet length, measures the extent to which the glume encloses the spikelet"
+Glume ratio,"Glume length outer/Glume length inner, measures the equality of the glume lengths"
+Spikelet shape,Spikelet length/Spikelet width
+Lemma ratio,"Outer lemma length/Inner lemma length, measures the equality of the lemma lengths"
+Inflorescence position,"Plant height/Veg height, measures extent to which the inflorescence extends above the foliage"

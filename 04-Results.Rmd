@@ -41,8 +41,7 @@ The montane Dura clade (BS = 100, LPP = 1.00), comprising *E. dura* and *E. micr
 ```{r MLtree, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="Maximum-likelihood tree constructed using IQtree. Red numbers show ultrafast bootstraps. Branch lengths represent number of substitutions. The outgroup branch length, coloured grey, has been shortened by a factor of 2.5 for clarity"}
 #ML tree
 
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
-tree <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
+tree <- read.tree(here("Data","boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile"))
 tree <- root(tree, outgroup = "Oryza_sativa", resolve.root = T) #Re-root
 
 species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
@@ -84,7 +83,7 @@ tree_group <- groupClade(tree, .node = 217)
 ggtree(tree_group, aes(colour = group), right = T) +
     scale_colour_manual(values = c("grey", "black")) +
     geom_tiplab(size = 2, colour = "black") +
-    geom_treescale(x = -0.001) +
+    geom_treescale(x = -0.001, offset = 0.6, linesize = 0.6) +
     geom_nodelab(data = da, aes(label = bootstrap),
                  size = 2.5,
                  colour = "red",
@@ -175,9 +174,7 @@ ggtree(tree_group, aes(colour = group), right = T) +
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
 p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
-
-tree <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
+tree <- read.tree(here("Data", "astral_ninety_coverage_supercontig7Apr.tre"))
 
 tree$edge.length[is.na(tree$edge.length)] <- 0.35 #tip branches
 
@@ -224,7 +221,7 @@ lowl$label[lowl$label == "1"] <- "1.00"
 lowl$label[lowl$label == "0.6"] <- "0.60"
 
 ggtree(tree, right = T) +
-    geom_treescale(x = -0.18) +
+    geom_treescale(x = -0.18, offset = 0.6, linesize = 0.6) +
     geom_tiplab(size = 2, colour = "black") +
     geom_rootedge(rootedge = 0.3) +
     geom_nodelab(data = da, aes(label = label),
@@ -332,7 +329,7 @@ A PCOA of the GBS data largely agrees with sNMF findings. Each clade formed a di
 PCA - lots of overlap between rehmannii and subspicata, and highly varied with groups. However, Rehmannii tended to be taller, with a greater number of spikelets and an inflorescence that extended further above the leaves. Filiformis formed a reasonably cohesive group with a few outliers. This clade is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms and smaller and fewer spikelets. 
 \newpage
 
-```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
@@ -341,9 +338,7 @@ p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
 #ML###
 
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
-
-tree_ml <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
+tree_ml <- read.tree(here("Data","boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile"))
 tree_ml <- root(tree_ml, outgroup = "Oryza_sativa", resolve.root = T)
 
 
@@ -371,7 +366,7 @@ reh_dat2 <- separate(reh_dat2, label, into = c("LRT", "bootstrap"), sep = "/", r
 
 ml_reh <- ggtree(reh_clade, size = 1, right = T) +
     geom_tiplab(size = 3.7, offset = 0.001) +
-    geom_treescale(x = -0.002, width = 0.005) +
+    geom_treescale(x = -0.002, width = 0.005, offset = 0.15, linesize = 0.6) +
     geom_rootedge(rootedge = 0.004) +
     geom_nodelab(data = reh_dat2, aes(label = bootstrap),
                  nudge_x = -0.0013,
@@ -417,9 +412,8 @@ ml_reh <- ggtree(reh_clade, size = 1, right = T) +
 
 #Astral ###
 
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
 
-tree_ast <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
+tree_ast <- read.tree(here("Data", "astral_ninety_coverage_supercontig7Apr.tre"))
 
 tree_ast$edge.length[is.na(tree_ast$edge.length)] <- 0.35 #tip branches
 
@@ -455,7 +449,7 @@ reh_ast_dat$label[reh_ast_dat$label == "1"] <- "1.00"
 ast_reh <- ggtree(reh_ast_clade, right = T, size = 1, ladderize = T) +
     geom_tiplab(size = 3.7, offset = 0.02) +
     geom_rootedge(rootedge = 0.05) +
-    geom_treescale(x = -0.05)+
+    geom_treescale(x = -0.05, offset = 0.15, linesize = 0.6)+
     geom_nodelab(data = reh_ast_dat, aes(label = label),
                  nudge_x = -0.06,
                  nudge_y = -0.12,
@@ -511,10 +505,10 @@ ast_reh <- ggtree(reh_ast_clade, right = T, size = 1, ladderize = T) +
 ast_reh <- flip(ast_reh, 24,19)
 
 
-ggpubr::ggarrange(ml_reh, ast_reh)
+ggpubr::ggarrange(ml_reh, ast_reh, labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98)
 ```
 
-```{r reh_ce,}
+```{r reh_ce, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
 
 means <- read.csv(here("Data", "rehmannii_ce.csv"))
 
@@ -532,7 +526,7 @@ points(x = 10, y = means$ce[10],
 ```
 
 
-```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = F, fig.height=3.2}
+```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = T, fig.height=6.4}
 
 library(pophelper)
 library(gridExtra)
@@ -573,7 +567,7 @@ p3 <- plotQ(clump_file3,
             splab = "",
             barsize = 1,
             grplab = group_labs,
-            grplabsize = 3,
+            grplabsize = 4,
             grplabheight = 0,
             clustercol = my_colours,
             linepos = 0.9,
@@ -585,7 +579,7 @@ p3 <- plotQ(clump_file3,
             divtype = 1,
             divgrp = "clade",
             divsize = 2.1,
-            grplabpos = 0.6,
+            grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
             titlelab = "K = 3, 100/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.981",
@@ -596,7 +590,6 @@ p3 <- plotQ(clump_file3,
             exportplot = F,
             returnplot = TRUE)
 
-grid.arrange(p3$plot[[1]])
 
 
 #K = 10
@@ -615,7 +608,7 @@ p4 <- plotQ(clump_file,
             splab = "",
             barsize = 1,
             grplab = group_labs,
-            grplabsize = 3,
+            grplabsize = 4,
             grplabheight = 0,
             clustercol = my_colours,
             linepos = 0.9,
@@ -627,7 +620,7 @@ p4 <- plotQ(clump_file,
             divtype = 1,
             divgrp = "clade",
             divsize = 2.1,
-            grplabpos = 0.6,
+            grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
             titlelab = "K = 10, 39/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.972",
@@ -638,14 +631,10 @@ p4 <- plotQ(clump_file,
             exportplot = F,
             returnplot = TRUE)
 
-grid.arrange(p4$plot[[1]])
+ggpubr::ggarrange(arrangeGrob(p3$plot[[1]]), arrangeGrob(p4$plot[[1]]), nrow = 2)
+
 ```
 
-```{r, fig.height=6.4}
-#ggpubr::ggarrange(grid.arrange(p3$plot[[1]]), grid.arrange(p4$plot[[1]]), nrow = 2)
-
-#cowplot::plot_grid(grid.arrange(p3$plot[[1]]), grid.arrange(p4$plot[[1]]), nrow = 2)
-```
 
 
 ```{r, include=F, fig.height=4}
@@ -730,7 +719,7 @@ The Ramosa clade consists of three subgroups, here called Aphylla, Eastern ramos
 
 
 
-```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 #Ramosa
 
@@ -739,11 +728,6 @@ p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
 
 #ML####
-
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
-
-tree_ml <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
-tree_ml <- root(tree_ml, outgroup = "Oryza_sativa", resolve.root = T)
 
 #Rename tips
 species_names <- read.csv("/Users/larawootton/Documents/Masters/Draft_dissertation/Data/Sp_local_edited.csv")
@@ -770,7 +754,7 @@ ram_dat2 <- separate(ram_dat2, label, into = c("LRT", "bootstrap"), sep = "/", r
 
 ml_ram <- ggtree(ram_clade, size = 1, right = T) +
     geom_tiplab(size = 3.7, offset = 0.001) +
-    geom_treescale(x = -0.002, width = 0.005) +
+    geom_treescale(x = -0.002, width = 0.005, offset = 0.15, linesize = 0.6) +
     geom_rootedge(rootedge = 0.004) +
     geom_nodelab(data = ram_dat2, aes(label = bootstrap),
                  nudge_x = -0.0017,
@@ -826,14 +810,6 @@ ml_ram <- ggtree(ram_clade, size = 1, right = T) +
 
 #Astral ####
 
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
-
-tree_ast <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
-
-tree_ast$edge.length[is.na(tree_ast$edge.length)] <- 0.35 #tip branches
-
-tree_ast <- root(tree_ast, outgroup = "Oryza_sativa", resolve.root = T)
-
 
 #Rename tips
 
@@ -866,7 +842,7 @@ ram_ast_dat[ram_ast_dat == "0.4"] <- "0.40"
 ast_ram <- ggtree(ram_ast_clade, right = T, size = 1, ladderize = T) +
     geom_tiplab(size = 3.7, offset = 0.02) +
     geom_rootedge(rootedge = 0.05) +
-    geom_treescale(x = -0.05, width = 0.08)+
+    geom_treescale(x = -0.05, width = 0.08, offset = 0.15, linesize = 0.6)+
     geom_nodelab(data = ram_ast_dat, aes(label = label),
                  nudge_x = -0.07,
                  nudge_y = -0.17,
@@ -919,9 +895,133 @@ ast_ram <- ggtree(ram_ast_clade, right = T, size = 1, ladderize = T) +
 ast_ram <- flip(ast_ram, 22, 28)
 ast_ram <- flip(ast_ram,23,24)
 
-ggpubr::ggarrange(ml_ram, ast_ram)
+ggpubr::ggarrange(ml_ram, ast_ram, labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98)
 
 
+```
+
+
+
+```{r ram_ce, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
+
+means <- read.csv(here("Data", "ramosa_ce.csv"))
+
+plot(means$k, means$ce,
+     ylab = "Cross-entropy", xlab = "Ancestral gene pool (K)", 
+     pch = 19, cex = 1.2)
+
+points(x = 3, y = means$ce[3],
+       col = "red2",
+       pch = 19, cex = 1.2)
+points(x = 8, y = means$ce[8],
+       col = "forest green",
+       pch = 19, cex = 1.2)
+
+```
+
+
+```{r ram_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4}
+
+library(pophelper)
+library(gridExtra)
+library(label.switching)
+library(tidyr)
+
+
+clump_file <-readQ(here("Data", "calc.clumpp.merged.K3_ram.txt"))
+
+#population assignments
+pop_names <- read.table(here("Data", "popmap_ramosa_reordered"), stringsAsFactors=F)
+
+clade_names <- c(
+    rep("Aphylla", 12),
+    rep("Western ramosa", 20),
+    rep("Eastern ramosa", 16)
+)
+
+group_labs <- data.frame(collection = pop_names, clade = clade_names)
+names(group_labs)[1] <- "collection"
+group_labs <- separate(group_labs, 
+                       col = collection, 
+                       into = c("letter", "pop_id"),
+                       sep = "A")
+group_labs <- group_labs[,2:3]
+group_labs$clade <- as.character(group_labs$clade)
+
+my_colours <- c("#00A0B0", #aphylla
+                "#CC333F", #E ram
+                "#9BC53D" #W ram
+) 
+
+
+p1 <- plotQ(clump_file, 
+            showsp = F,
+            splab = "",
+            barsize = 1,
+            grplab = group_labs,
+            grplabsize = 4,
+            grplabheight = 0,
+            clustercol = my_colours,
+            linepos = 0.9,
+            linealpha = 1,
+            linesize = 1,
+            pointalpha = 1,
+            pointsize = 4,
+            showdiv = T,
+            divtype = 1,
+            divgrp = "clade",
+            divsize = 2.1,
+            grplabpos = 0.35,
+            panelratio = c(10,1),
+            showtitle = T,
+            titlelab = "K = 3, 93/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.982",
+            titlesize = 14,
+            titlecol = "black",
+            titlespacer = 5,
+            basesize = 0,
+            exportplot = F,
+            returnplot = TRUE)
+
+#K = 8
+
+
+clump_file2 <- readQ(here("Data", "calc.clumpp.merged.K8.txt"))
+
+my_colours <- c(
+    "#1D72F5","#DF0101","#77CE61", "#FF9326","#A945FF","#0089B2","#FDF060","#FFA6B2","#BFF217","#60D5FD"
+)
+
+
+
+p2 <- plotQ(clump_file2, 
+            showsp = F,
+            splab = "",
+            barsize = 1,
+            grplab = group_labs,
+            grplabsize = 4,
+            grplabheight = 0,
+            clustercol = my_colours,
+            linepos = 0.9,
+            linealpha = 1,
+            linesize = 1,
+            pointalpha = 1,
+            pointsize = 4,
+            showdiv = T,
+            divtype = 1,
+            divgrp = "clade",
+            divsize = 2.1,
+            grplabpos = 0.35,
+            panelratio = c(10,1),
+            showtitle = T,
+            titlelab = "K = 8, 60/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.958",
+            titlesize = 14,
+            titlecol = "black",
+            titlespacer = 5,
+            basesize = 0,
+            exportplot = F,
+            returnplot = TRUE)
+
+ggpubr::ggarrange(arrangeGrob(p1$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2)
 ```
 
 
@@ -938,7 +1038,7 @@ Conversely, _E. setacea setacea_ was polyphyletic and split into two groups, the
 
 _E. rupestris tricostata_ also formed two distinct clades. The first, called the Restiod tricostata clade (BS = 100, LPP = 0.97), consist of taxa from the Cape Peninsula to Hermanus. These resemble Restionaceae with long culms and reduced leaves. The internal topology is well supported and similar in both trees. The other Leafy tricostata clade occurs further inland, from Ceres via Swellendam to Robinson's pass near Mosselbay. In the MQS tree this clade is moderately well supported (LPP = 0.70), while in the ML tree the taxon from Robinson's pass is sister to the Rupestris s.s clade, although this is poorly supported (BS = 52)
 
-```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rupestris clade. A) ML tree, support values UFBootstraps, B) ASTRAL tree, support values quartet scores"}
+```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 #Ruprestris minor clades
 
@@ -947,11 +1047,6 @@ p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
 
 #ML####
-
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/MLtrees")
-
-tree_ml <- read.tree("boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile")
-tree_ml <- root(tree_ml, outgroup = "Oryza_sativa", resolve.root = T)
 
 
 #Rename tips
@@ -979,7 +1074,7 @@ rup_dat2 <- separate(rup_dat2, label, into = c("LRT", "bootstrap"), sep = "/", r
 
 ml_rup <- ggtree(rup_clade, size = 1, right = T) +
     geom_tiplab(size = 3.7, offset = 0.001) +
-    geom_treescale(x = -0.002, width = 0.005) +
+    geom_treescale(x = -0.002, width = 0.005, offset = 0.15, linesize = 0.6) +
     geom_rootedge(rootedge = 0.004) +
     geom_nodelab(data = rup_dat2, aes(label = bootstrap),
                  nudge_x = -0.0019,
@@ -1119,12 +1214,6 @@ ml_rup <- ggtree(rup_clade, size = 1, right = T) +
 #Astral ###########
 
 
-setwd("/Users/larawootton/Documents/Masters/Trees/Final_trees/coalescent")
-
-tree_ast <- read.tree("astral_ninety_coverage_supercontig7Apr.tre")
-tree_ast$edge.length[is.na(tree_ast$edge.length)] <- 0.30 #tip branches
-tree_ast <- root(tree_ast, outgroup = "Oryza_sativa", resolve.root = T)
-
 
 #Rename tips
 
@@ -1160,7 +1249,7 @@ rup_ast_dat[rup_ast_dat == "0.7"] <- "0.70"
 ast_rup <- ggtree(rup_ast_clade, right = T, size = 1, ladderize = T) +
     geom_tiplab(size = 3.7, offset = 0.02) +
     geom_rootedge(rootedge = 0.05) +
-    geom_treescale(x = -0.05, width = 0.10)+
+    geom_treescale(x = -0.05, width = 0.10, offset = 0.15, linesize = 0.6)+
     geom_nodelab(data = rup_ast_dat, aes(label = label),
                  nudge_x = -0.15,
                  nudge_y = -0.35,
@@ -1286,9 +1375,140 @@ ast_rup <- ggtree(rup_ast_clade, right = T, size = 1, ladderize = T) +
                     alpha = 0,
                     align = T)
     
-ggpubr::ggarrange(ml_rup, ast_rup)
+ggpubr::ggarrange(ml_rup, ast_rup, labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98)
 
 
 
 ```
 
+
+```{r rup_ce, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 25. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
+
+means <- read.csv(here("Data", "rupestris_ce.csv"))
+
+plot(means$k, means$ce,
+     ylab = "Cross-entropy", xlab = "Ancestral gene pool (K)", 
+     pch = 19, cex = 1.2)
+
+points(x = 9, y = means$ce[9],
+       col = "red2",
+       pch = 19, cex = 1.2)
+points(x = 19, y = means$ce[19],
+       col = "forest green",
+       pch = 19, cex = 1.2)
+
+```
+
+```{r rup_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4}
+library(pophelper)
+library(gridExtra)
+library(label.switching)
+library(tidyr)
+
+
+clump_file <-readQ(here("Data", "calc.clumpp.merged.K9.txt"))
+
+pop_names <- read.table(here("Data", "popmap_rupestris_reordered"), stringsAsFactors=F)
+
+clade_names <- c(
+    rep("Setacea", 20),
+    rep("Fernkloof", 11),
+    rep("Scab", 4),
+    rep("Uni", 4),
+    rep("Dodii", 12),
+    rep("Leafy tri.", 12),
+    rep("Restiod tri.", 12),
+    rep("Wem", 4),
+    rep("Rup.ss", 8),
+    rep("East.rup.", 8)
+)
+
+group_labs <- data.frame(collection = pop_names, clade = clade_names)
+names(group_labs)[1] <- "collection"
+group_labs <- separate(group_labs, 
+                       col = collection, 
+                       into = c("letter", "pop_id"),
+                       sep = "B")
+group_labs <- group_labs[,2:3]
+group_labs$clade <- as.character(group_labs$clade)
+
+my_colours <- c(
+    "#60D5FD", #set
+    "#027368", #leafy
+    "#77CE61", #dodii
+    "dark grey",
+    "#1D72F5", #E. rup
+    "#CC1577", #rup
+    "#DF0101", #Fernkloof
+     #"#F2B950", #scab
+    "#9471B4", #uni
+    "#FF9326" #restiod
+) 
+
+
+p5 <- plotQ(clump_file, 
+            showsp = F,
+            splab = "",
+            barsize = 1,
+            grplab = group_labs,
+            grplabsize = 2.7,
+            grplabheight = 0,
+            clustercol = my_colours,
+            linepos = 0.9,
+            linealpha = 1,
+            linesize = 1,
+            pointalpha = 1,
+            pointsize = 4,
+            showdiv = T,
+            divtype = 1,
+            divgrp = "clade",
+            divsize = 2.1,
+            grplabpos = 0.35,
+            panelratio = c(10,1),
+            showtitle = T,
+            titlelab = "K = 9, 83/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.976",
+            titlesize = 14,
+            titlecol = "black",
+            titlespacer = 5,
+            basesize = 0,
+            exportplot = F,
+            returnplot = TRUE)
+
+#k = 19
+
+clump_file2 <- readQ(here("Data", "calc.clumpp.merged.K19.txt"))
+
+my_colours <- c("#1D72F5","#DF0101","#77CE61", "#FF9326","#A945FF","#0089B2","#FDF060","#FFA6B2","#BFF217","#60D5FD","#CC1577","#F2B950","#7FB21D","#EC496F","#326397","#B26314","#CCEBC5","#A4A4A4","#610B5E")
+
+
+
+p2 <- plotQ(clump_file2, 
+            showsp = F,
+            splab = "",
+            barsize = 1,
+            grplab = group_labs,
+            grplabsize = 2.7,
+            grplabheight = 0,
+            clustercol = my_colours,
+            linepos = 0.9,
+            linealpha = 1,
+            linesize = 1,
+            pointalpha = 1,
+            pointsize = 3,
+            showdiv = T,
+            divtype = 1,
+            divgrp = "clade",
+            divsize = 1.9,
+            grplabpos = 0.35,
+            panelratio = c(10,1),
+            showtitle = T,
+            titlelab = "K = 19, 61/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.708",
+            titlesize = 14,
+            titlecol = "black",
+            titlespacer = 5,
+            basesize = 0,
+            exportplot = F,
+            returnplot = TRUE)
+
+ggpubr::ggarrange(arrangeGrob(p5$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2)
+```

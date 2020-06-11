@@ -1,126 +1,14 @@
 # Chapt 2 intro
 
-The definition of a species has been a controversial topic in biodiversity science. There is no single criterion that satisfactorily defines a species across all living organisms (@Mayden1997, @Queiroz2005). De Queiroz 2007 realised that the dissonance between species definitions was due to the speciation process itself. As a lineage separates and diverges into two, it accumulates differences in morphology, genetic composition, ecology and degree of reproductive isolation. However, these differences can appear in different order or not at all, depending on the taxon, creating a grey zone in the speciation process (@Queiroz1998). While most contemporary species concepts accept that a species is an independently evolving lineage (@Queiroz2007), determining when speciation has occurred in the gradual divergence of two lineages remains difficult. 
+The definition of a species has been a controversial topic in biodiversity science. There is no single criterion that satisfactorily defines a species across all living organisms (@Mayden1997, @Queiroz2005). De Queiroz 2007 realised that the dissonance between species definitions was due to the speciation process itself. As a lineage separates and diverges into two, it accumulates differences in morphology, genetic composition, ecology and degree of reproductive isolation. However, these differences can appear in different order or not at all, depending on the taxon, creating a grey zone in the speciation process where it can be ambiguous whether incipient species are autonomous (@Queiroz1998). While most contemporary species concepts accept that a species is an independently evolving lineage (@Queiroz2007), determining when speciation has occurred in the gradual divergence of two lineages remains difficult. 
 
 It became clear that the heterogeneity in the speciation process meant that using a single criterion to delimit a species was insufficient (@Wiley1978, @Frost1995, @Queiroz2005, @Padial2008) . A new, holistic paradigm of taxonomy, called integrative taxonomy (@Dayrat2005, @Padial2010), was proposed to inform more robust species limits. Integrative taxonomy emphasises that multiple lines of genetic, morphological, phylogenetic and ecological evidence should be examined before delimiting and describing a species (@Dayrat2005, @Padial2010). Despite the extensive implementation of integrative taxonomy (Dayrat's 2005 paper has been cited nearly 1400 times to date), morphology remains one of the most important criteria for species delimitation, especially for plant taxa (@Rouhan2014, @Treurnicht2017). This is due to concerns that over-reliance on genetic data leads to taxonomic inflation (@Isaacs2004, @Coates2018, ref) Morphologically similar cryptic plant species therefore present a challenge to delimit. Molecular barcoding was initially touted as a solution to circumscribe obscure species, but proved to have several issues, including taxonomic decisions made on arbitrary genetic differences, the inappropriate resolution of barcoding genes for certain taxa, and difficulties of linking new DNA sequences to existing type specimens (@Tautz2003, @Moritz2004, @DeSalle2005, @Goulding2015). 
 
-Several recent studies have instead created integrative taxonomy protocols for delimitation of cryptic species, which have several criteria in common (@Brown2013, @Jorger13, @Singhal2019, @Fiser2018, @Chaplin2019). Firstly, extensive sampling along the entirety of a species complex's range is needed to get a clear idea of genetic relationships and gene flow. This prevents spurious splits between populations that appear to be genetically isolated, but are actually joined by intermediary populations. Next, strong genetic differentiation needs to be demonstrated between putative cryptic species. This differentiation should be shown in data that incorporate independently evolving regions of the genome, to ensure that variation in gene histories from different loci is represented (@Fujita2012). Commonly used ways of testing genetic differentiation include distance-based methods, where species are delimited if intraspecific genetic variation is less than interspecific variation (@Puillandre2012), tree-based methods, and coalescent methods (@Leache2014). Ideally, more than one of these approaches should be used for corroboration. After genetic analysis, morphology should be re-examined to potentially find subtle traits that support the genetic findings (@Chaplin). Finally, reproductive isolation should ideally be demonstrated through the existence of sympatric populations, or through crossing experiments if possible (@Singhal2019).  
+Several recent studies have instead created integrative taxonomy protocols for delimitation of cryptic species, which have several criteria in common (@Brown2013, @Jorger13, @Singhal2019, @Fiser2018, @Chaplin2019). Firstly, extensive population sampling along the entirety of a species complex's range is needed to get a clear idea of genetic relationships and gene flow. This prevents spurious splits between populations that appear to be genetically isolated, but are actually joined by intermediary populations. Next, strong genetic differentiation needs to be demonstrated between putative cryptic species. This differentiation should be shown in data that incorporate independently evolving regions of the genome, to ensure that variation in gene histories from different loci is represented (@Fujita2012). Commonly used ways of testing genetic differentiation include distance-based methods, where species are delimited if intraspecific genetic variation is less than interspecific variation (@Puillandre2012), tree-based methods, and coalescent methods (@Leache2014). Ideally, more than one of these approaches should be used for corroboration. After genetic analysis, morphology should be re-examined to potentially find subtle traits that support the genetic findings (@Chaplin). Finally, reproductive isolation should ideally be demonstrated through the existence of sympatric populations, or through crossing experiments if possible (@Singhal2019).  
 
-Subspecies are meant to represent incipient species, typically geographically isolated variants that have started to diverge morphologically from the remainder of the species' populations (@Mayr1982).  As with species concepts, there there have been numerous attempts to define what constitutes a subspecies without reaching consensus (@Wilson1958, @Pattern2002). The rank is instead usually applied to a taxon based on the opinion of the taxonomist (@Thorpe1987, @Hawlitschek2012). The use of subspecies was particularly popular during the first half of the 1900's, where any minor morphological pattern or geographic disjunction was considered sufficient to be given subspecific status (@Mayr1982, @Manier2004). During this time, nearly 50% of previously named bird species were demoted to subspecies (@Zink2004). Its usage declined when it was discovered that many allopatric distributions were merely artefacts of poor geographic sampling, that subspecies boundaries were often at arbitrarily chosen locations, or that the subspecies had little genetic basis (@Mayr1982, @Thorpe1984, @Zink2004, @Philimore2006, @Burbrink2000). Many taxonomists now avoid using the rank, arguing that subspecies are either poorly differentiated species that should be treated as such, or represent local variation that does not warrant a taxonomic rank (@Burbrink2000, @Manier2004). On the other hand, it can be argued that subspecies are useful for conservation (@Haig2006, @Pattern2015), highlights interesting variation that can inform questions on local adaption, migration and dispersal (@Pattern2002), and alerts future researchers to the possibility that there may be hidden species that could be revealed with new data (@Frost1992, @Mulcahy2007). 
+Subspecies are meant to represent incipient species, typically geographically isolated variants that have started to diverge morphologically from the remainder of the species' populations (@Mayr1982).  As with species concepts, there there have been numerous attempts to define what constitutes a subspecies, without reaching consensus (@Wilson1958, @Pattern2002). The rank is instead usually applied to a taxon based on the opinion of the taxonomist (@Thorpe1987, @Hawlitschek2012). The use of subspecies was particularly popular during the first half of the 1900's, where any minor morphological pattern or geographic disjunction was considered sufficient to be given subspecific status (@Mayr1982, @Manier2004). During this time, nearly 50% of previously named bird species were demoted to subspecies (@Zink2004). Its usage declined when it was discovered that many allopatric distributions were merely artefacts of poor geographic sampling, that subspecies boundaries were often at arbitrarily chosen locations, or that the subspecies had little genetic basis (@Mayr1982, @Thorpe1984, @Zink2004, @Philimore2006, @Burbrink2000). Many taxonomists now avoid using the rank, arguing that subspecies are either poorly differentiated species that should be treated as such, or represent local variation that does not warrant a taxonomic rank (@Burbrink2000, @Manier2004). On the other hand, it can be argued that subspecies are useful for conservation (@Haig2006, @Pattern2015), highlights interesting variation that can inform questions on local adaption, migration and dispersal (@Pattern2002), and alerts future researchers to the possibility that there may be hidden species that could be revealed with new data (@Frost1992, @Mulcahy2007). 
 
+The intrageneric taxa of the Cape Ehrharta were first described by Gibbs Russell & Ellis (1987), who divided the genus into seven informal species groups. The majority of the groups occur in the arid, low-elevation Succulent Karoo region of the GCFR. There is little taxonomic confusion within these lowlands groups, as the species are clearly morphologically distinct, with characters that easily define the species. probably due to the adaptive radiation.  Conversely, within the two higher-elevation, fynbos-restricted groups, Setacea and Ramosa, the species limits are less clear. The Setacea group consists of two species, _E. setacea_ and _E. rupestris_. _E. setacea_ has four subspecies (_disticha, setacea, uniflora_ and _scabra_), while _E. rupestris_ contains three subspecies (_rupestris, tricostata_ and _dodii_). Gibbs acknowledges that these species are morphologically similar and hard to distinguish, both within and between the species. While the subspecies in this group tend to have separate ranges, many of them occur in sympatry in the Caledon area, where intermediates also occur. Species limits are even less clear within the Ramosa group. The group consists of two species, _E. ramosa_ with two subspecies (_aphylla and ramosa_) and _E. rehmannii_ with three subspecies (_rehmannii, filiformis and subspicata_). Gibbs Russell & Ellis (1989) admit that 'the five taxa comprising the Ramosa group intergrade and few consistently reliable characters adequately separate the species and subspecies'. Despite the lack of morphological clarity, they delimited taxa as subspecies based on geographic range and rough morphological 'nodes'. The taxa in their revision are based on morphology and anatomy, not genetic data (Gibbs Russell & Ellis 1987). While later work by @Verboom2003 used genetic data to create a phylogeny of Ehrharta, it did not contain population level sampling of the high elevation groups.
 
-
-
-
-
-
-1)Extensive population level sampling
-
-
-
-
-
-1) Genetic differentiation
-
-- genome wide
-- Well sampled at pop level to find limits
-- Tree, distance, coalescent model
-
-2) Post-hoc Re-examination of morphology based on genetic clusters
-
-* Microscopy 
-* Finescale characters
-
-3) Evidence of reproductive isolation
-
-* sympatry
-* crossing experiments
-* introgression
-* contact zones
-
-4) Calibration methods
-
-* Rates 
-
-
-
-Species descriptions are traditionally based on morphology. The biological species concept of Mayr required reproductive isolation, and morphology has been used as a proxy for rep iso. The more different the appearance, the more likely that taxa can't interbreed. This did not suit all taxa, and a plethora of other species concepts were published. However, De Queiroz highlighted the need for evo lineages along with DNA advances  
-
-
-
-
-
-
-
-
-
-Can't tell them apart.
-
-Important to be accurate bse don't want taxominic inflation (@Korshunova2019)
-
-@Struck2019 and 2018
-@Adams2014
-@Singhal2019
-
-
-
-Para 1. Species conceptualization, cryptic/semicryptic species and challenges of cryptic species delimitation
-
-
-
-@Tang2019 
-
-1) Difficulties of defining species, many different species concepts, 
-
-@Dequeiroz2007 unified them, emphasises evo lineages plus recently holistic approach called integrative taxonomy @Dayrat @Padial
-
-Plant systematists concentrate on morphology\
-
-
-
-What constitutes a species has been a long running debate.  De Queiroz showed that all species concepts had a criterion in common - that a species is an independently evolving lineage. What differed between the concepts was how early in the divergence process a species was called unique. 
-
-
-
-The lack of morphological characters to distinguish cryptic species should not lead to considerable parts of biological diversity remaining unaddressed @jorger2013 Delimitation needs sampling across range to find boundary of species
-
-
-
-
-
-Para 2. Criteria/methodological approaches for delimiting cryptic/semicryptic species
-
-Barcoding often used - how much difference = new species, + do not provide a comprehensive assessment of gene flow and reproductive isolation. @struck2018 need genome wide data
-
-@Chenuil, @Korshunova @Jorger
-
-
-
-@Struck - No genetic admixture, but morphological overlap
-
-
-
-What you need:
-
-Genome wide data that shows strong differentiation
-
-Well sampled at pop level to find limits
-
-Ideally evidence of sympatry to demonstrate rep iso, otherwise crossing experiments
-
-Re examination of morphology to see if fine scale differences
-
-Age of taxa
-
-Rate of trait evolution
-
-Niche equivalency 
-
-
-
-Para 3. Subspecies as poorly differentiated species
-
-Srinivasulu
-
-
+The high elevation region of the GCFR potentially contains many undiscovered cryptic species, as its topological complexity lends itself to non-ecological vicariant speciation (@Verboom2015). The Setacea and Ramosa lineages are strong candidates for cryptic speciation as their distributions encompass multiple mountain ranges which may restrict geneflow, and there a few defining morphological differences between taxa. I therefore hypothesis that the subspecies within the high-elevation Ramosa and Setacea groups are cryptic species that constitute distinct evolutionary lineages. In this chapter, I aim to clarify species limits in these groups using an integrative taxonomic approach. In order to evaluate the monophyly of the high-elevation taxa, I present a multilocus phylogeny of the Cape Ehrharta based on genome-wide targeted enrichment data, with population-level sampling of the high-elevation clades. The evolutionary distinctness of these taxa is also assessed using SNP-based genetic differentiation patterns. Finally, morphological variation is used to determine whether the resulting taxa are cryptic.
 

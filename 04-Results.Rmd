@@ -309,9 +309,7 @@ ggtree(tree, right = T) +
 #### Phylogenetic relationships
 The Rehmannii clade consists of three subgroups, which largely correspond to the existing subspecies of _E. rehmannii_: _E. rehmannii filiformis_, _E. rehmannii subspicata_, and _E. rehmanni rehmannii_. Although both trees show strong internal branch support for these clades, the tree topology is not identical. In the ML tree, the Filiformis and Subspicata subgroups are sisters, whereas in the MQS tree, Subspicata is sister to Rehmannii s.s. The Filiformis group has an identical topology in both trees, despite low support (LPP = 0.52) for the Fernkloof-Cape Peninsula relationship in the MQS tree. A single _E. rehmannii filiformis_ sample from Agulhas was placed in the Subspicata clade in both trees. Rehmannii s.s formed a well supported clade in the ML tree (BS = 95). Conversely, it formed a grade in the MQS tree.
 
-
-
-The ML and MQS analyses resolve three groups within the Rehmannii clade (Filiformis, Subspicata and Rehmannii groups) which correspond broadly to the existing subspecies of *E. rehmannii*, namely subsp. *filiformis*, subsp. *subspicata*, and subsp. *rehmannii*. Where the ML analysis identified all three groups as monophyletic with moderate to strong support (BS = 99, 77, 95, respectively), with the the Filiformis and Subspicata subgroups being sister lineages (BS = 97), the MQS analysis identifies only the Filiformis and Subspicata groups as monophyletic (LPP = 0.83, 0.96, respectively), the Rehmannii group being paraphyletic (LPP = 0.97, 0.85). Interestingly, a sample from near Agulhas, initially identified as *E. rehmannii* subsp. *filiformis* (TV1658), is placed in the Subspicata clade by both analyses.
+The ML and MQS analyses resolve three groups within the Rehmannii clade (Filiformis, Subspicata and Rehmannii groups) which correspond broadly to the existing subspecies of *E. rehmannii*, namely subsp. *filiformis*, subsp. *subspicata*, and subsp. *rehmannii*. Where the ML analysis identified all three groups as monophyletic with moderate to strong support (BS = 99, 77, 95, respectively), with the the Filiformis and Subspicata subgroups being sister lineages (BS = 97), the MQS analysis identifies only the Filiformis and Subspicata groups as monophyletic (LPP = 0.83, 0.96, respectively), the Rehmannii group being paraphyletic (LPP = 0.97, 0.85). Interestingly, a sample from near Agulhas, initially identified as *E. rehmannii* subsp. *filiformis* (1658), is placed in the Subspicata clade by both analyses.
 
 ### GBS results
 
@@ -702,7 +700,7 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pca_reh, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+```{r pcoa_reh, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
 
 ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.07, label.y = 0.98)
 
@@ -710,6 +708,10 @@ ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.lab
 ```
 
 ### Ramosa  
+
+
+
+The ML and MQS phylogenies resolve the Ramosa clade into three subgroups, Aphylla, Eastern ramosa and Western ramosa. In both trees, Eastern ramosa is resolved as sister to the Aphylla and Western ramosa groups. While in the ML tree the Eastern ramosa group is a grade, it forms a well-supported clade in the MQS tree (LPP = 0.88). This group consists of specimens from collected along the Langeberg and Swartberg mountain ranges. The Aphylla subgroup is monophyletic with strong support in both trees (BS = 100, LPP = 0.95), and occurs from the Cape Peninsula to Betty's Bay. Within this Aphylla subgroup the topology varies between the trees, with particularly weak support for the placement of individuals from Leopardskloof and Cape Peninsula in the MQS tree.
 
 The two subspecies of _E. ramosa_, _E. ramosa ramosa_ and _E. ramosa aphylla_, are not resolved as exclusively monophyletic. However, both trees support a supgroup of _E. ramosa aphylla_ that occur from the Cape Peninsula to Betty's Bay (BS = 100, QS = 0.95). Within this Aphylla subgroup the topology varies between the trees, with particularly weak support for the placement of individuals from Leopardskloof and Cape Peninsula in the MQS tree. Individuals sampled from the same population in the Cape Peninsula are not recovered as sister taxa (sequencing bias?). There is also evidence for an Eastern ramosa group occurring from Swellendam to the Swartberg. In the MQS tree they form a reasonably well supported clade (LPP = 0.88), while in the ML tree the taxa from a grade with the Boosmansbos and Marloth taxa resolving as sister to the rest of the Ramosa clade. The remaining taxa fall into a loose group that mainly occur inland in the mid and western regions of the Western Cape. _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree. The pattern suggests potential sympatric speciation, but more fine scale data are needed to confirm this.
 
@@ -1025,6 +1027,78 @@ ggpubr::ggarrange(arrangeGrob(p1$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2
 ```
 
 
+```{r ram_pcoa, include=F}
+library("vcfR")
+library("adegenet")
+library("dartR")
+library("plotly")
+
+vcf <- read.vcfR(here("Data", "FinalRamosa_lenient27Apr.vcf"))
+
+pop.assign<- read.csv(here("Data", "ramosa_population_assignment.csv"), header=T)
+dat.pop.assign<-data.frame(pop.assign$Species_current, pop.assign$Pop)
+colnames(dat.pop.assign)[colnames(dat.pop.assign)=="V1"] <- "pop.assign"
+
+dat.pop.assign <- dat.pop.assign %>% 
+    mutate(clade_labs = c(rep("Aphylla", 8), rep("Western ramosa", 8), 
+                          rep("Aphylla", 4), rep("Western ramosa", 12),
+                          rep("Eastern ramosa",16)) 
+    )
+
+#convert vcf to genlight
+gl <- vcfR2genlight(vcf)
+
+##Assign pop names so that R knows how to colour the PCoA points
+strata(gl)<-data.frame(dat.pop.assign)
+setPop(gl)<-~clade_labs
+
+
+#Before PCoA, find & exclude the SNPs with missing data:
+toRemove <- is.na(glMean(gl, alleleAsUnit = FALSE)) 
+which(toRemove) 
+gl.na <- gl[, !toRemove]
+
+my_colours <- c("#00A0B0", #aphylla
+                "#9BC53D", #W ram
+                "#CC333F" #E ram
+               
+)
+
+my_theme <- theme_bw() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid = element_blank(),
+        legend.key = element_rect(fill = NA, color = "grey"),
+        legend.background = element_blank()
+  )
+
+
+pc<-gl.pcoa(gl.na, nfactors=5) 
+pcoa_plot1 <- gl.pcoa.plot(pc, gl.na,labels="legend", xaxis=1, yaxis=2)
+
+p1 <- pcoa_plot1 + my_theme +
+          scale_colour_manual(values = my_colours, name = " ") +
+          geom_point(size = 4)
+
+pcoa_plot2 <- gl.pcoa.plot(pc, gl.na,labels="legend", xaxis=3, yaxis=4)
+
+p2 <- pcoa_plot2 + my_theme +
+  scale_colour_manual(values = my_colours, name = " ") +
+  geom_point(size = 4) 
+
+
+```
+
+```{r pcoa_ram, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+
+ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.07, label.y = 0.98)
+
+
+```
+
+
+
+
+
 
 ### Rupestris
 
@@ -1040,13 +1114,13 @@ _E. rupestris tricostata_ also formed two distinct clades. The first, called the
 
 ```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
-#Ruprestris minor clades
+#Rupestris minorclades
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
 p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
 
 
-#ML####
+#ML###
 
 
 #Rename tips
@@ -1511,4 +1585,93 @@ p2 <- plotQ(clump_file2,
             returnplot = TRUE)
 
 ggpubr::ggarrange(arrangeGrob(p5$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2)
+```
+
+```{r, include = F}
+
+library("vcfR")
+library("adegenet")
+library("dartR")
+library("plotly")
+library(tidyverse)
+
+#read.vcf
+vcf <- read.vcfR(here("Data", "Final_rupestris_lenient24Apr.vcf"))
+
+#assign pop identifiers
+pop.assign<- read.csv(here("Data", "rupestris_pop_assignment.csv"), header=T)
+dat.pop.assign<-data.frame(pop.assign$Species_current, pop.assign$Clade)
+
+
+dat.pop.assign <- dat.pop.assign %>% 
+    mutate(clade_labs =
+               case_when(pop.assign.Clade %in% c("setacea") ~ "Setacea", 
+                         pop.assign.Clade %in% c("rupestris_original") ~ "Rupestris s.s",
+                         pop.assign.Clade %in% c("dodii_original") ~ "Dodii",
+                         pop.assign.Clade %in% c("tricostata_original") ~ "Restiod tricost.",
+                         pop.assign.Clade %in% c("fernkloof_setacea") ~ "Fernkloof",
+                         pop.assign.Clade %in% c("uniflora") ~ "Uniflora",
+                         pop.assign.Clade %in% c("milner_group") ~ "Leafy tricost.",
+                         pop.assign.Clade %in% c("scabra") ~ "Scabra",
+                         pop.assign.Clade %in% c("rupestris_swartberg") ~ "Eastern rupestris",
+                         pop.assign.Clade %in% c("wemmershoek") ~ "Wemmershoek"
+               )
+    )
+
+
+#convert vcf to genlight
+gl <- vcfR2genlight(vcf)
+
+##Assign pop names so that R knows how to colour the PCoA points
+strata(gl)<-data.frame(dat.pop.assign)
+setPop(gl)<-~clade_labs
+
+#Before PCoA, find & exclude the SNPs with missing data:
+toRemove <- is.na(glMean(gl, alleleAsUnit = FALSE)) 
+which(toRemove) 
+gl.na <- gl[, !toRemove]
+pop(gl.na)
+
+my_colours <- c(
+    "#60D5FD", #set
+    "#CC1577", #rup
+    "#77CE61", #dodii
+    "#FF9326", #restiod
+    "#DF0101", #Fernkloof
+    "#9471B4", #uni
+    "#027368", #leafy
+    "#F2B950", #scab
+    "#1D72F5", #E. rup
+    "grey"
+)  
+
+my_theme <- theme_bw() +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid = element_blank(),
+        legend.key = element_rect(fill = NA, color = "grey"),
+        legend.background = element_blank()
+  )
+
+
+pc<-gl.pcoa(gl.na, nfactors=5) 
+pcoa_plot1 <- gl.pcoa.plot(pc, gl.na,labels="legend", xaxis=1, yaxis=2)
+
+p1 <- pcoa_plot1 + my_theme +
+          scale_colour_manual(values = my_colours, name = " ") +
+          geom_point(size = 4)
+
+pcoa_plot2 <- gl.pcoa.plot(pc, gl.na,labels="legend", xaxis=3, yaxis=4)
+
+p2 <- pcoa_plot2 + my_theme +
+  scale_colour_manual(values = my_colours, name = " ") +
+  geom_point(size = 4) 
+
+
+```
+
+```{r pcoa_rup, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+
+ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98)
+
+
 ```

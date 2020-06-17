@@ -22,15 +22,23 @@ p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr, tidyverse, here)
 
 
 
+#### Targeted-enrichment dataset
+
+I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgroup. After trimming, an average of 228907 reads per sample were mapped to target loci. Of the 353 loci, an average of 200 loci per sample had reads mapped to at least 75% of their length. Phylogenies generated from the ninety-coverage, full-coverage, exon, intron and supercontig datasets contained similar topologies. Therefore, only results obtained from the ninety-coverage supercontig dataset are presented. The ninety-coverage supercontig dataset contained 235 loci, each represented in a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp long, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to 84.
 
 
-I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgroup. There was an average of XXX 2x150 bp reads per samples, which decreased to XXX per sample after trimming. Of those, an average of XXX per sample were mapped to target loci. Phylogenies generated from the ninety-coverage, full-coverage, exon, intron and supercontig datasets contained similar topologies. Therefore, only results obtained from the ninety-coverage supercontig dataset are presented.
 
-The ninety-coverage dataset contained 235 loci, each represented in a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp long, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to 84.
+#### Genotyping-by-sequencing dataset
+
+
+
+
+
+
 
 ## Phylogenetic results
 
-The maximum-likelihood (ML) and maximum quartet support (MQS) methods yielded well-supported, topologically-similar trees (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). In both trees, six major clades (here termed the Australian, Rehmannii, Ramosa, Rupestris, Dura and Lowland clades) are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the MQS tree numbers of coalescent units (generations/effective population size). TIn the Rupestris, Ramosa and Rehmannii clades, internal branches tend to be very short relative to both the stem and terminal branches, resulting in a “broomstick” morphology (ref) (Figure \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Rupestris clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta*. The Rupestris clade is composed of two species, *E. setacea* and *E. rupestris*, neither of which is monophyletic. 
+The maximum-likelihood (ML) and maximum quartet support (MQS) methods yielded well-supported, topologically-similar trees (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). In both trees, six major clades (here termed the Australian, Rehmannii, Ramosa, Rupestris, Dura and Lowland clades) are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the MQS tree numbers of coalescent units (generations/effective population size). In the Rupestris, Ramosa and Rehmannii clades, internal branches tend to be very short relative to both the stem and terminal branches, resulting in a “broomstick” morphology (ref) (Figure \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Rupestris clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta*. The Rupestris clade is composed of two species, *E. setacea* and *E. rupestris*, neither of which is monophyletic. 
 
 The montane Dura clade (BS = 100, LPP = 1.00), comprising *E. dura* and *E. microlaena*, is resolved with strong support (BS = 100, LPP = 1.00) as sister to a well-supported clade (BS = 100, LPP = 1.00) comprising the Rehmannii, Ramosa and Lowland clades. Within this clade, the Rehmannii (BS = 100, LPP = 1.00) and Ramosa clades (BS = 100, LPP = 1.00), each comprising a single species, are resolved as sisters with strong support (BS = 100, LPP = 1.00). The monophyly of the Lowland clade, which comprises species occurring predominately at low to mid elevations in the GCFR, is also well supported (BS = 100, LPP = 1.00), with the two analyses resolving the internal relationships of this clade identically and with maximum support (BS = 100, LPP = 1.00) on most nodes. Relationships within the Lowlands clade are largely consistent with those reported by Verboom et al. (2003).
 
@@ -313,18 +321,16 @@ The ML and MQS analyses resolve three groups within the Rehmannii clade (Filifor
 
 #### GBS results
 
-The three groups reconstructed by the phylogenetic analysis are largely corroborated by an sNMF analysis with three potential ancestral populations (K = 3), as each group is . Filiformis contains a generally homogeneous genetic make-up across the sampled populations, with the exception of LW1. Occurring in the Cape Peninsula, LW1 shows potential admixture with both Subspicata and Rehmannii s.s populations. Collection 1658 was originally identified as an _E. rehmannii filiformis_, but the phylogenetic analysis placed it within the Subspicata group.  The sNMF results support this relationship, as 1658 shares a large proportion of its genomic information with the other Subspicata collections. Interestingly, the three populations sampled from the Agulhas area, 1658, 1659 and 1660, had reasonably different genetic profiles. In particular, 1660 shares a slightly greater proportion of ancestry with Filiformis than with Subspicata. 
+The three groups reconstructed by the phylogenetic analysis are largely corroborated by an sNMF analysis with three potential ancestral populations (K = 3), as inferences of ancestral population contribution generally coincides with the phylogenetic groups. Filiformis contains a predominantly homogeneous genetic composition across the sampled populations, with the exception of LW1. Occurring in the Cape Peninsula, LW1 shows potential admixture with both Subspicata and Rehmannii s.s populations. Collection 1658 was originally identified as an _E. rehmannii filiformis_, but the phylogenetic analysis placed it within the Subspicata group.  The sNMF results support this relationship, as 1658 shares a large proportion of its genomic information with the other Subspicata collections. Interestingly, the three populations sampled from the Agulhas area, 1658, 1659 and 1660, had reasonably different genetic profiles. In particular, 1660 shares a slightly greater proportion of ancestry with Filiformis than with Subspicata. 
 
-At the K = 10 level, there is strong population level genetic structuring, with almost every locality comprising of a distinct ancestral population. This is particularly apparent in the Filiformis group. Within Subspicata, there appears to be admixture between a Cape Peninsula population (LW3) and an Agulhas population (1659), but not within Agulhas populations (1658, 1659, 1660). Of the three clades, Rehmannii shows the most admixture between populations at this level. There is strong admixture between the Robinson's pass and Nature's valley populations (1649 and 1652), as well as some between Nature's Valley and Joubertina. However, it should be noted that the relationships presented here were only existed in 39% of the sNMF replications.
+The cross-entrophy criterion suggests that the optimal number of ancestral populations given the data is ten (K = 10). At this value of K there is strong population level genetic structuring, with almost every locality comprising of a distinct ancestral population. This is particularly apparent in the Filiformis group. Within Subspicata, there appears to be admixture between a Cape Peninsula population (LW3) and an Agulhas population (1659), but not within Agulhas populations (1658, 1659, 1660). Of the three clades, Rehmannii shows the most admixture between populations at this level. There is strong admixture between the Robinson's pass and Nature's valley populations (1649 and 1652), as well as some between Nature's Valley and Joubertina. However, it should be noted that the relationships presented for K = 10 were only reconstructed in 39% of the sNMF replications.
 
 
 A PCOA of the GBS data largely agrees with sNMF findings. Each group formed a distinct cluster along PC1 and PC2 axes. Subspicata was somewhat dispersed, with each population forming a tight cluster within the greater cloud. The Filiformis and Subspicata groups showed also showed strong genetic variation along the PC3 and PC4 axes respectively.
 
+#### Morphology
 
-
-### Morphology
-
-PCA - lots of overlap between rehmannii and subspicata, and highly varied with groups. However, Rehmannii tended to be taller, with a greater number of spikelets and an inflorescence that extended further above the leaves. Filiformis formed a reasonably cohesive group with a few outliers. This clade is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms and smaller and fewer spikelets. 
+An LDA of the morphological data was able to separate the groups into discrete clusters. While Filiformis formed reasonably tight-knit group, Subspicata and Rehmannii s.s were more variable. A large proportion of the Subspicata individuals also grouped with Filiformis.  However, Rehmannii s.s tended to be taller, with a greater number of spikelets and an inflorescence that extended further above the leaves. Filiformis formed a reasonably cohesive group with a few outliers. This clade is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms and smaller and fewer spikelets.
 \newpage
 
 ```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
@@ -707,11 +713,148 @@ ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.lab
 
 ```
 
+
+```{r reh_lda}
+library(MASS)
+library(dplyr)
+
+
+trait_data <- read.csv(here("Data", "trait_dataV3.csv"), sep = ",")
+trait_data$Collection <- as.character(trait_data$Collection)
+
+trait_data <- trait_data %>% 
+    filter(Species == "E_rehmannii_filiformis" | 
+               Species == "E_rehmannii_rehmannii" |
+               Species == "E_rehmannii_subspicata" ) %>% 
+    droplevels() %>% 
+    mutate(Clade = case_when(Collection %in% c("1649", "1652", "1653", "1647") ~ "Rehmannii s.s",
+                             Collection %in% c( "1571", "1591", "1592", 
+                                                "1615", "1567", "1", 
+                                                "4", "1583") ~ "Filiformis",
+                             Collection %in% c("1658","1660", "1590", "1659", "3") ~ "Subspicata"
+    )
+    )
+
+trait_data <- trait_data %>% 
+    mutate(inflor_position = Plant_height/Veg_height,
+           relative_sheath_length = Sheath_length/Internode_dist,
+           relative_leaf_length = Leaf_length/Sheath_length,
+           glume_enclosure = Glume_length_outer/Spikelet_length,
+           glume_ratio = Glume_length_outer/Glume_length_inner,
+           spikelet_shape = Spikelet_length/Spikelet_width,
+           lemma_ratio = Lemma_outer_length/Lemma_inner_length)
+
+trait_data <- trait_data[, c(1:8, 11:22, 25:32)]
+trait_data <- trait_data[, -c(4,8,14,15,16,18,19)]
+
+my_colours <- c("#0AB276", "#297AB1", "#F3A10E")
+
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.key = element_rect(fill = NA, color = "grey"),
+          legend.background = element_blank(),
+          axis.title = element_text(size = 12)
+         
+    )
+
+
+scale_reh <- data.frame(Clade = as.character(trait_data$Clade), scale(trait_data[, c(4:13, 15:21)]))
+
+lda_rehmannii <- lda(scale_reh$Clade ~ ., data = scale_reh)
+
+lda.data <- cbind(scale_reh, predict(lda_rehmannii)$x)
+
+ggplot(lda.data, aes(LD1, LD2)) +
+    geom_point(aes(color = Clade), size = 3) +
+    scale_colour_manual(values = my_colours) +
+    my_theme
+
+```
+
+```{r reh_boxplots, fig.height=8, message=F}
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.key = element_rect(fill = NA, color = "grey"),
+          legend.background = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank()
+    )
+
+univariate_boxplot_trait_data <- function(x, y) {
+    ggplot(trait_data, aes_string(x, y)) +
+        geom_boxplot(fill = my_colours,
+                     width = 0.6) +
+        my_theme
+}
+
+
+#a <- univariate_boxplot_trait_data("Clade", "Plant_height")
+#b <- univariate_boxplot_trait_data("Clade", "Veg_height")
+#c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
+#d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
+#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
+#f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
+#g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
+#h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
+#j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+#k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
+#l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
+#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+#ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
+#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
+#n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
+#z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
+#  theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#
+#ggpubr::ggarrange(a,b,c,d,e,f,g,h,j,k,l,m,ma,mb,n,z,q, 
+#                  ncol = 4, nrow = 4, 
+#                  align = 'v',
+#                  heights = c(1,1,1,1.4))
+
+
+
+a <- univariate_boxplot_trait_data("Clade", "inflor_position")
+b <- univariate_boxplot_trait_data("Clade", "Veg_height")
+c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
+d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
+#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
+f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
+e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
+ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
+g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
+h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
+j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
+n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
+l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")
+m <- univariate_boxplot_trait_data("Clade", "glume_ratio")
+#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+#ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")
+mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+z <- univariate_boxplot_trait_data("Clade", "Striation_no")
+
+#z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
+  #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+
+ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,j,k,l,m,ma,mc, mb,n,q,z, 
+                  ncol = 3, nrow = 6, 
+                  align = 'v',
+                  heights = c(1,1,1,1,1,1.4))
+```
+
+
 ### Ramosa
 
-The ML and MQS phylogenies resolve the Ramosa clade into three subgroups, Aphylla, Eastern ramosa and Western ramosa. In both trees, Eastern ramosa is resolved as sister to the Aphylla and Western ramosa groups. Eastern ramosa group forms a well-supported clade in the MQS tree (LPP = 0.88), but consists of a grade in the ML tree. This group consists of specimens collected along the Langeberg and Swartberg mountain ranges. The Aphylla subgroup is monophyletic with strong support in both trees (BS = 100, LPP = 0.95), and contains collections from the Cape Peninsula to Betty's Bay. Within this Aphylla subgroup the topology varies between the trees, with some poorly resolved internal nodes in the MQS tree. The Western ramosa group contains the remaining taxa, which mainly occur inland in the mid and western regions of the Western Cape. The group forms a grade in the MQS tree, with several poorly supported internal nodes.  _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree, suggesting that there may be multiple taxa with the Western ramosa group.
+The ML and MQS phylogenies resolve the Ramosa clade into three groups, Aphylla, Eastern ramosa and Western ramosa, in contrast to the existing taxonomy of two subspecies within _E. ramosa_. In both trees, Eastern ramosa is resolved as sister to the Aphylla and Western ramosa groups. Eastern ramosa group forms a well-supported clade within the MQS tree (LPP = 0.88), but consists of a grade in the ML tree. The Eastern ramosa group group consists of specimens collected along the Langeberg and Swartberg mountain ranges. The Aphylla group is monophyletic with strong support in both trees (BS = 100, LPP = 0.95), and contains collections from the Cape Peninsula to Betty's Bay. Within the Aphylla group the topology varies between the trees, with some poorly resolved internal nodes in the MQS tree. The Western ramosa group contains the remaining taxa, which mainly occur inland in the mid and western regions of the Western Cape. This group forms a grade in the MQS tree, with several poorly supported internal nodes.  _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree, suggesting that there may be multiple taxa with the Western ramosa group.
 
-While the phylogenetic trees resolved three potential groups within Ramosa, the admixture results showed limited support for three ancestral gene pools (K = 3) that correspond to the phylogenetic groups. While all Aphylla individuals were assigned to the same ancestral population with high probability, most Western Ramosa individuals shared a large proportion of genomic information with the Aphylla group. A population from Milner peak (1624) was the exception, as all individuals were assigned to a largely distinct genetic cluster. However, this cluster was present at low proportions with the other Western ramosa populations.  The Eastern ramosa populations were characterised by a shared ancestral gene pool, although several populations displayed admixture with the dominant gene pool in the Aphylla group.
+While the phylogenetic trees resolved three potential groups within Ramosa, the admixture results showed limited support for three ancestral populations (K = 3) that correspond to the phylogenetic groups. While all Aphylla individuals were assigned to the same ancestral population with high probability, most Western Ramosa individuals shared a large proportion of genomic information with the Aphylla group. A population from Milner peak (1624) was the exception, as all individuals from this locality were assigned to a largely distinct genetic cluster. However, this cluster also was present at low proportions with the other Western ramosa populations.  The Eastern ramosa populations were characterised by a shared ancestral gene pool, although several populations displayed admixture with the dominant gene pool in the Aphylla group.
 
 The cross-entrophy criterion suggests that eight ancestral populations (K = 8) is the best fit for the dataset. At this level, the Aphylla group shows strong admixture between populations and consists of an ancestral gene pool that is not dominant in the other ramosa groups, supporting the phylogenetic evidence the Aphylla group is a cohesive clade. Conversely, the Western ramosa group shows strong substructure, as most populations are derived from distinct ancestral gene pools. The exception is populations 1622 and 1609 which show admixture, and were also resolved as sister taxa in the phylogenetic analyses. The two populations from Milner peak (1622 and 1624) do not share genetic information, despite being collected within a few kilometres of each other. The genetic variability of the Western ramosa group is also displayed in the PCOA, as although the group forms a rough cluster along the PC1 and PC2 axes, individual populations group together tightly, and are highly disparate along PC3 and PC4 axes. The Eastern ramosa group also shows some substructure, as populations collected from the Langeberg are distinct from both each other, and from the Swartberg populations. However, this substructure appears to be less strong than that of the Western ramosa group, as Eastern ramosa shows a cohesive cluster along all PC axes.
 
@@ -1096,19 +1239,119 @@ ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.lab
 ```
 
 
+```{r ram_lda}
+my_colours <- c("#00A0B0", "#DF0101",  "#9BC53D")
 
+
+trait_data <- read.csv(here("Data", "trait_dataV3.csv"), sep = ",")
+trait_data$Collection <- as.character(trait_data$Collection)
+
+trait_data <- trait_data %>% 
+    filter(Species == "E_ramosa_aphylla" | 
+               Species == "E_ramosa_ramosa") %>% 
+    droplevels() %>% 
+    
+    mutate(Clade = 
+              case_when(Collection %in% c("1566", "1570", "1601", "1576") ~ "Aphylla",
+                        Collection %in% c("1656", "1654", "1635", "1643", "1645") ~ "East. ramosa",
+                        Collection %in% c("1606", "1560", "1585", "1609", "1611",
+                                          "1588", "1626", "1622", "1624") ~ "West. ramosa"
+              )
+    )
+
+
+trait_data <- trait_data %>% 
+    mutate(inflor_position = Plant_height/Veg_height,
+           relative_sheath_length = Sheath_length/Internode_dist,
+           relative_leaf_length = Leaf_length/Sheath_length,
+           glume_enclosure = Glume_length_outer/Spikelet_length,
+           glume_ratio = Glume_length_outer/Glume_length_inner,
+           spikelet_shape = Spikelet_length/Spikelet_width,
+           lemma_ratio = Lemma_outer_length/Lemma_inner_length)
+
+trait_data <- trait_data[, c(1:8, 11:22, 25:32)]
+trait_data <- trait_data[, -c(4,8,14,15,16,18,19)]
+
+
+scale_ram <- data.frame(Clade = as.character(trait_data$Clade), scale(trait_data[,c(4:13, 15:21)]))
+
+lda_ramosa <- lda(scale_ram$Clade ~ ., data = scale_ram)
+
+lda.data <- cbind(scale_ram, predict(lda_ramosa)$x)
+
+ggplot(lda.data, aes(LD1, LD2)) +
+    geom_point(aes(color = Clade), size = 2) +
+    scale_colour_manual(values = my_colours) +
+    my_theme +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+```
+
+
+```{r ram_boxplots, fig.height=8, message=F}
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.key = element_rect(fill = NA, color = "grey"),
+          legend.background = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank()
+    )
+
+#a <- univariate_boxplot_trait_data("Clade", "Plant_height")
+a <- univariate_boxplot_trait_data("Clade", "inflor_position")
+b <- univariate_boxplot_trait_data("Clade", "Veg_height")
+c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
+d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
+#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
+f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
+e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
+ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
+g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
+h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
+j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
+n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
+l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")
+m <- univariate_boxplot_trait_data("Clade", "glume_ratio")
+#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+#ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")
+mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+z <- univariate_boxplot_trait_data("Clade", "Striation_no")
+
+#z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
+  #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+
+ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,j,k,l,m,ma,mc, mb,n,q,z, 
+                  ncol = 3, nrow = 6, 
+                  align = 'v',
+                  heights = c(1,1,1,1,1,1.4))
+
+```
 
 
 
 ### Rupestris
 
-The Rupestris clade consists of two species, _E. setacea_ and _E. rupestris_, that are highly polyphyletic. The clade is characterised by extremely short internal branch lengths and poor internal support. Although the weak internal resolution results in topological incongruencies between the trees, there are four major subclades that are consistently recovered with good support in both analyses, which in turn can be divided into smaller groups. The first two major subclades are consist of the Eastern rupestris group (BS = 100, LPP = 1.0) and the Rupestris s.s group (BS = 100, LPP = 1.0) respectively, demonstrating that the existing subspecies _E. rupestris_ subsp. _rupestris_ is not monophyletic. Another major subclade consists of the Fernkloof setacea, Uniflora, and the Restiod tricostata groups (BS = 99, LPP = 0.74), with Uniflora and Restiod tricostata recovered as sisters in both trees (BS = 100, LPP = 0.72). The final major subclade encompasses the Setacea, Dodii, Leafy tricostata and Scabra groups (BS = 97, LPP = 0.68), although the groups show incongruencies between the trees. The ML tree also places Rupestris s.s within this subclade with weak support (BS = 52).
+The Rupestris clade consists of two species, _E. setacea_ and _E. rupestris_, that are highly polyphyletic. The clade is characterised by extremely short internal branch lengths and poor internal support. Although the weak internal resolution results in topological incongruencies between the trees, there are four major subclades that are consistently recovered with good support in both analyses, which in turn can be divided into smaller groups. The first two major subclades are consist of the Eastern rupestris group (BS = 100, LPP = 1.0) and the Rupestris s.s group (BS = 100, LPP = 1.0) respectively, demonstrating that the existing subspecies _E. rupestris_ subsp. _rupestris_ is not monophyletic. Another major subclade consists of the Fernkloof setacea, Uniflora, and the Restiod tricostata groups (BS = 99, LPP = 0.74), with Uniflora and Restiod tricostata recovered as sisters in both trees (BS = 100, LPP = 0.72). The final major subclade encompasses the Setacea, Dodii, Leafy tricostata and Scabra groups (BS = 97, LPP = 0.68), although the position of these groups are incongruent between the trees. The ML tree also places Rupestris s.s within this subclade with weak support (BS = 52).
 
-There are nine smaller groups within the subclades. The Fernkloof group consists of _E. setacea setacea_ and _E. setacea disticha_ taxa collected from Fernkloof reserve in Hermanus, and well as _E. setacea disticha_ from the nearby Buffelstalberg close to Betty's Bay. This group shows incongruencies between the two trees, forming a grade in the ML tree and a poorly supported clade in the MQS tree (LPP = 0.37). The main uncertainty arises from the position of the Buffelstalberg  _E. setacea disticha_, which is sister to the rest of the group in the ML tree (BS = 99), but is reconstructed within the group by the MQS analyses, albeit with poor support (LPP = 0.45). In both trees, the populations 1600 and 1595 are sisters with strong support (BS = 100, LPP = 1.00), and the _E. setacea disticha_ from Fernkloof forms a clade with two other Fernkloof collections identified as _E. setacea setacea_ (BS = 98, LPP = 0.88). The other two groups in this subclade, Uniflora and Restiod tricostata have similar topologies in both trees, and form well supported clades (BS = 100, LPP = 1.00 and BS = 100, LPP = 0.97 respectively). The Setacea group formed a large, poorly supported clade in in the MQS tree (LPP = 0.56), and a grade in the ML tree. The internal support within this group was poor in both trees, with the result of high incongruence between the two phylogenies. The ML tree also placed an individual identified as an _E. rupestris tricostata_ within this clade. The Scabra group was resolved as strongly supported clade in both trees (BS = 100, LPP = 1.00), although an individual previously identified as _E. rupestris_ subsp. _tricostata_ was reconstructed as sister to the rest of the group. Similarly, the Dodii group was found to be monophyletic with a nearly identical internal topology in both analyses (BS = 96, LPP = 0.95). There was slightly weaker support for monophyly of the Leafy tricostata group in the MQS tree (LPP = 0.70), and the group formed a grade in ML tree.
+There are nine smaller groups within the subclades. The Fernkloof group consists of _E. setacea setacea_ and _E. setacea disticha_ taxa collected from Fernkloof reserve in Hermanus, and well as _E. setacea disticha_ from the nearby Buffelstalberg close to Betty's Bay. This group shows incongruencies between the two trees, forming a grade in the ML tree and a poorly supported clade in the MQS tree (LPP = 0.37). The main uncertainty arises from the position of the Buffelstalberg  _E. setacea disticha_, which is sister to the rest of the group in the ML tree (BS = 99), but is reconstructed within the group by the MQS analyses, albeit with poor support (LPP = 0.45). In both trees, the populations 1600 and 1595 are sisters with strong support (BS = 100, LPP = 1.00), and the _E. setacea disticha_ from Fernkloof forms a clade with two other Fernkloof collections identified as _E. setacea setacea_ (BS = 98, LPP = 0.88). The other two groups in this subclade, Uniflora and Restiod tricostata, have similar topologies in both trees, and form well supported clades (BS = 100, LPP = 1.00 and BS = 100, LPP = 0.97 respectively). The Setacea group formed a large, poorly supported clade in in the MQS tree (LPP = 0.56), and a grade in the ML tree. The internal support within this group was poor in both trees, resulting in high incongruence between the two phylogenies. The ML tree also placed an individual identified as an _E. rupestris_ subsp. _tricostata_ (1657) within this clade. The Scabra group was resolved as strongly supported clade in both trees (BS = 100, LPP = 1.00), although an individual previously identified as _E. rupestris_ subsp. _tricostata_ (1640) was reconstructed as sister to the rest of the group. Similarly, the Dodii group was found to be monophyletic with a nearly identical internal topology in both analyses (BS = 96, LPP = 0.95). There was slightly weaker support for monophyly of the Leafy tricostata group in the MQS tree (LPP = 0.70), and the group formed a grade in ML tree.
 
-The phylogenetic analyses recovered nine groups within the Rupestris clades, suggesting nine potential ancestral populations (K = 9). The sNMF analysis largely support these groupings. Dodii, Leafy tricostata, Restiod tricostata, Eastern rupestris, Uniflora and Rupestris s.s. populations show strong within-group admixture, but all have a distinct genomic profile. This is also displayed in the PCOA, where each group aggregates into cohesive clusters. The Setacea group shows some admixture, which is unsurprising given that it is one of the most widespread species in the Rupestris clade. The sNMF analysis also reveals a potential tenth group, a population from Wemmershoek near Paarl (1657), which was not well resolved in the phylogenetic analysis. Unexpectedly, Scabra has genomic information in common with multiple ancestral pools, with the greatest proportion shared with the Leafy tricostata group. However, there is little evidence that admixture had occurred between Scabra and the sympatric Setacea population (1633), and the Scabra group forms a distinct cluster in the PCOA. The Fernkloof group also has a complex genetic profile. Populations 1589 and 1597, both currently classified as *E. setacea disticha*, have a similar genomic profile, although no ancestral group dominates. Conversely, 1600, collected within a few kilometres of 1597, shows very few shared alleles with the other Fernkloof populations. The three Fernkloof collections do cluster together in the PCOA, albeit with some population level structure. 
+The sNMF analysis largely supports the nine groups found by phylogenetic evidence. Dodii, Leafy tricostata, Restiod tricostata, Eastern rupestris, Uniflora and Rupestris s.s. populations show strong within-group admixture, but all have a distinct genomic composition. This is also displayed in the PCOA, where each group aggregates into cohesive clusters. The Setacea group shows some admixture the other groups, which is unsurprising given that it is one of the most widespread species in the Rupestris clade. The sNMF analysis also reveals a potential tenth group, a population from Wemmershoek near Paarl (1657), which was not well resolved in the phylogenetic analysis. Unexpectedly, Scabra has genomic information in common with multiple ancestral pools, with the greatest proportion shared with the Leafy tricostata group. However, there is little evidence that admixture has occurred between Scabra and the sympatric Setacea population (1633), and the Scabra group forms a distinct cluster in the PCOA. The Fernkloof group also has a complex genetic profile. Populations 1589 and 1597, both currently classified as *E. setacea disticha*, have a similar genomic composition, although no ancestral group dominates. Conversely, 1600, collected within a few kilometres of 1597, shows very few shared alleles with the other Fernkloof populations. The three Fernkloof collections do cluster together in the PCOA, albeit with some population level structure. 
 
-The best number of ancestral populations within the Rupestris clade according to the cross-entrophy criterion was k = 19. At this level, almost every group shows substructure, although there is some evidence of within-group admixture the Setacea, Restiod tricostata and Dodii groups. Notably, within the Fernkloof group, the two *E. setacea disticha* populations share genomic information with each other but not with 1600.
+The best number of ancestral populations within the Rupestris clade according to the cross-entrophy criterion was k = 19. At this level, almost every group shows substructure, although there is some evidence of within-group admixture in the Setacea, Restiod tricostata and Dodii groups. Notably, within the Fernkloof group, the two *E. setacea disticha* (1589, 1597) populations share genomic information with each other but not with 1600.
+
+
+
+#### Morphology
+
+Based on the sNMF and phylogenetic analysis, I split the Fernkloof group into two, with Fernkloof A consisting of the disticha forms, and Fernkloof B consisting of collections 1595 and 1600.  A linear discriminant analysis (LDA) of the morphological data shows that both the Uniflora and Restiod tricostata groups have distinctive morphologies compared to the remainder of the Rupestris clade. Restiod tricostata is characterised by large internode distances, long sheathes and a small glume ratio, while Uniflora is a tall, gracile plant with thin culms and fine leaves. In order to investigate the fine scale variation between the remaining groups, Restiod tricostata and Uniflora were removed from the analysis. Three large clusters form with LD1 and LD2, consisting of Dodii and Leafy tricostata, Scabra and the rupestris groups, and Setacea and the Fernkloof groups. Dodii and Leafy tricostata mainly differ in the number of spikelets, with most other traits having similar values, although Leafy tricostata tends towards a more robust form in both vegetative and floral traits than Dodii. While Setacea and the Fernkloof groups
+
+
 
 ```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
@@ -1510,7 +1753,7 @@ my_colours <- c(
     "#77CE61", #dodii
     "dark grey",
     "#1D72F5", #E. rup
-    "#CC1577", #rup
+    "#851D41", #rup
     "#DF0101", #Fernkloof
      #"#F2B950", #scab
     "#9471B4", #uni
@@ -1632,7 +1875,7 @@ pop(gl.na)
 
 my_colours <- c(
     "#60D5FD", #set
-    "#CC1577", #rup
+    "#851D41", #rup
     "#77CE61", #dodii
     "#FF9326", #restiod
     "#DF0101", #Fernkloof
@@ -1671,5 +1914,205 @@ p2 <- pcoa_plot2 + my_theme +
 
 ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98)
 
+
+```
+
+
+```{r lda_rup}
+
+my_colours <- c("#77CE61", #dodii
+                "#1D72F5", #E. rup
+                "#DF0101", #Fernkloof A
+                "#FFA5B0", #Fernkloof B FF6F5E
+                "#027368", #leafy
+                "#FF9326", #restiod
+                "#851D41", #rup
+                 
+                "#F2B950", #scab
+                "#60D5FD", #set
+                "#9471B4",
+                "dark grey") #uni
+
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.key = element_rect(fill = NA, color = "grey"),
+          legend.background = element_blank(),
+          axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1)
+    )
+
+trait_data <- read.csv(here("Data", "trait_dataV3.csv"), sep = ",")
+trait_data$Collection <- as.character(trait_data$Collection)
+
+trait_data <- trait_data %>% 
+    filter(Species == "E_rupestris_rupestris" | 
+               Species == "E_rupestris_dodii" |
+               Species == "E_rupestris_tricostata" |
+               Species == "E_setacea_setacea" |
+               Species == "E_setacea_scabra" |
+               Species == "E_setacea_uniflora" |
+               Species == "E_setacea_disticha"
+    )%>% 
+    droplevels() %>% 
+    mutate(Clade = 
+               case_when(Collection %in% c("1589", "1597", 
+                                           "1599", "1593", "1598") ~ "Fernkloof A",
+                         Collection %in% c("1600", "1595") ~ "Fernkloof B",
+                         Collection %in% c("1614", "1610", "1569", "1568", 
+                                           "1587", "1557", "1558", "1629", 
+                                           "1633", "1617", "1577", "1564",
+                                           "1580", "1582") ~ "Setacea",
+                         Collection %in% c("1579", "1661", "1603", "1594") ~ "Restiod tricost.",
+                         Collection %in% c("1639", "1573",
+                                           "1578", "1565", "1602", "1616") ~ "Dodii",
+                         Collection %in% c("1618", "1619", 
+                                           "1621", "1648", "1632", "1586") ~ "Leafy tricost.",
+                         Collection %in% c("1634", "1559", "123",  "1605", "1563") ~ "Rupestris s.s.",
+                         Collection %in% c("1644", "1636", "1631", "1642", "1640", "1641") ~ "Scabra",
+                         Collection %in% c("2", "1655") ~ "East. rupestris",
+                         Collection %in% c("1572", "1604") ~"Uniflora",
+                         Collection %in% c("1657") ~ "Wemmershoek"
+               ))
+
+
+
+trait_data <- trait_data %>% 
+    mutate(inflor_position = Plant_height/Veg_height,
+           relative_sheath_length = Sheath_length/Internode_dist,
+           relative_leaf_length = Leaf_length/Sheath_length,
+           glume_enclosure = Glume_length_outer/Spikelet_length,
+           glume_ratio = Glume_length_outer/Glume_length_inner,
+           spikelet_shape = Spikelet_length/Spikelet_width,
+           lemma_ratio = Lemma_outer_length/Lemma_inner_length) 
+trait_data <- trait_data[, c(1:8, 11:22, 25:32)]
+trait_data <- trait_data[, -c(4,8,14,15,16,18,19)]
+
+
+#LDA
+
+scale_rup <- data.frame(Clade = as.character(trait_data$Clade), scale(trait_data[, c(4:12, 15:21)]))
+
+lda_rup <- lda(scale_rup$Clade ~ ., data = scale_rup)
+
+lda.data <- cbind(scale_rup, predict(lda_rup)$x)
+
+ld1 <- ggplot(lda.data, aes(LD1, LD2)) +
+    geom_point(aes(color = Clade), size = 2) +
+    scale_colour_manual(values = my_colours) +
+    my_theme +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+ld2 <- ggplot(lda.data, aes(LD3, LD4)) +
+    geom_point(aes(color = Clade), size = 2) +
+    scale_colour_manual(values = my_colours) +
+    my_theme +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+#remove restiod and uni for clarity
+
+my_colours2 <- c("#77CE61", #dodii
+                "#1D72F5", #E. rup
+                "#DF0101", #Fernkloof A
+                "#FFA5B0", #Fernkloof B
+                "#027368", #leafy
+                #"#FF9326", #restiod
+                "#CC1577", #rup
+                 
+                "#F2B950", #scab
+                "#60D5FD", #set
+                "dark grey") #uni
+scale_rup2 <- scale_rup %>% 
+    filter(!Clade == "Restiod tricost." & !Clade == "Uniflora") %>% droplevels()
+
+lda_rup <- lda(scale_rup2$Clade ~ ., data = scale_rup2)
+
+lda.data <- cbind(scale_rup2, predict(lda_rup)$x)
+
+ld3 <- ggplot(lda.data, aes(LD1, LD2)) +
+    geom_point(aes(color = Clade), size = 2) +
+    scale_colour_manual(values = my_colours2) +
+    my_theme +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+ld4 <- ggplot(lda.data, aes(LD3, LD4)) +
+    geom_point(aes(color = Clade), size = 2) +
+    scale_colour_manual(values = my_colours2) +
+    my_theme +
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+ggpubr::ggarrange(ld1, ld2, ld3, ld4, ncol = 2, nrow = 2, align = "hv", labels = c("A", "B", "C", "D"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98, common.legend = T, legend = "right")
+
+```
+
+
+```{r rup_boxplots, fig.width=8, fig.height=10.5}
+
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.key = element_rect(fill = NA, color = "grey"),
+          legend.background = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank()
+    )
+
+#
+##a <- univariate_boxplot_trait_data("Clade", "Plant_height") #
+#b <- univariate_boxplot_trait_data("Clade", "Veg_height")
+#c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
+#d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
+##e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
+#f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
+#g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
+#h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
+#j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+##k <- univariate_boxplot_trait_data("Clade", "pedicel_length_epu")
+##l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
+##m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+##ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")
+##mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")
+#n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
+##z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
+#  #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+##q <- univariate_boxplot_trait_data("Clade", "Glume_ratio") +
+# # theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#
+#ggpubr::ggarrange(a,b, NULL,c,d,e,f,g,h,j,k,l,m,ma,mb,n,z,q, 
+#                  ncol = 3, nrow = 6, 
+#                  align = 'v',
+#                  heights = c(rep(1,5),1.6))
+
+
+a <- univariate_boxplot_trait_data("Clade", "inflor_position")
+b <- univariate_boxplot_trait_data("Clade", "Veg_height")
+c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
+d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
+#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
+f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
+e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
+ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
+g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
+h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
+j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
+n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") 
+#l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
+l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")
+m <- univariate_boxplot_trait_data("Clade", "glume_ratio")
+#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+#ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+
+
+#z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
+  #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+
+ggpubr::ggarrange(b,NULL,NULL,c,d, a,e,ea, f,g,h,k,l,m,n,mc, mb,ma,q, 
+                  ncol = 3, nrow = 6, 
+                  align = 'v',
+                  heights = c(1,1,1,1,1,1.4))
 
 ```

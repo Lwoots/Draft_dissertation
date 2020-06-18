@@ -11,7 +11,33 @@ knitr::opts_chunk$set(cache = T,
                       echo=FALSE, warning=FALSE, message=FALSE)
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
-p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr, tidyverse, here)
+p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr, maptools, sp, rgdal, plotly, rgeos, ggmap, scatterpie, tidyverse, here)
+
+
+```
+
+```{r location, include=FALSE}
+#Map data
+location_data <- read.csv(here("Data", "Species_metadata.csv"))
+
+#Change to decimal degrees
+
+Edeg <- 0
+for(i in 1:length(location_data$Species_current)){
+    Edeg[i] <- location_data$easting[i] + (as.numeric(location_data$e_mins[i])/60)
+}
+
+
+Sdeg <- 0
+for(i in 1:length(location_data$Species)){
+    Sdeg[i] <- location_data$southing[i] - (as.numeric(location_data$s_mins[i])/60)
+}
+
+location_data <- cbind(location_data, Sdeg, Edeg)
+
+map_test <- get_map(location = c(17.8, -35, 24.7, -32.5 ), maptype = "terrain-background", source = "stamen", zoom = 11)
+
+map_res <- ggmap(map_test)
 
 
 ```
@@ -30,11 +56,7 @@ I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgro
 
 #### Genotyping-by-sequencing dataset
 
-
-
-
-
-
+The full GBS dataset was split into clades for analysis. The Rupestris clade, represented by 95 individuals and 24 populations, originally consisted of 572345 variants, but decreased to 3753 variants after filtering. The Rehmannii and Ramosa clades were both represented by 48 individuals and 12 populations. After filtering, the number of variants in Rehmannii decreased from 450635 to 3544, and in Ramosa from 443722  to 3430 variants.
 
 ## Phylogenetic results
 
@@ -330,7 +352,7 @@ A PCOA of the GBS data largely agrees with sNMF findings. Each group formed a di
 
 #### Morphology
 
-An LDA of the morphological data was able to separate the groups into discrete clusters. While Filiformis formed reasonably tight-knit group, Subspicata and Rehmannii s.s were more variable. A large proportion of the Subspicata individuals also grouped with Filiformis.  However, Rehmannii s.s tended to be taller, with a greater number of spikelets and an inflorescence that extended further above the leaves. Filiformis formed a reasonably cohesive group with a few outliers. This clade is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms and smaller and fewer spikelets.
+An LDA of the morphological data was able to separate the groups into discrete clusters, with the exception of a few Rehmannii s.s individuals misclassified as Subspicata (Figure \@ref(fig:reh_lda)). However, Rehmannii s.s tended to be taller than Subspicata, with a greater number of spikelets and an inflorescence that extended further above the leaves. The Filiformis group is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms, and smaller and fewer spikelets (Figure \@ref(fig:reh_boxplots)).
 \newpage
 
 ```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
@@ -512,7 +534,7 @@ ast_reh <- flip(ast_reh, 24,19)
 ggpubr::ggarrange(ml_reh, ast_reh, labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98)
 ```
 
-```{r reh_ce, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
+```{r reh_ce, fig.width=5, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20 for the Rehmannii clade. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
 
 means <- read.csv(here("Data", "rehmannii_ce.csv"))
 
@@ -530,7 +552,7 @@ points(x = 10, y = means$ce[10],
 ```
 
 
-```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = T, fig.height=6.4}
+```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Rehmannii clade for A) K = 3, and B) K = 10. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.' }
 
 library(pophelper)
 library(gridExtra)
@@ -586,9 +608,10 @@ p3 <- plotQ(clump_file3,
             grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
-            titlelab = "K = 3, 100/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.981",
+            titlelab = "K = 3, 100/100",
             titlesize = 14,
             titlecol = "black",
+            titlehjust = 1,
             titlespacer = 5,
             basesize = 0,
             exportplot = F,
@@ -627,15 +650,18 @@ p4 <- plotQ(clump_file,
             grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
-            titlelab = "K = 10, 39/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.972",
+            titlelab = "K = 10, 39/100",
             titlesize = 14,
             titlecol = "black",
+            titlehjust = 1,
             titlespacer = 5,
             basesize = 0,
             exportplot = F,
             returnplot = TRUE)
 
-ggpubr::ggarrange(arrangeGrob(p3$plot[[1]]), arrangeGrob(p4$plot[[1]]), nrow = 2)
+ggpubr::ggarrange(arrangeGrob(p3$plot[[1]]), arrangeGrob(p4$plot[[1]]), nrow = 2,
+                  labels = c("A", "B"), font.label = list(size = 19, face = "plain"), 
+                  label.x = 0.001, label.y = 0.999)
 
 ```
 
@@ -706,15 +732,88 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pcoa_reh, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+```{r pcoa_reh, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.' }
 
-ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.07, label.y = 0.98)
+ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.12, label.y = 0.98, common.legend = T, legend = "right")
 
 
 ```
 
 
-```{r reh_lda}
+```{r, map_reh}
+clump_file3 <- readQ(here("Data", "calc.clumpp.merged.K3.txt"))
+
+gen_dat <- as.data.frame(clump_file3$`calc.clumpp.merged.K3-1`)
+
+pop_names <- read.table(here("Data", "popmap_rehmannii_reordered"), stringsAsFactors=F)
+
+gen_dat <- cbind(pop_names, gen_dat)
+
+gen_dat <- separate(gen_dat, 
+                    col = V1, 
+                    into = c("letter", "Pop"),
+                    sep = "A")
+gen_dat$Pop[gen_dat$Pop == "LW1"] <- 1
+gen_dat$Pop[gen_dat$Pop == "LW3"] <- 3
+
+gen_dat$Pop <- as.numeric(gen_dat$Pop)
+
+gen_dat_reduced <- gen_dat %>% 
+  group_by(Pop) %>% 
+  mutate(C1 = mean(Cluster1),
+         C2 = mean(Cluster2),
+         C3 = mean(Cluster3)) %>% 
+  as.data.frame()
+
+gen_dat_reduced <- gen_dat_reduced[, c(2,6:8)] 
+gen_dat_reduced <- gen_dat_reduced %>% distinct()
+
+reh_location <- location_data %>% 
+  filter(Major_groups == "rehmanni") %>% 
+  distinct()
+
+
+combined <- left_join(gen_dat_reduced, reh_location, by = "Pop")
+combined <- combined[,c(1:6, 15:16)]
+
+
+combined$Sdeg[combined$Pop == 1590] <- -34.27
+combined$Edeg[combined$Pop == 1590] <- 18.7532
+
+combined$Sdeg[combined$Pop == 1591] <- -34.35
+combined$Edeg[combined$Pop == 1591] <- 18.99
+combined$Sdeg[combined$Pop == 3] <- -34.29
+combined$Sdeg[combined$Pop == 1] <- -34.05
+
+#Plot
+
+my_colours <- c("#0AB276", #fili
+                "#F3A10E", #sub
+                "#297AB1" #reh
+) 
+
+
+map_res +
+  geom_scatterpie(data = combined, 
+                  aes(x = Edeg, y = Sdeg,  r = rep(0.13, 36)), 
+                  cols = c("C1", "C2",  "C3"),
+                  pie_scale = 5,
+                  size = 0.1) +
+  scale_fill_manual(values = my_colours) +
+  geom_text(data = combined, 
+            aes(x = Edeg, y = Sdeg),
+            label = combined$Pop,
+            nudge_y = -0.22,
+            size = 2.5
+  ) +
+  theme(legend.position = "none") +
+  coord_equal() +
+  xlab("Longitude") +
+  ylab("Latitude")
+
+```
+
+```{r reh_lda, fig.cap='A linear discriminant analysis of the morphological data for the Rehmannii clade. Traits included are described in Table '}
 library(MASS)
 library(dplyr)
 
@@ -772,7 +871,7 @@ ggplot(lda.data, aes(LD1, LD2)) +
 
 ```
 
-```{r reh_boxplots, fig.height=8, message=F}
+```{r reh_boxplots, fig.height=8, message=F, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
           panel.grid = element_blank(),
@@ -826,7 +925,7 @@ e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
 ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
 g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
 h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
-j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+#j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
 k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
 n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
 #l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
@@ -843,28 +942,30 @@ z <- univariate_boxplot_trait_data("Clade", "Striation_no")
 #z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
   #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
 
-ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,j,k,l,m,ma,mc, mb,n,q,z, 
+ggpubr::ggarrange(c,d, NULL,b,a,e,ea, f,g,h,k,l, z,m,ma,mc, mb,n,q, 
                   ncol = 3, nrow = 6, 
                   align = 'v',
-                  heights = c(1,1,1,1,1,1.4))
+                  heights = c(1,1,1,1,1,1.45))
 ```
 
 
 ### Ramosa
 
-The ML and MQS phylogenies resolve the Ramosa clade into three groups, Aphylla, Eastern ramosa and Western ramosa, in contrast to the existing taxonomy of two subspecies within _E. ramosa_. In both trees, Eastern ramosa is resolved as sister to the Aphylla and Western ramosa groups. Eastern ramosa group forms a well-supported clade within the MQS tree (LPP = 0.88), but consists of a grade in the ML tree. The Eastern ramosa group group consists of specimens collected along the Langeberg and Swartberg mountain ranges. The Aphylla group is monophyletic with strong support in both trees (BS = 100, LPP = 0.95), and contains collections from the Cape Peninsula to Betty's Bay. Within the Aphylla group the topology varies between the trees, with some poorly resolved internal nodes in the MQS tree. The Western ramosa group contains the remaining taxa, which mainly occur inland in the mid and western regions of the Western Cape. This group forms a grade in the MQS tree, with several poorly supported internal nodes.  _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree, suggesting that there may be multiple taxa with the Western ramosa group.
+The ML and MQS phylogenies resolve the Ramosa clade into three groups, Aphylla, Eastern ramosa and Western ramosa, in contrast to the existing taxonomy of two subspecies within _E. ramosa_ (Figure  \@ref(fig:ram_minor_clades). In both trees, Eastern ramosa is resolved as sister to the Aphylla and Western ramosa groups. Eastern ramosa group forms a well-supported clade within the MQS tree (LPP = 0.88), but consists of a grade in the ML tree. The Eastern ramosa group group consists of specimens collected along the Langeberg and Swartberg mountain ranges. The Aphylla group is monophyletic with strong support in both trees (BS = 100, LPP = 0.95), and contains collections from the Cape Peninsula to Betty's Bay. Within the Aphylla group the topology varies between the trees, with some poorly resolved internal nodes in the MQS tree. The Western ramosa group contains the remaining taxa, which mainly occur inland in the mid and western regions of the Western Cape. This group forms a grade in the MQS tree, with several poorly supported internal nodes.  _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree, suggesting that there may be multiple taxa with the Western ramosa group.
 
-While the phylogenetic trees resolved three potential groups within Ramosa, the admixture results showed limited support for three ancestral populations (K = 3) that correspond to the phylogenetic groups. While all Aphylla individuals were assigned to the same ancestral population with high probability, most Western Ramosa individuals shared a large proportion of genomic information with the Aphylla group. A population from Milner peak (1624) was the exception, as all individuals from this locality were assigned to a largely distinct genetic cluster. However, this cluster also was present at low proportions with the other Western ramosa populations.  The Eastern ramosa populations were characterised by a shared ancestral gene pool, although several populations displayed admixture with the dominant gene pool in the Aphylla group.
+While the phylogenetic trees resolved three potential groups within Ramosa, the admixture results showed limited support for three ancestral populations (K = 3) (Figure  \@ref(fig:ram_gbs ) A) that correspond to the phylogenetic groups. While all Aphylla individuals were assigned to the same ancestral population with high probability, most Western Ramosa individuals shared a large proportion of genomic information with the Aphylla group. A population from Milner peak near Ceres (1624) was the exception, as all individuals from this locality were assigned to a largely distinct genetic cluster. However, this cluster also was present at low proportions with the other Western ramosa populations.  The Eastern ramosa populations were characterised by a shared ancestral gene pool, although several populations displayed admixture with the dominant gene pool in the Aphylla group.
 
-The cross-entrophy criterion suggests that eight ancestral populations (K = 8) is the best fit for the dataset. At this level, the Aphylla group shows strong admixture between populations and consists of an ancestral gene pool that is not dominant in the other ramosa groups, supporting the phylogenetic evidence the Aphylla group is a cohesive clade. Conversely, the Western ramosa group shows strong substructure, as most populations are derived from distinct ancestral gene pools. The exception is populations 1622 and 1609 which show admixture, and were also resolved as sister taxa in the phylogenetic analyses. The two populations from Milner peak (1622 and 1624) do not share genetic information, despite being collected within a few kilometres of each other. The genetic variability of the Western ramosa group is also displayed in the PCOA, as although the group forms a rough cluster along the PC1 and PC2 axes, individual populations group together tightly, and are highly disparate along PC3 and PC4 axes. The Eastern ramosa group also shows some substructure, as populations collected from the Langeberg are distinct from both each other, and from the Swartberg populations. However, this substructure appears to be less strong than that of the Western ramosa group, as Eastern ramosa shows a cohesive cluster along all PC axes.
+The cross-entrophy criterion suggests that eight ancestral populations (K = 8) (Figure  \@ref(fig:ram_ce) is the best fit for the dataset. At this level, the Aphylla group shows strong admixture between populations and consists of an ancestral gene pool that is not dominant in the other ramosa groups, supporting the phylogenetic evidence the Aphylla group is a cohesive clade. Conversely, the Western ramosa group shows strong substructure, as most populations are derived from distinct ancestral gene pools. The exception is populations 1622 and 1609 which show admixture, and were also resolved as sister taxa in the phylogenetic analyses. The two populations from Milner peak (1622 and 1624) do not share genetic information, despite being collected within a few kilometres of each other. The genetic variability of the Western ramosa group is also displayed in the PCOA (Figure  \@ref(fig:ram_pcoa), as although the group forms a rough cluster along the PC1 and PC2 axes, individual populations group together tightly, and are highly disparate along PC3 and PC4 axes. The Eastern ramosa group also shows some substructure, as populations collected from the Langeberg are distinct from both each other, and from the Swartberg populations. However, this substructure appears to be less strong than that of the Western ramosa group, as Eastern ramosa shows a cohesive cluster along all PC axes.
 
-
-
-
+An LDA is able to separate the three groups using the morphological data, although there is some degree of similarity between the Western and Eastern ramosa. The traits of Western ramosa tended to be variable, often encompassing the much of the trait range of the other two groups (Figure  \@ref(fig:ram_boxplots)). Aphylla tended to have longer leaves and longer glumes relative to the spikelet length than the ramosa groups, while Eastern ramosa often had longer inflorescences and a larger spikelet shape.
 
 
 
-```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
+
+
+
+
+```{r ram_minor_clades, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 #Ramosa
 
@@ -1047,9 +1148,9 @@ ggpubr::ggarrange(ml_ram, ast_ram, labels = c("A", "B"), font.label = list(size 
 
 
 
-```{r ram_ce, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
+```{r ram_ce, fig.width=5, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20 for the Ramosa clade. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
 
-means <- read.csv(here("Data", "ramosa_ce.csv"))
+means <- read.csv(here("Data", "ramosa_ce2.csv"))
 
 plot(means$k, means$ce,
      ylab = "Cross-entropy", xlab = "Ancestral gene pool (K)", 
@@ -1065,7 +1166,7 @@ points(x = 8, y = means$ce[8],
 ```
 
 
-```{r ram_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4}
+```{r ram_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Ramosa clade for A) K = 3, and B) K = 8. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.'}
 
 library(pophelper)
 library(gridExtra)
@@ -1073,7 +1174,7 @@ library(label.switching)
 library(tidyr)
 
 
-clump_file <-readQ(here("Data", "calc.clumpp.merged.K3_ram.txt"))
+clump_file <-readQ(here("Data", "calc.clumpp.merged.K3.2.txt"))
 
 #population assignments
 pop_names <- read.table(here("Data", "popmap_ramosa_reordered"), stringsAsFactors=F)
@@ -1119,10 +1220,11 @@ p1 <- plotQ(clump_file,
             grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
-            titlelab = "K = 3, 93/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.982",
+            titlelab = "K = 3, 95/100",
             titlesize = 14,
             titlecol = "black",
             titlespacer = 5,
+            titlehjust = 1,
             basesize = 0,
             exportplot = F,
             returnplot = TRUE)
@@ -1130,7 +1232,7 @@ p1 <- plotQ(clump_file,
 #K = 8
 
 
-clump_file2 <- readQ(here("Data", "calc.clumpp.merged.K8.txt"))
+clump_file2 <- readQ(here("Data", "calc.clumpp.merged.K8.2.txt"))
 
 my_colours <- c(
     "#1D72F5","#DF0101","#77CE61", "#FF9326","#A945FF","#0089B2","#FDF060","#FFA6B2","#BFF217","#60D5FD"
@@ -1158,15 +1260,18 @@ p2 <- plotQ(clump_file2,
             grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
-            titlelab = "K = 8, 60/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.958",
+            titlelab = "K = 8, 67/100",
             titlesize = 14,
             titlecol = "black",
             titlespacer = 5,
+            titlehjust = 1,
             basesize = 0,
             exportplot = F,
             returnplot = TRUE)
 
-ggpubr::ggarrange(arrangeGrob(p1$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2)
+ggpubr::ggarrange(arrangeGrob(p1$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2,
+                  labels = c("A", "B"), font.label = list(size = 19, face = "plain"), 
+                  label.x = 0.001, label.y = 0.999)
 ```
 
 
@@ -1176,7 +1281,7 @@ library("adegenet")
 library("dartR")
 library("plotly")
 
-vcf <- read.vcfR(here("Data", "FinalRamosa_lenient27Apr.vcf"))
+vcf <- read.vcfR(here("Data", "Ramosa_proper17June.vcf"))
 
 pop.assign<- read.csv(here("Data", "ramosa_population_assignment.csv"), header=T)
 dat.pop.assign<-data.frame(pop.assign$Species_current, pop.assign$Pop)
@@ -1231,15 +1336,151 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pcoa_ram, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+```{r pcoa_ram, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.'}
 
-ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.07, label.y = 0.98)
+ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv",labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.12, label.y = 0.98, common.legend = T, legend = "right")
 
 
 ```
 
+```{r ram_map}
 
-```{r ram_lda}
+clump_file <- readQ(here("Data", "calc.clumpp.merged.K3.2.txt"))
+
+gen_dat <- as.data.frame(clump_file$`calc.clumpp.merged.K3.2-1`)
+
+pop_names <- read.table(here("Data", "popmap_ramosa_reordered"), stringsAsFactors=F)
+
+gen_dat <- cbind(pop_names, gen_dat)
+
+gen_dat <- separate(gen_dat, 
+                    col = V1, 
+                    into = c("letter", "Pop"),
+                    sep = "A")
+
+
+gen_dat$Pop <- as.numeric(gen_dat$Pop)
+
+gen_dat_reduced <- gen_dat %>% 
+    group_by(Pop) %>% 
+    mutate(C1 = mean(Cluster1),
+           C2 = mean(Cluster2),
+           C3 = mean(Cluster3)) %>% 
+    as.data.frame()
+
+gen_dat_reduced <- gen_dat_reduced[, c(2,6:8)] 
+gen_dat_reduced <- gen_dat_reduced %>% distinct()
+
+
+ram_location <- location_data %>% 
+    filter(Major_groups == "ramosa") %>% 
+    distinct()
+
+
+combined <- left_join(gen_dat_reduced, ram_location, by = "Pop")
+combined <- combined[,c(1:6, 15:16)]
+
+combined$Edeg[combined$Pop == 1624] <- 19.5790
+combined$Edeg[combined$Pop == 1622] <- 19.4061
+
+
+my_colours <- c("#00A0B0", #aphylla
+                "#CC333F", #E ram
+                "#9BC53D" #W ram
+                
+                
+) 
+
+
+map_res +
+    geom_scatterpie(data = combined, 
+                    aes(x = Edeg, y = Sdeg,  r = rep(0.13, 36)), 
+                    cols = c("C1", "C2",  "C3"),
+                    pie_scale = 5,
+                    size = 0.1) +
+    scale_fill_manual(values = my_colours) +
+    geom_text(data = combined, 
+              aes(x = Edeg, y = Sdeg),
+              label = combined$Pop,
+              nudge_y = -0.22,
+              size = 2.5
+    ) +
+    theme(legend.position = "none") +
+    coord_equal() +
+    xlab("Longitude") +
+    ylab("Latitude")
+
+
+clump_file2 <- readQ(here("Data", "calc.clumpp.merged.K8.2.txt"))
+
+gen_dat <- as.data.frame(clump_file2$`calc.clumpp.merged.K8.2-1`)
+
+pop_names <- read.table(here("Data", "popmap_ramosa_reordered"), stringsAsFactors=F)
+
+gen_dat <- cbind(pop_names, gen_dat)
+
+gen_dat <- separate(gen_dat, 
+                    col = V1, 
+                    into = c("letter", "Pop"),
+                    sep = "A")
+
+
+gen_dat$Pop <- as.numeric(gen_dat$Pop)
+
+gen_dat_reduced <- gen_dat %>% 
+    group_by(Pop) %>% 
+    mutate(C1 = mean(Cluster1),
+           C2 = mean(Cluster2),
+           C3 = mean(Cluster3),
+           C4 = mean(Cluster4),
+           C5 = mean(Cluster5),
+           C6 = mean(Cluster6),
+           C7 = mean(Cluster7),
+           C8 = mean(Cluster8)) %>% 
+    as.data.frame()
+
+gen_dat_reduced <- gen_dat_reduced[, c(2,11:18)] 
+gen_dat_reduced <- gen_dat_reduced %>% distinct()
+
+
+ram_location <- location_data %>% 
+    filter(Major_groups == "ramosa") %>% 
+    distinct()
+
+
+combined2 <- left_join(gen_dat_reduced, ram_location, by = "Pop")
+combined2 <- combined2[,c(1:11, 20:21)]
+combined2$Edeg[combined$Pop == 1624] <- 19.5790
+combined2$Edeg[combined$Pop == 1622] <- 19.4061
+
+#Plot
+
+my_colours <- c(
+    "#1D72F5","#DF0101","#77CE61", "#FF9326","#A945FF","#0089B2","#FDF060","#FFA6B2","#BFF217","#60D5FD"
+)
+
+map_res +
+    geom_scatterpie(data = combined2, 
+                    aes(x = Edeg, y = Sdeg, r = rep(0.12, 96)), 
+                    cols = c("C1", "C2",  "C3", "C4", "C5", "C6",  "C7", "C8"),
+                    pie_scale = 2,
+                    size = 0.1) +
+    scale_fill_manual(values = my_colours)+
+    geom_text(data = combined2, 
+              aes(x = Edeg, y = Sdeg),
+              label = combined$Pop,
+              nudge_y = -0.2,
+              size = 2.5
+    )+
+    theme(legend.position = "none",
+          axis.title.y = element_text(colour = "white"),
+          axis.title.x = element_text(colour = "white")) +
+    coord_equal()
+
+
+```
+
+```{r ram_lda, fig.cap='A linear discriminant analysis of the morphological data of the Ramosa clade. Traits included are described in Table . '}
 my_colours <- c("#00A0B0", "#DF0101",  "#9BC53D")
 
 
@@ -1287,7 +1528,7 @@ ggplot(lda.data, aes(LD1, LD2)) +
 ```
 
 
-```{r ram_boxplots, fig.height=8, message=F}
+```{r ram_boxplots, fig.height=8, message=F, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
           panel.grid = element_blank(),
@@ -1325,8 +1566,10 @@ z <- univariate_boxplot_trait_data("Clade", "Striation_no")
 
 #z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
   #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+```
 
-ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,j,k,l,m,ma,mc, mb,n,q,z, 
+```{r, fig.height=8, message=F, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,k,l,m,z,ma,mc, mb,n,q, 
                   ncol = 3, nrow = 6, 
                   align = 'v',
                   heights = c(1,1,1,1,1,1.4))
@@ -1339,9 +1582,9 @@ ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,j,k,l,m,ma,mc, mb,n,q,z,
 
 The Rupestris clade consists of two species, _E. setacea_ and _E. rupestris_, that are highly polyphyletic. The clade is characterised by extremely short internal branch lengths and poor internal support. Although the weak internal resolution results in topological incongruencies between the trees, there are four major subclades that are consistently recovered with good support in both analyses, which in turn can be divided into smaller groups. The first two major subclades are consist of the Eastern rupestris group (BS = 100, LPP = 1.0) and the Rupestris s.s group (BS = 100, LPP = 1.0) respectively, demonstrating that the existing subspecies _E. rupestris_ subsp. _rupestris_ is not monophyletic. Another major subclade consists of the Fernkloof setacea, Uniflora, and the Restiod tricostata groups (BS = 99, LPP = 0.74), with Uniflora and Restiod tricostata recovered as sisters in both trees (BS = 100, LPP = 0.72). The final major subclade encompasses the Setacea, Dodii, Leafy tricostata and Scabra groups (BS = 97, LPP = 0.68), although the position of these groups are incongruent between the trees. The ML tree also places Rupestris s.s within this subclade with weak support (BS = 52).
 
-There are nine smaller groups within the subclades. The Fernkloof group consists of _E. setacea setacea_ and _E. setacea disticha_ taxa collected from Fernkloof reserve in Hermanus, and well as _E. setacea disticha_ from the nearby Buffelstalberg close to Betty's Bay. This group shows incongruencies between the two trees, forming a grade in the ML tree and a poorly supported clade in the MQS tree (LPP = 0.37). The main uncertainty arises from the position of the Buffelstalberg  _E. setacea disticha_, which is sister to the rest of the group in the ML tree (BS = 99), but is reconstructed within the group by the MQS analyses, albeit with poor support (LPP = 0.45). In both trees, the populations 1600 and 1595 are sisters with strong support (BS = 100, LPP = 1.00), and the _E. setacea disticha_ from Fernkloof forms a clade with two other Fernkloof collections identified as _E. setacea setacea_ (BS = 98, LPP = 0.88). The other two groups in this subclade, Uniflora and Restiod tricostata, have similar topologies in both trees, and form well supported clades (BS = 100, LPP = 1.00 and BS = 100, LPP = 0.97 respectively). The Setacea group formed a large, poorly supported clade in in the MQS tree (LPP = 0.56), and a grade in the ML tree. The internal support within this group was poor in both trees, resulting in high incongruence between the two phylogenies. The ML tree also placed an individual identified as an _E. rupestris_ subsp. _tricostata_ (1657) within this clade. The Scabra group was resolved as strongly supported clade in both trees (BS = 100, LPP = 1.00), although an individual previously identified as _E. rupestris_ subsp. _tricostata_ (1640) was reconstructed as sister to the rest of the group. Similarly, the Dodii group was found to be monophyletic with a nearly identical internal topology in both analyses (BS = 96, LPP = 0.95). There was slightly weaker support for monophyly of the Leafy tricostata group in the MQS tree (LPP = 0.70), and the group formed a grade in ML tree.
+There are nine smaller groups within the subclades. The Fernkloof group consists of _E. setacea setacea_ and _E. setacea disticha_ taxa collected from Fernkloof reserve in Hermanus, and well as _E. setacea disticha_ from the nearby Buffelstalberg close to Betty's Bay. This group shows incongruencies between the two trees, forming a grade in the ML tree and a poorly supported clade in the MQS tree (LPP = 0.37). The main uncertainty arises from the position of the Buffelstalberg _E. setacea disticha_, which is sister to the rest of the group in the ML tree (BS = 99), but is reconstructed within the group by the MQS analyses, albeit with poor support (LPP = 0.45). In both trees, the populations 1600 and 1595 are sisters with strong support (BS = 100, LPP = 1.00), and the _E. setacea disticha_ from Fernkloof forms a clade with two other Fernkloof collections identified as _E. setacea setacea_ (BS = 98, LPP = 0.88). The other two groups in this subclade, Uniflora and Restiod tricostata, have similar topologies in both trees, and form well supported clades (BS = 100, LPP = 1.00 and BS = 100, LPP = 0.97 respectively). The Setacea group formed a large, poorly supported clade in in the MQS tree (LPP = 0.56), and a grade in the ML tree. The internal support within this group was poor in both trees, resulting in high incongruence between the two phylogenies. The ML tree also placed an individual identified as an _E. rupestris_ subsp. _tricostata_ (1657) within this clade. The Scabra group was resolved as strongly supported clade in both trees (BS = 100, LPP = 1.00), although an individual previously identified as _E. rupestris_ subsp. _tricostata_ (1640) was reconstructed as sister to the rest of the group. Similarly, the Dodii group was found to be monophyletic with a nearly identical internal topology in both analyses (BS = 96, LPP = 0.95). There was slightly weaker support for monophyly of the Leafy tricostata group in the MQS tree (LPP = 0.70), and the group formed a grade in ML tree.
 
-The sNMF analysis largely supports the nine groups found by phylogenetic evidence. Dodii, Leafy tricostata, Restiod tricostata, Eastern rupestris, Uniflora and Rupestris s.s. populations show strong within-group admixture, but all have a distinct genomic composition. This is also displayed in the PCOA, where each group aggregates into cohesive clusters. The Setacea group shows some admixture the other groups, which is unsurprising given that it is one of the most widespread species in the Rupestris clade. The sNMF analysis also reveals a potential tenth group, a population from Wemmershoek near Paarl (1657), which was not well resolved in the phylogenetic analysis. Unexpectedly, Scabra has genomic information in common with multiple ancestral pools, with the greatest proportion shared with the Leafy tricostata group. However, there is little evidence that admixture has occurred between Scabra and the sympatric Setacea population (1633), and the Scabra group forms a distinct cluster in the PCOA. The Fernkloof group also has a complex genetic profile. Populations 1589 and 1597, both currently classified as *E. setacea disticha*, have a similar genomic composition, although no ancestral group dominates. Conversely, 1600, collected within a few kilometres of 1597, shows very few shared alleles with the other Fernkloof populations. The three Fernkloof collections do cluster together in the PCOA, albeit with some population level structure. 
+The sNMF analysis largely supports the nine groups found by the phylogenetic analysis. Dodii, Leafy tricostata, Restiod tricostata, Eastern rupestris, Uniflora and Rupestris s.s. populations show strong within-group admixture, but all have a distinct genomic composition. This is also displayed in the PCOA, where each group aggregates into cohesive clusters. The Setacea group shows some admixture with other groups, which is unsurprising given that it is one of the most widespread taxa in the Rupestris clade. The sNMF analysis also reveals a potential tenth group, a population from Wemmershoek near Paarl (1657), which was not well resolved in the phylogenetic analysis. Unexpectedly, Scabra has genomic information in common with multiple ancestral pools, with the greatest proportion shared with the Leafy tricostata group. However, there is little evidence that admixture has occurred between Scabra and the sympatric Setacea population (1633), and the Scabra group forms a distinct cluster in the PCOA. The Fernkloof group also has a complex genetic profile. Populations 1589 and 1597, both currently classified as *E. setacea disticha*, have a similar genomic composition, although no ancestral group dominates. Conversely, 1600, collected within a few kilometres of 1597, shows very few shared alleles with the other Fernkloof populations. The three Fernkloof collections do cluster together in the PCOA, albeit with some population level structure. 
 
 The best number of ancestral populations within the Rupestris clade according to the cross-entrophy criterion was k = 19. At this level, almost every group shows substructure, although there is some evidence of within-group admixture in the Setacea, Restiod tricostata and Dodii groups. Notably, within the Fernkloof group, the two *E. setacea disticha* (1589, 1597) populations share genomic information with each other but not with 1600.
 
@@ -1349,7 +1592,7 @@ The best number of ancestral populations within the Rupestris clade according to
 
 #### Morphology
 
-Based on the sNMF and phylogenetic analysis, I split the Fernkloof group into two, with Fernkloof A consisting of the disticha forms, and Fernkloof B consisting of collections 1595 and 1600.  A linear discriminant analysis (LDA) of the morphological data shows that both the Uniflora and Restiod tricostata groups have distinctive morphologies compared to the remainder of the Rupestris clade. Restiod tricostata is characterised by large internode distances, long sheathes and a small glume ratio, while Uniflora is a tall, gracile plant with thin culms and fine leaves. In order to investigate the fine scale variation between the remaining groups, Restiod tricostata and Uniflora were removed from the analysis. Three large clusters form with LD1 and LD2, consisting of Dodii and Leafy tricostata, Scabra and the rupestris groups, and Setacea and the Fernkloof groups. Dodii and Leafy tricostata mainly differ in the number of spikelets, with most other traits having similar values, although Leafy tricostata tends towards a more robust form in both vegetative and floral traits than Dodii. While Setacea and the Fernkloof groups
+Based on the sNMF and phylogenetic analysis, I split the Fernkloof group into two for the morphological analysis, with Fernkloof A consisting of the disticha forms, and Fernkloof B consisting of collections 1595 and 1600.  A linear discriminant analysis (LDA) of the morphological data shows that both the Uniflora and Restiod tricostata groups have distinctive morphologies compared to the remainder of the Rupestris clade. Restiod tricostata is characterised by large internode distances, long sheathes and a small glume to spikelet length ratio, while Uniflora is a tall, gracile plant with thin culms and fine leaves. In order to investigate the variation between the remaining groups, Restiod tricostata and Uniflora were removed from the dataset. Within the resulting LDA, Dodii and Leafy tricostata show considerable overlap across all LDs. Dodii and Leafy tricostata mainly differ in the number of spikelets, with most other traits having similar values. The Fernkloof A and Setacea groups are also unable to be separated along LD1 and LD2, although they show clear separation within LD3 and LD4. Fernkloof A and B are distinct from each other, differing primarily in floral characteristics. The Scabra and Wemmershoek groups each form a cluster within LD1 and LD2, with the latter appearing to have an intermediate morphology between Dodii/Leafy tricostata and Setacea. Finally, the Eastern rupestris and Rupestris s.s. groups cluster close together, but have minimal overlap. Rupestris s.s. is a more robust plant in comparison to Eastern rupestris, with larger leaves and a thicker culm. 
 
 
 
@@ -1697,7 +1940,7 @@ ggpubr::ggarrange(ml_rup, ast_rup, labels = c("A", "B"), font.label = list(size 
 ```
 
 
-```{r rup_ce, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 25. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
+```{r rup_ce, fig.width=5, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 25 for the Rupestris clade. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
 
 means <- read.csv(here("Data", "rupestris_ce.csv"))
 
@@ -1714,7 +1957,7 @@ points(x = 19, y = means$ce[19],
 
 ```
 
-```{r rup_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4}
+```{r rup_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Rupestris clade for A) K = 9, and B) K = 19. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.' }
 library(pophelper)
 library(gridExtra)
 library(label.switching)
@@ -1781,10 +2024,11 @@ p5 <- plotQ(clump_file,
             grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
-            titlelab = "K = 9, 83/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.976",
+            titlelab = "K = 9, 83/100",
             titlesize = 14,
             titlecol = "black",
             titlespacer = 5,
+            titlehjust = 1,
             basesize = 0,
             exportplot = F,
             returnplot = TRUE)
@@ -1817,15 +2061,18 @@ p2 <- plotQ(clump_file2,
             grplabpos = 0.35,
             panelratio = c(10,1),
             showtitle = T,
-            titlelab = "K = 19, 61/100, Mean(LnProb) = 0.000, Mean(similarity score) = 0.708",
+            titlelab = "K = 19, 61/100",
             titlesize = 14,
             titlecol = "black",
             titlespacer = 5,
+            titlehjust = 1,
             basesize = 0,
             exportplot = F,
             returnplot = TRUE)
 
-ggpubr::ggarrange(arrangeGrob(p5$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2)
+ggpubr::ggarrange(arrangeGrob(p5$plot[[1]]), arrangeGrob(p2$plot[[1]]), nrow = 2,
+                  labels = c("A", "B"), font.label = list(size = 19, face = "plain"), 
+                  label.x = 0.001, label.y = 0.999)
 ```
 
 ```{r, include = F}
@@ -1910,15 +2157,116 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pcoa_rup, echo=F, warning=FALSE, cache=T, message=F, fig.height=7}
+```{r pcoa_rup, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.'}
 
-ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98)
+ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98,
+                  #label.x = 0.12, label.y = 0.98, 
+                  common.legend = T, legend = "right")
 
 
 ```
 
+```{r map_rup, fig.height=7}
 
-```{r lda_rup}
+map_test <- get_map(location = c(17.8, -35, 22.7, -32.5 ), maptype = "terrain-background", source = "stamen", zoom = 11)
+map_res <- ggmap(map_test)
+
+clump_file9 <- readQ(here("Data", "calc.clumpp.merged.K9.txt"))
+
+gen_dat <- as.data.frame(clump_file9$`calc.clumpp.merged.K9-1`)
+
+pop_names <- read.table(here("Data", "popmap_rupestris_reordered"), stringsAsFactors=F)
+
+gen_dat <- cbind(pop_names, gen_dat)
+
+gen_dat <- separate(gen_dat, 
+                    col = V1, 
+                    into = c("letter", "Pop"),
+                    sep = "B")
+gen_dat$Pop[gen_dat$Pop == "LW2"] <- 2
+
+
+gen_dat$Pop <- as.numeric(gen_dat$Pop)
+
+gen_dat_reduced <- gen_dat %>% 
+    group_by(Pop) %>% 
+    mutate(C1 = mean(Cluster1),
+           C2 = mean(Cluster2),
+           C3 = mean(Cluster3),
+           C4 = mean(Cluster4),
+           C5 = mean(Cluster5),
+           C6 = mean(Cluster6),
+           C7 = mean(Cluster7),
+           C8 = mean(Cluster8),
+           C9 = mean(Cluster9)) %>% 
+    as.data.frame()
+
+gen_dat_reduced <- gen_dat_reduced[, c(2,12:20)] 
+gen_dat_reduced <- gen_dat_reduced %>% distinct()
+
+
+rup_location <- location_data %>% 
+    filter(Major_groups == "rupestris") %>% 
+    distinct()
+
+
+combined <- left_join(gen_dat_reduced, rup_location, by = "Pop")
+combined <- combined[,c(1:12, 21:22)]
+
+combined$Edeg[combined$Pop == 1616] <- 18.29265
+combined$Sdeg[combined$Pop == 1604] <- -34.45525
+combined$Edeg[combined$Pop == 1589] <- 18.78788
+combined$Sdeg[combined$Pop == 1594] <- -34.4903
+combined$Edeg[combined$Pop == 1600] <- 19.37005
+combined$Edeg[combined$Pop == 1597] <- 19.22052
+combined$Sdeg[combined$Pop == 1597] <- -34.33863
+combined$Sdeg[combined$Pop == 1632] <- -34.09035
+combined$Edeg[combined$Pop == 1631] <-  20.3272
+combined$Edeg[combined$Pop == 1634] <- 20.57443
+combined$Sdeg[combined$Pop == 1633] <- -33.88173
+combined$Edeg[combined$Pop == 1633] <- 20.44318
+combined$Edeg[combined$Pop == 1559] <- 19.76875
+combined$Edeg[combined$Pop == 1565] <- 18.86608
+combined$Sdeg[combined$Pop == 1565] <- -34.00277
+combined$Sdeg[combined$Pop == 1579] <- -33.98938
+
+my_colours <- c(
+    "#60D5FD", #set
+    "#027368", #leafy
+    "#77CE61", #dodii
+    "dark grey",
+    "#1D72F5", #E. rup
+    
+    "#851D41", #rup
+    "#DF0101", #Fernkloof
+    
+    #"#F2B950", #scab
+    "#9471B4", #uni
+    "#FF9326" #restiod
+) 
+
+map_res +
+    geom_scatterpie(data = combined, 
+                    aes(x = Edeg, y = Sdeg, r = rep(0.075, 216)), 
+                    cols = colnames(combined[,2:10]),
+                    pie_scale = 5,
+                    size = 0.05) +
+    scale_fill_manual(values = my_colours)+
+    geom_text(data = combined, 
+              aes(x = Edeg, y = Sdeg),
+              label = combined$Pop,
+              nudge_y = -0.1,
+              size = 2
+    )+
+    theme(legend.position = "none",
+          axis.title.y = element_text(colour = "white"),
+          axis.title.x = element_text(colour = "white")) +
+    coord_equal()
+
+```
+
+
+```{r lda_rup, fig.cap='A linear discriminant analysis of the morphological data for the Rupestris clade. Traits included are described in Table . For the full dataset, plot A) shows axes PC1 and PC2, B) shows PC3 and PC4. Restiod tricostata and Uniflora are removed from the analysis in C) and D).'}
 
 my_colours <- c("#77CE61", #dodii
                 "#1D72F5", #E. rup
@@ -2015,7 +2363,7 @@ my_colours2 <- c("#77CE61", #dodii
                 "#FFA5B0", #Fernkloof B
                 "#027368", #leafy
                 #"#FF9326", #restiod
-                "#CC1577", #rup
+                "#851D41", #rup
                  
                 "#F2B950", #scab
                 "#60D5FD", #set
@@ -2039,12 +2387,12 @@ ld4 <- ggplot(lda.data, aes(LD3, LD4)) +
     my_theme +
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 
-ggpubr::ggarrange(ld1, ld2, ld3, ld4, ncol = 2, nrow = 2, align = "hv", labels = c("A", "B", "C", "D"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98, common.legend = T, legend = "right")
+ggpubr::ggarrange(ld1, ld2, ld3, ld4, ncol = 2, nrow = 2, align = "hv", labels = c("A", "B", "C", "D"), font.label = list(size = 18, face = "plain"), label.x = 0.07, label.y = 0.98, common.legend = T, legend = "right")
 
 ```
 
 
-```{r rup_boxplots, fig.width=8, fig.height=10.5}
+```{r rup_boxplots, fig.width=8, fig.height=10.5, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
 
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),

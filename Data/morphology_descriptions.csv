@@ -8,18 +8,18 @@ Internode distance,"Length between two nodes, measured in lowest 3rd of specimen
 Culm diameter,Measured in lowest 3rd of specimen,Yes
 Inflorescence length,Length of a representative inflorescence,Yes
 Spikelet number ,Count of spikelets in a representative inflorescence,Yes
-Pedicel length,,Yes
+Pedicel length,Length of pedicel,Yes
 Glume length outer,Length from base of spikelet to the tip of outer glume,No
 Glume length inner,Length from base of spikelet to the tip of inner glume,No
 Spikelet width,"Measured a third of the way up the spikelet, just before the glumes flare. Glumes are included, except for spp. such as tricostata where the glumes are reduced",No
-Spikelet length,Length from the base of spikelet to the tip of longest lemma,No
+Spikelet length,Length from the base of spikelet to the tip of longest lemma,Yes
 Lemma length outer,"Length from base of spikelet with glumes removed, to tip of outer lemma",No
 Lemma length inner,"Length from base of spikelet with glumes removed, to tip of inner lemma",No
 Striation number,Count of striations on inner lemma,Yes
-Relative sheath length,"Sheath length/Internode distance, measures extent to which the internode is enclosed by the sheath",
-Relative leaf length,Leaf length/Sheath length,
-Glume enclosure,"Glume length outer/Spikelet length, measures the extent to which the glume encloses the spikelet",
-Glume ratio,"Glume length outer/Glume length inner, measures the equality of the glume lengths",
-Spikelet shape,Spikelet length/Spikelet width,
-Lemma ratio,"Outer lemma length/Inner lemma length, measures the equality of the lemma lengths",
-Inflorescence position,"Plant height/Veg height, measures extent to which the inflorescence extends above the foliage",
+Relative sheath length,"Sheath length/Internode distance, measures extent to which the internode is enclosed by the sheath",Yes
+Relative leaf length,Leaf length/Sheath length,Yes
+Glume enclosure,"Glume length outer/Spikelet length, measures the extent to which the glume encloses the spikelet",Yes
+Glume ratio,"Glume length outer/Glume length inner, measures the equality of the glume lengths",Yes
+Spikelet shape,Spikelet length/Spikelet width,Yes
+Lemma ratio,"Outer lemma length/Inner lemma length, measures the equality of the lemma lengths",Yes
+Inflorescence position,"Plant height/Veg height, measures extent to which the inflorescence extends above the foliage",Yes

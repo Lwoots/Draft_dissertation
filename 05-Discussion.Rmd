@@ -1,0 +1,119 @@
+---
+title: "Discussion"
+author: "Lara Wootton"
+date: "13/07/2020"
+output: html_document
+---
+
+
+
+# Discussion
+
+
+
+The data presented here reveal that, not only are the subspecies within the Ramosa and Rupestris groups likely warrant species status, but that several subspecies can themselves be divided into several coherent taxa. Here, I  
+
+While it is not the aim of this dissertation to present a formal taxonomic revision of the Cape _Ehrharta_, I
+
+- Key results - Most subsp in the Ramosa and Rehmannii warrant species status. Rupestris can be divided further.
+
+- Operational criteria - evidence of genetic isolation between taxa from genetic population assignment analysis (sNMF). Evidence of common ancestry from targeted enrichment phylogenetic analysis. Morphological and ecological differences, sympatry.
+- Why do targeted and gbs complement each other?
+- Multiple lines of evidence, equals integrative taxonomy
+- Species concept de Quiroz - separately evolving metapopulation lineage
+- We don't require monophyly, because: Paraphyly is a legit evolutionary process that occurs through anagenesis [@Funk, @Hörandl, @Rieseberg, @Carnicero ] through budding of species
+- This isn't a formal revision, rather a basis for future publications
+
+The data presented here suggest that the Rehmannii, Ramosa and Rupestris groups of the Cape _Ehrharta_ each contain multiple species. In particular, there is evidence that the subspecies within the Rehmannii and Ramosa groups warrant species status, and that the Rupestris group potentially contains up to 11 taxa. Here, I discuss the evidence for each species hypothesis, using the unified species concept of @Queiroz2007, where a species consists of a separately evolving metapopulation-level lineage.  The operational criteria used for developing species boundaries in this work are evidence of common ancestry inferred from phylogenetic analysis, evidence of genetic isolation inferred from genetic population assignment analysis (sNMF), as well as evidence of morphological and ecological differentiation. As such, this can be considered an integrative taxonomic approach as multiple lines of evidence are used to delimit species boundaries. 
+
+
+
+Although many groups show strong population substructure, not necessarily all diff species - read
+
+Note that these criteria do not necessarily require a species to be monophyletic. Although it is a common taxonomic practice to only recognise monophyletic species, evolutionary processes are able to generate paraphyletic taxa [@Funk2003, @Horandl2010]. During anagenesis speciation, a small population "buds" from the periphery of a species range, rendering the initial species paraphyletic and creating a nested lineage [@Mayr2002, @Crawford2010]. The taxa will eventually reach monophyly, but the rate of lineage sorting depends on factors such as rate of gene flow and population size [@Reiseberg1994, @Funk2003]. Rather than the exception, it has been argued that anagenesis may be a common cause of speciation in plants [@Reiseberg1994]. Therefore, should the two taxa be morphologically or ecologically distinct, it is unnecessary to either sink the budding species or split the initial species just for the sake of retaining monophyly [@Horandl2010, @Kuchta2018, @Carnicero2019]. Other processes that can result in paraphyly are introgression, hybridisation, and incomplete lineage sorting [@Funk2003].
+
+
+
+## Rehmannii taxonomy
+
+
+
+Rehmannii
+
+
+
+- Distinct ancestral gene pool at K = 3, plus gene flow at K = 10
+- Common ancestry in ML, although grade in ASTRAL
+- Clear genetic differentiation in PCoA
+- Ecological differences  - Mountainous, not coastal
+- Morphologically close to subspicata, but as Gibbs says, more spiklets, though we didn't find a difference in leaf broadness
+
+
+
+Subspicata
+
+- Clear common ancestry
+- Some admixure with filiformis, especially 1660 which could be hybrid (or 'limestone intermediate')
+- Clear ecological preference, as confirmed by Gibbs
+- Distribution
+
+
+
+Filiformis
+
+- Well supported clade
+- Morphologically distinct
+- Distribution as for Gibbs
+
+
+
+## Rehmannii 
+
+
+
+The data presented here suggest that the three groups corresponding to the three subspecies of _E. rehmannii_ can each justifiably be considered a species. While Gibbs considered that there to be too many morphological intermediates between the groups to justify species status, the data suggest that each group is genetically distinct. The phylogenetic analysis shows that Filiformis group forms a well supported clade. It also displays little admixture with Rehmannii or Subspicata, despite significant range overlap with the latter. Although Filiformis often grows on moist mountain slopes, it was also collected near coastal streams, in one locality in Pringle Bay (1591) growing interspersed with a Subspicata population (1590). The Filiformis group is clearly morphologically distinct, having delicate leaves, thin culms, and few spikelets carried below the leaf level. Filiformis plants also have relatively long glumes and highly striated sterile lemmas. The distribution of Filiformis corresponds to that described in Gibbs, extending from the Cape Peninsula to Agulhas. 
+
+The Subspicata group forms a similarly well-resolved clade, although there is some evidence of admixture with the Filiformis group in the sympatric Pringle Bay locality, suggesting past geneflow or hybridisation. Despite this, Subspicata warrants species status based on the clear common ancestry displayed in the phylogenetic analyses, highly different morphology to that of the Filiformis group, and a clear ecological preference for coastal regions. Accession 1660, collected from Agulhas, is somewhat enigmatic. The sNMF analysis assigned it with nearly equal probability to both Subspicata and Filiformis. However, an sNMF run with K = 4 (data not shown), did not assign it to a unique group, and phylogenetic analysis embeds it within Subspicata. Its location and intermediate morphology corresponds to the 'limestone' form described in Gibbs. However, as in Gibbs, there is not enough evidence presented here to justify its assignment to a species rank.
+
+There was incongruence between the ML and ASTRAL as to whether the Rehmannii group is a monophyletic group, with the ASTRAL analysis reconstructing the group as grade. Nonetheless, the sNMF analysis showed high levels of admixture within Rehmannii, even at K = 10, suggesting that the group is genetically cohesive. Although similar in morphology to Subspicata, the main differences being in the number of spikelets, relative glume length and the height at which the inflorescence rises above the leaves, Rehmannii has a different range, occurring along the Eastern Langeberg mountains rather than along the coast.    
+
+
+
+## Ramosa
+
+
+
+Aphylla
+
+
+
+- Well supported clade
+- Very strong internal admixture, and little variation in the group (pcoa)
+- Distributed around false bay, CP to Betty's bay, not up the west coast like in Gibbs
+- Striations
+
+Eastern ramosa
+
+
+
+- Evidence of common ancestry in Astral tree
+- Admixture along swartberg, less so along langeberg, although it is possible that sampling isn't good enough, but pcoa shows cohesive and distinct from the rest of ramosa
+- LDA does just about pull W and E ramosa apart, but there's no distinctive univariate trait that distinguishes the two besides maybe spikelet shape and sheath length
+
+Western ramosa
+
+- this group almost certainly contains multiple cryptic species
+- Although evidence for common ancestry
+- Likely that Limietberg and Milner aphylla are a species
+- 1624 and 1622 highly distinct although in sympatry
+- Similarly, 1611 and 1609 sympatric, not sisters
+- Need finer scale sampling
+
+There is evidence for three to five species contained within _E. ramosa_. The Aphylla group is well defined, as not only is there clear common ancestry shown in the phylogenetic analysis, but both the sNMF analysis at K = 8 and PCoA show strong genetic similarity between populations within the group. The Aphylla group is also morphologically different from the rest of the Ramosa clade, with a greater relative glume length, longer leaves, fewer spikelets and often striated sterile lemmas. However, the group has a restricted range compared to that of _E. ramosa_ subsp. _aphylla_ in Gibbs, only consisting of populations from the Cape Peninsula to Betty's Bay.
+
+The Eastern Ramosa group occurs along the Swartberg and Langeberg mountain ranges
+
+
+
+The Western Ramosa group is likely to consist of two or more species. While there is some evidence for common ancestry, as the group is monophyletic in the ML tree, (but a grade in the ASTRAL tree), the sNMF analysis reveals subdivisions within the group. For example, two accessions initially identified as *E. ramosa* subsp. *aphylla* from Milner Peak (1622) and Limietberg (1609), are recovered as sisters in the phylogenetic analysis, and show high levels of admixture with each other, but not with a sympatric Milner Peak *E. ramosa* subsp. *ramosa* accession (1624). Similarly, in Limietberg, the *E. ramosa* subsp. *ramosa* accession (1611) is not recovered as sister to the *E. ramosa* subsp. *aphylla* (1609) accession growing in sympatry. However, an LDA analysis including the two accessions as a separate group was unable to clearly differentiate them from the remaining Western Ramosa populations on the basis of morphology (data not presented). Similarly, the Milner Peak *E. ramosa* subsp. *ramosa* accession (1624) is genetically distinct from all other Western Ramosa populations, potentially warranting species status. The question is then, do the remaining Western Ramosa accessions form a cohesive species, or would further fine-scale sampling find evidence for more subdivisions? 
+

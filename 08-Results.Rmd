@@ -1,0 +1,643 @@
+---
+title: "Results"
+author: "Lara Wootton"
+date: "26/07/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = T, echo=FALSE, warning=FALSE, message=FALSE, results = 'hide')
+
+require(motmot)
+require(ape)
+require(wesanderson)
+require(tidyverse)
+require(here)
+
+```
+
+
+```{r, cache=T}
+
+#Read in trees
+
+tree1 <- read.nexus(here("Data", "run1_full_annotated.tre"))
+tree2 <- read.nexus(here("Data", "run2_full_annotated.tre"))
+tree3 <- read.nexus(here("Data", "run3_full_annotated.tre"))
+tree4 <- read.nexus(here("Data", "run4_full_annotated.tre"))
+tree5 <- read.nexus(here("Data", "run5_full_annotated.tre"))
+tree6 <- read.nexus(here("Data", "run6_full_annotated.tre"))
+tree7 <- read.nexus(here("Data", "run7_full_annotated.tre"))
+tree8 <- read.nexus(here("Data", "run8_full_annotated.tre"))
+tree9 <- read.nexus(here("Data", "run9_full_annotated.tre"))
+tree10 <- read.nexus(here("Data", "run10_full_annotated.tre"))
+
+all_trees <- c(tree1, tree2,tree3, tree4,tree5, tree6, tree7, tree8, tree9, tree10)
+
+
+
+trait_data <- read.csv(here("Data", "trait_dataV4.csv"))
+
+trait_dat <- trait_data %>% 
+    mutate(inflor_position = Plant_height/Veg_height,
+           relative_sheath_length = Sheath_length/Internode_dist,
+           relative_leaf_length = Leaf_length/Sheath_length,
+           glume_enclosure = Glume_length_outer/Spikelet_length,
+           glume_ratio = Glume_length_outer/Glume_length_inner,
+           spikelet_shape = Spikelet_length/Spikelet_width,
+           lemma_ratio = Lemma_outer_length/Lemma_inner_length)
+
+
+#make labels the same as tips for pop level samples
+pop_dat_id <- paste(trait_dat$Collection[1:315], trait_dat$Sample[1:315], sep = "-") 
+pop_dat_id[1] <- "LW3-1"
+pop_dat_id[315] <- NA #Don't want to use this microlaena
+pop_dat_id[144] <- NA #duplicated id
+
+low_dat_id <- as.character(trait_dat$Collection[316:339]) #pull out other lowland names
+low_dat_id[16] <- "1628-3" #Need to use 695 data for microleana, so rename for ease of use
+low_dat_id[2] <- "1625-u" 
+low_dat_id[6] <- "1554" #typo
+
+
+id <- c(pop_dat_id, low_dat_id)
+
+trait_dat$ID <- id
+
+#Filter individuals that are in the tree
+
+tips <- tree1$tip.label
+date_trait <- trait_dat %>% filter(ID %in% tips)
+
+
+#Add column coded for elevation
+
+date_trait <- date_trait %>% 
+    mutate(Elevation = case_when(
+        ID %in% c("LW3-1", "1649-1","1592-2", 
+                  "1635-2", "1576-1", "1622-1", "1611-2") ~ 1,
+        ID %in% c("1605-3", "1572-2", "1594-2", "1600-2", "1597-2","1655-1","1657-2",
+                  "1644-2","1621-4", "1602-3", "1629-3") ~ 2,
+        ID %in% c("1625-u", "1555", "1556", "1554", "1519", "1516", "1552", "1525", "1543", "1542", "1532", "1550", "1549", "1551", "1547", "1534",
+                  "1526", "1535", "1544", "1523") ~ 0,
+        ID %in% c("1628-3", "1646") ~ 3
+    ))
+
+row.names(date_trait) <- date_trait$ID
+
+
+#Loop
+
+rate_data <- matrix(ncol = 5, nrow = 1000)
+n <- 0
+
+
+for (i in c(4:8, 11:21)) {
+    for (j in 1:length(all_trees)) {
+        
+        n <- n + 1
+        
+        tree <- ladderize(all_trees[[j]], right = T)
+        
+        sortedData <- sortTraitData(phy = tree, y = date_trait, 
+                                    data.name = names(date_trait[i]),
+                                    log.trait = T)
+        
+        phy <- sortedData$phy
+        trait <- sortedData$trait
+        
+        model_h <- transformPhylo.ML(phy = phy, y = trait, 
+                                   model = "clade", nodeIDs = c(70))
+        model_m <- transformPhylo.ML(phy = phy, y = trait, 
+                                     model = "clade", nodeIDs = c(63))
+        model_l <- transformPhylo.ML(phy = phy, y = trait, 
+                                     model = "clade", nodeIDs = c(44))
+        
+        rate_data[n,1] <- j
+        rate_data[n,2] <- model_l$Rates[2]
+        rate_data[n,3] <- model_m$Rates[2]
+        rate_data[n,4] <- model_h$Rates[2]
+        rate_data[n,5] <- names(date_trait[i])
+    }
+    
+}
+
+rate_data <- as.data.frame(rate_data)
+names(rate_data) <- c("Tree", "Rate_low", "Rate_mid", "Rate_high", "Trait")
+rate_data <- na.omit(rate_data)
+rate_data[,4] <- as.numeric(as.character(rate_data[,4]))
+rate_data[,3] <- as.numeric(as.character(rate_data[,3]))
+rate_data[,2] <- as.numeric(as.character(rate_data[,2]))
+rate_data[,1] <- as.numeric(as.character(rate_data[,1]))
+
+rate_data <- rate_data %>% mutate(Var = case_when(
+    Trait == "Veg_height" ~ "Vegetative height" ,
+    Trait == "Spikelet_width" ~ "Spikelet width",
+    Trait == "Spikelet_no" ~ "Spikelet number",
+    Trait == "Spikelet_length"~ "Spikelet length",
+    Trait == "Sheath_length" ~ "Sheath length",
+    Trait == "Plant_height" ~ "Plant height",
+    Trait == "Pedicel_length_epu" ~ "Pedicel length",
+    Trait == "Lemma_outer_length" ~ "Outer lemma length",
+    Trait == "Lemma_inner_length" ~ "Inner lemma length",
+    Trait == "Leaf_width" ~ "Leaf width",
+    Trait == "Leaf_length" ~ "Leaf length",
+    Trait == "Internode_dist" ~ "Internode distance",
+    Trait == "Inflor_length" ~ "Inflorescence length",
+    Trait == "Glume_length_outer" ~ "Outer glume length",
+    Trait == "Glume_length_inner" ~ "Inner glume length",
+    Trait == "Culm_diam" ~ "Culm diameter"
+    
+))
+
+rate_data$Var <- factor(rate_data$Var, levels = c(
+    "Plant height",
+    "Vegetative height",
+    "Leaf length",
+    "Leaf width",
+    "Sheath length",
+    "Internode distance",
+    "Culm diameter",
+    "Inflorescence length",
+    "Spikelet number",
+    "Pedicel length",
+    "Spikelet length",
+    "Spikelet width",
+    "Outer glume length",
+    "Inner glume length",
+    "Outer lemma length",
+    "Inner lemma length"
+))
+
+slow_rates_high <- rate_data %>% filter(Rate_high < 1)
+slow_rates_mid <- rate_data %>% filter(Rate_mid < 1)
+slow_rates_low <- rate_data %>% filter(Rate_low < 1)
+```
+
+```{r, trait_rate, fig.width=8, cache=T}
+library(viridis)
+library(ggnewscale)
+
+a <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_high)) +
+    geom_tile() +
+    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,15)) +
+    ylab("Setacea clade") +
+    new_scale_fill() + 
+    geom_tile(data = slow_rates_high, aes(y = Var, x = Tree, fill = Rate_high))+
+                  scale_fill_distiller(palette = "YlGnBu", limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
+    theme(axis.title = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)) +
+    scale_x_continuous(breaks = 1:10) +
+    labs(title = "Setacea clade")
+
+b <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_mid)) +
+    geom_tile()+
+    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,15))+
+    ylab("Ramosa clade")+
+    new_scale_fill() +
+    geom_tile(data = slow_rates_mid, aes(y = Var, x = Tree, fill = Rate_mid)) +
+    scale_fill_distiller(palette = "YlGnBu", limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
+    theme(axis.title.y = element_blank(),
+          axis.title.x = element_text(colour = "black", size = 13),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)) +
+    scale_x_continuous(breaks = 1:10) +
+    labs(title = "Ramosa clade")
+
+c <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_low)) +
+    geom_tile()+
+    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,15), breaks = c(1,5,10,15))+
+    ylab("Lowlands clade")+
+    labs(fill = "ML rate") +
+    new_scale_fill() +
+    geom_tile(data = slow_rates_low, aes(y = Var, x = Tree, fill = Rate_low)) +
+    scale_fill_distiller(palette = "YlGnBu",limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
+    theme(axis.ticks.y = element_blank(),
+          axis.title = element_blank(),
+          axis.text.y = element_text(size = 12, colour = "black"),
+          #axis.text.x = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)) +
+    scale_x_continuous(breaks = 1:10) +
+    labs(title = "Lowlands clade", fill = " ")
+
+ggpubr::ggarrange(c,b,a, 
+                  nrow = 1, 
+                  common.legend = T,
+                  legend = "right",
+                  widths = c(1,0.6,0.6),
+                  align = "h")
+
+```
+
+```{r contmap, fig.width=8, fig.height=8}
+
+require(phytools)
+par(mfrow = c(2,2))
+
+tree <- drop.tip(tree1, c("M1_S1_L001", "Oryza_sativa"))
+
+#veg height
+vegHeight <- date_trait$Veg_height
+names(vegHeight) <- date_trait$ID
+a <- contMap(tree, log(vegHeight), plot = F)
+
+plot(a, legend=FALSE,
+     fsize = 0.5,
+     ylim=c(1-0.09*(Ntip(a$tree)-1),Ntip(a$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(15, a$cols,title="log(Veg. height)", 
+    lims=a$lims,digits=2,prompt=FALSE,x=0,
+    y=1-0.08*(Ntip(a$tree)-1),lwd=4,fsize=1,subtitle="")
+
+#internode dist
+inter <- date_trait$Internode_dist
+names(inter) <- date_trait$ID
+b <- contMap(tree, log(inter), plot = F)
+
+plot(b, legend=FALSE,
+     fsize = 0.5,
+     ylim=c(1-0.09*(Ntip(b$tree)-1),Ntip(b$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(15, b$cols,title="log(Internode dist.)", 
+    lims=b$lims,digits=2,prompt=FALSE,x=0,
+   y=1-0.08*(Ntip(a$tree)-1),lwd=4,fsize=1,subtitle="")
+
+#Glume inner
+gl_in <- date_trait$Glume_length_inner
+names(gl_in) <- date_trait$ID
+c <- contMap(tree, log(gl_in), plot = F)
+
+plot(c, legend=FALSE,
+     fsize = 0.5,
+     ylim=c(1-0.09*(Ntip(c$tree)-1),Ntip(c$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(10, c$cols,title="log(Inner glume len.)", 
+    lims=c$lims,digits=2,prompt=FALSE,x=0,
+   y=1-0.08*(Ntip(c$tree)-1),lwd=4,fsize=1,subtitle="")
+
+#Lemma inner
+lem_in <- date_trait$Lemma_inner_length
+names(lem_in) <- date_trait$ID
+d <- contMap(tree, log(lem_in), plot = F)
+
+plot(d, legend=FALSE,
+     fsize = 0.5,
+     ylim=c(1-0.09*(Ntip(d$tree)-1),Ntip(d$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(10, d$cols,title="log(Inner lemma len.)", 
+    lims=c$lims,digits=2,prompt=FALSE,x=0,
+   y=1-0.08*(Ntip(d$tree)-1),lwd=4,fsize=1,subtitle="")
+
+
+
+
+```
+
+
+```{r disparity, cache=F, fig.width = 8, fig.height=8}
+
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.key = element_rect(fill = NA, color = "grey"),
+          legend.background = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          legend.text = element_text(size = 15)
+    )
+
+
+univariate_boxplot_trait_data <- function(x) {
+    ggplot(func_traits, aes_string("Elevation", x)) +
+        geom_boxplot(aes(fill = Elevation),
+                     width = 0.6) +
+        my_theme +
+        scale_fill_manual(values=wes_palette(n=3, name="Moonrise2"), 
+                          labels = c("Lowlands", "Ramosa", "Setacea"),
+                          name = " ")
+        
+}
+
+levens <- function(x) {
+    
+    func_traits2 <- func_traits %>% select(x, Elevation)
+    
+    df <- func_traits2 %>% group_by(Elevation) %>% 
+       mutate(dat.med = median(!! sym(x))) %>% 
+       mutate(dat_med_res = abs(!! sym(x) - dat.med))
+    
+    aov(df$dat_med_res~df$Elevation)
+    
+}
+
+
+library(multcompView)
+# I need to group the treatments that are not different each other together.
+generate_label_df <- function(TUKEY, variable){
+    
+    # Extract labels and factor levels from Tukey post-hoc 
+    Tukey.levels <- TUKEY[[variable]][,4]
+    Tukey.labels <- data.frame(multcompLetters(Tukey.levels)['Letters'])
+    
+    #I need to put the labels in the same order as in the boxplot :
+    Tukey.labels$treatment=rownames(Tukey.labels)
+    Tukey.labels=Tukey.labels[order(Tukey.labels$treatment) , ]
+    return(Tukey.labels)
+}
+
+func_traits <- date_trait[,c(4:8, 11:21, 33)]
+#func_traits$Elevation <- as.numeric(levels(func_traits$Elevation))[func_traits$Elevation]
+func_traits <- func_traits %>% filter(Elevation < 3)
+func_traits$Elevation <- as.factor(func_traits$Elevation)
+
+
+#Plant height
+try <- levens("Plant_height")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+a <- univariate_boxplot_trait_data("Plant_height") +
+    ylab("Plant height (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Plant_height), 3), label = Letters),
+              size = 6)
+
+    
+#Veg height
+try <- levens("Veg_height")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+b <- univariate_boxplot_trait_data("Veg_height") +
+    ylab("Vegetative height (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Veg_height), 3), label = Letters),
+              size = 6)
+
+#Leaf width
+try <- levens("Leaf_width")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+c <- univariate_boxplot_trait_data("Leaf_width") +
+    ylab("Leaf width (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Leaf_width), 3), label = Letters),
+              size = 6)
+
+#Leaf length
+try <- levens("Leaf_length")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+d <- univariate_boxplot_trait_data("Leaf_length") +
+    ylab("Leaf length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Leaf_length), 3), label = Letters),
+              size = 6)
+
+#Sheath
+try <- levens("Sheath_length")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+e <- univariate_boxplot_trait_data("Sheath_length") +
+    ylab("Sheath length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Sheath_length), 3), label = Letters),
+              size = 6)
+
+#internode
+
+try <- levens("Internode_dist")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+f <- univariate_boxplot_trait_data("Internode_dist") +
+    ylab("Internode distance (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Internode_dist), 3), label = Letters),
+              size = 6)
+
+#culm
+
+try <- levens("Culm_diam")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+g <- univariate_boxplot_trait_data("Culm_diam") +
+    ylab("Culm diameter (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Culm_diam), 3), label = Letters),
+              size = 6)
+
+#inflor
+
+try <- levens("Inflor_length")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+h <- univariate_boxplot_trait_data("Inflor_length") +
+    ylab("Inflorescence length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Inflor_length), 3), label = Letters),
+              size = 6)
+#spike
+
+try <- levens("Spikelet_no")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+i <- univariate_boxplot_trait_data("Spikelet_no") +
+    ylab("Spikelet number (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Spikelet_no), 3), label = Letters),
+              size = 6)
+#Pedicel
+
+try <- levens("Pedicel_length_epu")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+j <- univariate_boxplot_trait_data("Pedicel_length_epu") +
+    ylab("Pedicel length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Pedicel_length_epu), 3), label = Letters),
+              size = 6)
+
+#Glume outer
+
+try <- levens("Glume_length_outer")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+k <- univariate_boxplot_trait_data("Glume_length_outer") +
+    ylab("Outer glume length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Glume_length_outer), 3), label = Letters),
+              size = 6)
+
+#glume inner
+
+try <- levens("Glume_length_inner")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+l <- univariate_boxplot_trait_data("Glume_length_inner") +
+    ylab("Inner glume length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Glume_length_inner), 3), 
+                  label = Letters),
+                  size = 6)
+
+#spike width
+
+try <- levens("Spikelet_width")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+m <- univariate_boxplot_trait_data("Spikelet_width") +
+    ylab("Spikelet width (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Spikelet_width), 3), 
+                  label = Letters),
+                  size = 6)
+#glume inner
+
+try <- levens("Spikelet_length")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+n <- univariate_boxplot_trait_data("Spikelet_length") +
+    ylab("Spikelet length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Spikelet_length), 3), 
+                  label = Letters),
+                  size = 6)
+#lemma outer
+
+try <- levens("Lemma_outer_length")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+o <- univariate_boxplot_trait_data("Lemma_outer_length") +
+    ylab("Outer lemma length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Lemma_outer_length), 3), 
+              label = Letters),
+              size = 6)
+#lemma inner
+
+try <- levens("Lemma_inner_length")
+summary(try)
+hsd <- TukeyHSD(try)
+
+LABELS <- generate_label_df(hsd, 'df$Elevation')
+
+output <- data.frame(LABELS)
+p <- univariate_boxplot_trait_data("Lemma_inner_length") +
+    ylab("Inner lemma length (mm)") +
+    geom_text(data = output, 
+              aes(x = treatment, y = rep(1.1*max(func_traits$Lemma_inner_length), 3), 
+              label = Letters),
+              size = 6)
+
+
+ggpubr::ggarrange(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p, align = "v", common.legend = T, legend = "right")
+```
+
+
+
+```{r codeml_pairs, fig.cap="Pairwise comparisons between taxa from codeml (Goldman & Yang 1994) (runmode -2, model = 0"}
+
+pairs <- read.csv("/Users/larawootton/Documents/pairwise.csv")
+
+pairs <- pairs %>% mutate(Elev = 
+                     case_when(seq %in% c(1:19, 31) & seq.1 %in% c(1:19, 31) ~ "Lowlands",
+                               seq %in% c(21,22,28, 30, 34, 37,40) & seq.1 %in% c(21,22,28, 30, 34, 37,40) ~ "Ramosa",
+                               seq %in% c(20,23:27, 29, 33, 35, 38, 39) & seq.1 %in% c(20,23:27, 29, 33, 35, 38, 39) ~ "Setacea"
+                     )) %>% na.omit()
+
+my_theme <- theme_bw() +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid = element_blank(),
+          legend.position = "none",
+          legend.background = element_blank(),
+          #axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          #axis.ticks.x = element_blank(),
+          legend.text = element_text(size = 15)
+    )
+
+dn <- ggplot(pairs, aes(Elev, dN)) +
+    geom_boxplot(aes(fill = Elev)) +
+    my_theme +
+    scale_fill_manual(values=wes_palette(n=3, name="Moonrise2"))
+
+
+ds <- ggplot(pairs, aes(Elev, dS)) +
+    geom_boxplot(aes(fill = Elev)) +
+    my_theme +
+    scale_fill_manual(values=wes_palette(n=3, name="Moonrise2"))
+
+dnds <- ggplot(pairs, aes(Elev, dN.dS)) +
+    geom_boxplot(aes(fill = Elev)) +
+    my_theme +
+    scale_fill_manual(values=wes_palette(n=3, name="Moonrise2"))
+
+ggpubr::ggarrange(dn, ds, dnds, align = "h", nrow = 1)
+
+```
+

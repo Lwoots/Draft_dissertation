@@ -9,59 +9,25 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-
-
-
-## Data selection
-
-
-
-
-
-
-
-Choice of samples - one from each sp group, plus subspecies, choson on completeness of morphology and sequencing coverage
-
-
-
-Bioinfomatics as in chapt 1 - hybpiper, ninety coverage, mafft, trimal
-
-Randomly picked 25 with replacement - model finder with JC, HKY, GTR, TN iqtree
-
-Amas
-
-Beast
-
-Calibrations from prasad
-
-Run on hpc and Cipress
-
-Four reps, 10% burn in
-
-Combined with logcombiner
-
-Tree annotater
-
-
-
-Targeted-enrichment data compiled in Chapter 2 was incorporated into the data analysis.  
-
-
+# Methods
 
 ## Dating analyses
 
-The dating analysis presented here is based on targeted-enrichment dataset compiled in Chapter 2. One individual per taxon group defined in Chapter. 2, resulting in 42 taxa, was chosen for the dating analysis based on sequencing coverage and completeness of morphological data. In addition, three _E. calycina_ accessions, corresponding to the robust, gracile and Clanwilliam forms, and both subspecies of _E. villosa_ and _E. brevifolia_ were included. Due to the computational demands of dating methods, running an analysis on the full number of loci was unfeasible. Instead, 10 sets of 25 supercontig loci were drawn with replacement from a pool consisting of the 308 supercontig loci from the ninety-coverage dataset of Chapt. 2, following the methods of @Stubbs2018. The loci within each set were individually aligned using MAFFT v.7.427 [@Katoh2013], with gappy regions removed with TrimAL v.1.2 using the -automated1 option [@Capella2009], and the aligned loci were then concatenated and partitioned using AMAS [@Borowiec2016]. IQTREE was used to find which of the substitution models incorporated in BEAST v1.10.4 were suitable for each loci with the option -mset JC, HKY, GTR, TN93. BEAUTi v1.10.4 was used to set up xml files for input into BEAST. All loci were parameterised using unlinked substitution models corresponding to the best model found by IQTREE, while clock and tree models were linked across the loci. Taxon relationships were constrained to correspond to the topology of the ASTRAL tree in Chapter 2. Two calibration points with normal priors were used based on the fossil-calibrated tree of @Prasad2011, one constraining the node between _O. sativa_ and _Ehrharta_ at 72.5 MYA (sd = 5.61), and the other between _M. stipoides_ and the Setacea clade at 20 MYA (sd = 7.65). BEAST analyses were run using a birth-death tree prior and relaxed uncorrelated lognormal clock model, sampling parameters every 1000 generations. Four replicate BEAST runs of 50,000,000 generations per loci set were used to confirm convergence and stationarity, visualised in TRACER, and a fifth replicate of 250,000,000 generations was run to ensure that the Estimated Sample Size (ESS) had an approximate value of 100 or greater. The five replicate runs per loci set were combined using LogCombiner v1.10.4 with a burn in of 10,000,000 generations per replicate. TreeAnnotator v1.10.4 was used to construct maximum clade credibility trees. Computations were conducted either using CIPRES Science Gateway [@Miller2010] or the facilities of the University of Cape Town’s ICTS High Performance Computing unit.
+The tree dating analysis presented here is based on the targeted-enrichment dataset compiled in Chapter 2. One individual per taxon group defined in Chapter 2, resulting in 42 taxa, was chosen for the dating analysis based on sequencing coverage and completeness of morphological data. In addition, three _E. calycina_ accessions, corresponding to the robust, gracile and Clanwilliam forms, and both subspecies of _E. villosa_ and _E. brevifolia_ were included. Due to the computational demands of dating methods, running an analysis on the full number of loci was unfeasible. Instead, 10 sets of 25 supercontig loci were drawn with replacement from a pool consisting of the 308 supercontig loci from the ninety-coverage dataset of Chapter 2, following the methods of @Stubbs2018. In addition, the gene "shopping" SortaDate package [@Smith2018] was used to choose the 25 "best" and 25 "worst" loci, by generating gene trees for each loci with IQTREE v.1.6.11 [@Nguyen2015], then ranking the gene trees first by concordance with the ASTRAL species tree, then by most clock-like, and finally by tree length (-order 3,1,2). The loci within each set were individually aligned using MAFFT v.7.427 [@Katoh2013], with gappy regions removed with TrimAL v.1.2 using the -automated1 option [@Capella2009], and the aligned loci were then concatenated and partitioned using AMAS [@Borowiec2016]. IQTREE was used to find which of the substitution models incorporated in BEAST v1.10.4 [@Drummond2007; @Suchard2018] were suitable for each loci with the option -mset JC, HKY, GTR, TN93. BEAUTi v1.10.4 [@Suchard2018] was used to configure xml files for input into BEAST. All loci were parameterised using unlinked substitution models corresponding to the best model found by IQTREE, while clock and tree models were linked across the loci. Taxon relationships were constrained to correspond to the topology of the ASTRAL tree in Chapter 2. Two calibration points with normal priors were used based on the fossil-calibrated tree of @Prasad2011, one constraining the node between _O. sativa_ and _Ehrharta_ at 72.5 MYA (sd = 5.61), and the other between _M. stipoides_ and the Setacea clade at 20 MYA (sd = 7.65). BEAST analyses were run using a birth-death tree prior and relaxed uncorrelated lognormal clock model, sampling parameters every 1000 generations. Four replicate BEAST runs of 50,000,000 generations per loci set were used to confirm convergence and stationarity through visualisation in TRACER v1.7.1 [@Rambaut2018], and a fifth replicate of 250,000,000 generations was run to ensure that the Estimated Sample Size (ESS) for each parameter had an approximate value of >100. The five replicate runs per loci set were combined using LogCombiner v1.10.4 [@Suchard2018] with a burn in of 10,000,000 generations per replicate. TreeAnnotator v1.10.4 [@Suchard2018] was used to construct maximum clade credibility trees and summary statistics. Computations were conducted either using CIPRES Science Gateway [@Miller2010] or the facilities of the University of Cape Town’s ICTS High Performance Computing unit.
 
 ## Diversification
 
-To test whether the macroevolutionary dynamics of diversification differed between clades was modelled with BAMM v2.5.0 [@Rabosky2014]. Although BAMM can account for missing taxa within a tree @ref, this work focuses on the diversification within the Cape _Ehrharta_ and therefore, the _Ehrharta_ species occurring outside the Cape, such as _E. longiglumis_, as well as _O. sativa_ and _M. stipoides_ were excluded from the analysis. First, priors for each of the ten BEAST trees were generated using the function "setBAMMpriors" from the R package _BAMMTools_ [@Rabosky2014b]. For all trees, the expected number of diversification rate shifts was set to one, based on evidence for an adaptive radiation within the Lowlands clade [@Verboom2003; @Verboom2004]. BAMM was run for 3,000,000 generations, sampling every 1000 generations. Convergence and ESS were checked using the R package _Coda_ [@Plummer2006]. The 95% credible set of rate shift configurations was extracted with the function "credibleShiftSet", and the mean rate of diversification within each of the Lowlands, Succulent Karoo, Ramosa and Setacea clades was calculated using "getCladeRates" [@Rabosky2014b]. As a control to investigate the influence of the postulated new taxa, the analysis was then repeated with the BEAST trees trimmed to correspond to the phylogeny of @Verboom2003; only one taxon corresponding to each of _E. setacea_, _E. rupestris_, _E. rehmannii_, _E. calycina_, _E. villosa_, and _E. brevifolia_ were included.
+To test whether rates of diversification differed between clades, BAMM v2.5.0 [@Rabosky2014] was used to model potential rate shifts. Although BAMM can account for incomplete taxon sampling within a tree [@Rabosky2014], this work focuses on the diversification within the Cape _Ehrharta_ and therefore, the _Ehrharta_ species occurring outside the Cape, such as _E. longiglumis_, as well as _O. sativa_ and _M. stipoides_ were excluded from the analysis. Priors for each of the twelve BEAST trees were generated using the function "setBAMMpriors" from the R package _BAMMTools_ [@Rabosky2014b]. For all trees, the expected number of diversification rate shifts was set to one, based on evidence for an adaptive radiation within the Lowlands clade [@Verboom2003; @Verboom2004]. BAMM was run for 3,000,000 generations, sampling every 1000 generations. Convergence and ESS were checked using the R package _Coda_ [@Plummer2006]. The 95% credible set of rate shift configurations was extracted with the function "credibleShiftSet", and the mean rate of diversification within each of the Lowlands, Succulent Karoo, Ramosa and Setacea clades was calculated using "getCladeRates" [@Rabosky2014b], which were then tested for significant differences using an ANOVA. As a control to investigate the influence of the postulated new taxa outlined in Chapter 2, the analysis was then repeated with the BEAST trees trimmed to correspond to the phylogeny of @Verboom2003; only one taxon corresponding to each of _E. setacea_, _E. rupestris_, _E. rehmannii_, _E. calycina_, _E. villosa_, and _E. brevifolia_ were included.
 
 ## Rate of morphological change
 
-filtered alignments based on <25% gap characters, more than 0.2 variable sites, except for two seqs with vary high variable sites >0.4 likely misaligned or frameshifts, contain all taxa, and no frameshifts. Used trimal to remove columns with more than 5% gaps. 
+The non-censored model of @OMeara2006 was used in order to evaluate whether the Lowlands, Ramosa and Setacea clades each had a different rate of morphological evolution in comparison to the rest of the tree. This method was chosen as it allows for specific, _a priori_ hypothesis testing, rather than searching for rate shifts anywhere on the tree [e.g. @Eastman]. For each of the ten BEAST trees, the rate of evolution of a single log-transformed trait within one of the three clades was compared to the rate of the trait's evolution within the rest of the tree using the function "transformPhylo.ML" and the model = "clade" argument from the R package _MOTMOT_ [@Puttick2019]. Sixteen different morphological traits, as described in Chapter 2 and measured on the exact individuals used in the BEAST trees, were included in the analysis. The trait variance across the trees was visualised using the function "contmap" implemented in the R package _phytools_ [@Revell2012], and a Levene's test for equal variance [@Levene1960], followed by a Tukey HSD post-hoc test, was used to evaluate whether the actual degree of observed trait disparity varied between clades. 
+
+## Rate of non-synonymous to synonymous change
 
 
 
-## DN DS
+The codeml program from the PAML package [v4.9, @Yang] was used to infer synonymous and non-synonymous rate of change. First, the loci contained in ninety percent coverage exon dataset from Chapter 2 were aligned using the codon-aware alignment program MACSE v2.03 [@Macse]. Summary statistics for each alignment were then calculated using AMAS [@boweric], and only loci containing <25% gap characters, >20% variable sites, and had no missing taxa were retained for the analysis, leaving a total of 44 loci. The loci were concatenated into a single alignment, and columns containing >5% gaps were removed using TrimAl v.1.2 with the setting -gt 95 [@Capella2009]. As codeml isn't sensitive to initial branch lengths, a single unrooted BEAST tree was used for all codeml analyses [@ref]. The free-ratios model was implemented to estimate dN, dS and $\omega$ for each branch (model = 1,  NSsites = 0); the rates for the terminal branches were grouped by clade, and an ANOVA followed by a Tukey HSD post-hoc test was used to test for significant differences between clades. In addition, two-rate models were fitted that allowed the $\omega$ of foreground branches, in this case all branches within a given clade, to differ from the remaining background branches [model = 2, NSsites = 0, @Yang1998; @Yang1998b]. A likelihood-ratio test was then used to evaluate whether the two-rate models were significantly better than a the one-rate branch model (model = 0, NSsites = 0), which estimates a single $\omega$ across the tree.
+
+
 

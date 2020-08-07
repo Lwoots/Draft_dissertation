@@ -3,12 +3,13 @@ title: "Phylogenetic results"
 author: "Lara Wootton"
 date: "11/05/2020"
 output: 
-  pdf_document
+  pdf_document:
+    fig_caption: yes
 ---
 
 ```{r setup, include=F}
 knitr::opts_chunk$set(cache = T,
-                      echo=FALSE, warning=FALSE, message=FALSE)
+                      echo=FALSE, warning=FALSE, message=FALSE, results = 'hide')
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
 p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr, maptools, sp, rgdal, plotly, rgeos, ggmap, scatterpie, tidyverse, here)
@@ -42,33 +43,28 @@ map_res <- ggmap(map_test)
 
 ```
 
+# Results
 
-
-## Sequencing results
-
-
-
-#### Targeted-enrichment dataset
-
-I sequenced 353 loci for 108 taxa, with the addition of _O. sativa_ as an outgroup. After trimming, an average of 228907 reads per sample were mapped to target loci. Of the 353 loci, an average of 200 loci per sample had reads mapped to at least 75% of their length. Phylogenies generated from the ninety-coverage, full-coverage, exon, intron and supercontig datasets contained similar topologies. Therefore, only results obtained from the ninety-coverage supercontig dataset are presented. The ninety-coverage supercontig dataset contained 235 loci, each represented in a minimum of 98 taxa. The concatenated alignment used for maximum-likelihood analyses was 698832 bp long, and contained 12.5% gap characters. There were 388704 (55.6%) variable sites, and 226897 (32.5%) parsimony-informative sites. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 235 to 84.
+## Sequence data
 
 
 
-#### Genotyping-by-sequencing dataset
+Targeted-enrichment sequencing yielded 353 loci across 108 accessions, to which _O. sativa_ was added as an outgroup. Following read  trimming, an average of 228 907 reads per sample were mapped to the target loci. Of the 353 loci, an average of 200 loci per sample had reads mapped to at least 75% of their length. Phylogenetic trees inferred from the ninety percent coverage, and full coverage datasets were very similar, both topologically and in terms of their branch lengths, whether they were based on exons, introns or supercontigs. Therefore, only results obtained from the ninety percent coverage supercontig dataset are presented here. The ninety percent coverage supercontig dataset contained 307 loci, each represented in a minimum of 98 of the total 109 accessions. The concatenated alignment used for ML analysis was 698 832 bp long, and contained 12.5% gap characters. Of these sites, 388 704 (55.6%) were variable, and 226 897 (32.5%) were potentially parsimony-informative. The percent GC content was 39.4%. Partitionfinder reduced the number of partitions from 307 to 84.
 
-The full GBS dataset was split into clades for analysis. The Rupestris clade, represented by 95 individuals and 24 populations, originally consisted of 572345 variants, but decreased to 3753 variants after filtering. The Rehmannii and Ramosa clades were both represented by 48 individuals and 12 populations. After filtering, the number of variants in Rehmannii decreased from 450635 to 3544, and in Ramosa from 443722  to 3430 variants.
+The full GBS dataset was split into three clades for analysis. The Setacea clade, represented by 95 individuals and 24 populations, originally consisted of 572 345 variants, but this decreased to 3753 variants after filtering. The Rehmannii and Ramosa clades were each represented by 48 individuals and 12 populations. Following filtering, the number of variants in the Rehmannii clade decreased from 450 635 to 3544, and in the Ramosa clade from 443 722  to 3430 variants.
 
 ## Phylogenetic results
 
-The maximum-likelihood (ML) and maximum quartet support (MQS) methods yielded well-supported, topologically-similar trees (Figure \@ref(fig:MLtree), Figure \@ref(fig:astraltree)). In both trees, six major clades (here termed the Australian, Rehmannii, Ramosa, Rupestris, Dura and Lowland clades) are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the MQS tree numbers of coalescent units (generations/effective population size). In the Rupestris, Ramosa and Rehmannii clades, internal branches tend to be very short relative to both the stem and terminal branches, resulting in a “broomstick” morphology (ref) (Figure \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Rupestris clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta*. The Rupestris clade is composed of two species, *E. setacea* and *E. rupestris*, neither of which is monophyletic. 
+Maximum-likelihood and ASTRAL yielded well-supported, topologically-similar trees (Fig. \@ref(fig:MLtree), Fig. \@ref(fig:astraltree)). In both trees, six major clades, (here termed the Australian, Rehmannii, Ramosa, Setacea, Dura and Lowland clades), are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the ASTRAL tree numbers of coalescent units (generations/effective population size). In the Setacea, Ramosa and Rehmannii clades, internal branches are short relative to both the stem and terminal branches, resulting in a “broomhandle” morphology (@Crisp2009) (Fig. \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. 
 
-The montane Dura clade (BS = 100, LPP = 1.00), comprising *E. dura* and *E. microlaena*, is resolved with strong support (BS = 100, LPP = 1.00) as sister to a well-supported clade (BS = 100, LPP = 1.00) comprising the Rehmannii, Ramosa and Lowland clades. Within this clade, the Rehmannii (BS = 100, LPP = 1.00) and Ramosa clades (BS = 100, LPP = 1.00), each comprising a single species, are resolved as sisters with strong support (BS = 100, LPP = 1.00). The monophyly of the Lowland clade, which comprises species occurring predominately at low to mid elevations in the GCFR, is also well supported (BS = 100, LPP = 1.00), with the two analyses resolving the internal relationships of this clade identically and with maximum support (BS = 100, LPP = 1.00) on most nodes. Relationships within the Lowlands clade are largely consistent with those reported by Verboom et al. (2003).
+The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Setacea clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta* (Fig. \@ref(fig:MLtree), Fig. \@ref(fig:astraltree)). The Setacea clade itself is composed of two species, *E. setacea* and *E. rupestris*, neither of which appear be monophyletic. 
+
+The montane Dura clade (BS = 100, LPP = 1.00), comprising *E. dura* and *E. microlaena*, is resolved with strong support (BS = 100, LPP = 1.00) as sister to a well-supported clade (BS = 100, LPP = 1.00) comprising the Rehmannii, Ramosa and Lowland clades. Within this clade, the Rehmannii (BS = 100, LPP = 1.00) and Ramosa clades (BS = 100, LPP = 1.00), each comprising a single species, are resolved as sisters with strong support (BS = 100, LPP = 1.00). The monophyly of the Lowland clade, which comprises species occurring predominately at low to mid elevations in the GCFR, is also well supported (BS = 100, LPP = 1.00), with the two analyses resolving the internal relationships of this clade identically and with high support (BS = 100, LPP = 1.00) on most nodes (Fig. \@ref(fig:MLtree), Fig. \@ref(fig:astraltree)). Relationships within the Lowlands clade are largely consistent with those reported by @Verboom2003.
 
 
 
 
-
-```{r MLtree, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="Maximum-likelihood tree constructed using IQtree. Red numbers show ultrafast bootstraps. Branch lengths represent number of substitutions. The outgroup branch length, coloured grey, has been shortened by a factor of 2.5 for clarity"}
+```{r MLtree, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="Maximum-likelihood tree constructed using IQTREE with Partitionfinder from 307 concatenated supercontig loci. Red numbers show ultrafast bootstraps. Branch lengths represent number of substitutions. The outgroup branch length, coloured grey, has been shortened by a factor of 2.5 for clarity."}
 #ML tree
 
 tree <- read.tree(here("Data","boot_relaxed_clustering2_ninety_coverage_supercontig_21Apr.treefile"))
@@ -165,7 +161,7 @@ ggtree(tree_group, aes(colour = group), right = T) +
                     offset.text = 0.001
     ) +
     geom_cladelabel(node = 120, 
-                    label = "Rupestris clade", 
+                    label = "Setacea clade", 
                     #align = T,
                     colour = "#1D4F9F",
                     fontsize = 3,
@@ -199,7 +195,7 @@ ggtree(tree_group, aes(colour = group), right = T) +
 ```
 
 
-```{r astraltree, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="MQS tree made with ASTRAL III. Branch lengths represent coalescent units. Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers show local posterior probabilities"}
+```{r astraltree, echo=F, fig.height=10, fig.width=9, warning=F, fig.cap="ASTRAL tree constructed using IQTREE gene trees from 307 supercontig loci. Branch lengths represent coalescent units. Tip branches are an arbitrary length not calculated by ASTRAL. Red numbers show local posterior probabilities"}
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
 p_load(ggplot2, dplyr, ape, phytools, ggtree, treeio, tidyr)
@@ -307,7 +303,7 @@ ggtree(tree, right = T) +
                     offset.text = 0.04
     ) +
     geom_cladelabel(node = 137, 
-                    label = "Rupestris clade", 
+                    label = "Setacea clade", 
                     #align = T,
                     colour = "#1D4F9F",
                     fontsize = 3,
@@ -335,27 +331,18 @@ ggtree(tree, right = T) +
 
 ### Rehmannii clade
 
-#### Phylogenetic relationships
 
 
+The ML and ASTRAL analyses resolve three groups within the Rehmannii clade (Filiformis, Subspicata and Rehmannii groups) which correspond broadly to the existing subspecies of *E. rehmannii*, namely subsp. *filiformis*, subsp. *subspicata*, and subsp. *rehmannii* (Fig. \ref(fig:rehmannii_phylogeny). Where the ML analysis identified all three groups as monophyletic with moderate to strong support (BS = 99, 77, 95, respectively), with the the Filiformis and Subspicata subgroups being sister lineages (BS = 97), the ASTRAL analysis identifies only the Filiformis and Subspicata groups as monophyletic (LPP = 0.83, 0.96, respectively), the Rehmannii group being paraphyletic (LPP = 0.97, 0.85). Interestingly, a sample from near Agulhas, initially identified as *E. rehmannii* subsp. *filiformis* (1658), is placed in the Subspicata clade by both analyses.
 
-The ML and MQS analyses resolve three groups within the Rehmannii clade (Filiformis, Subspicata and Rehmannii groups) which correspond broadly to the existing subspecies of *E. rehmannii*, namely subsp. *filiformis*, subsp. *subspicata*, and subsp. *rehmannii*. Where the ML analysis identified all three groups as monophyletic with moderate to strong support (BS = 99, 77, 95, respectively), with the the Filiformis and Subspicata subgroups being sister lineages (BS = 97), the MQS analysis identifies only the Filiformis and Subspicata groups as monophyletic (LPP = 0.83, 0.96, respectively), the Rehmannii group being paraphyletic (LPP = 0.97, 0.85). Interestingly, a sample from near Agulhas, initially identified as *E. rehmannii* subsp. *filiformis* (1658), is placed in the Subspicata clade by both analyses.
+Both the sNMF analysis with K = 3 and the PCoA based on GBS-based SNP data revealed three main population clusters, which correspond to the three subclades/grades resolved by the phylogenetic analysis (Fig. \@ref(fig:rehmannii_gbs) A, Fig. \@ref(fig:reh_pcoa)). With the possible exception of accession LW1, the Filiformis cluster is genetically homogenous across the sampled populations. Collected from a coastal site on the Cape Peninsula, LW1 shows potential admixture with a sympatric Subspicata population (Fig. \@ref(fig:map_reh)). The Subspicata and Rehmannii clusters are similarly homogeneous in terms of their genetic composition, except for accession 1660 which reflects potential admixture with Filiformis. Although accession 1658 was originally identified as *E. rehmannii* subsp. *filiformis*, both the phylogenetic analysis and the sNMF include this accession in the Subspicata group.
 
-#### GBS results
+The cross-entrophy criterion identified K = 10 as optimal for the Rehmannii clade (Fig. Fig. \@ref(fig:rehmannii_gbs) B). At this value of K there is strong population level genetic structuring, with almost every locality representing a distinct ancestral gene pool. This is particularly apparent in the Filiformis cluster. Within the Subspicata cluster, there appears to be admixture between a Cape Peninsula population (LW3) and an Agulhas population (1659), but not between Agulhas populations (1658, 1659, 1660, Fig. \@ref(fig:map_reh)). Of the three clades, Rehmannii shows the most admixture, with strong evidence for admixture between the Robinson's pass (1649) and Nature's valley populations (1652), despite the paraphyly reconstructed between these groups in the ASTRAL tree, as well as some admixture between the Nature's Valley and Joubertina populations (1653). However, the major mode genetic structure presented for K = 10 reflects only 39% of the sNMF replicates.
 
-The three groups reconstructed by the phylogenetic analysis are largely corroborated by an sNMF analysis with three potential ancestral populations (K = 3), as inferences of ancestral population contribution generally coincides with the phylogenetic groups. Filiformis contains a predominantly homogeneous genetic composition across the sampled populations, with the exception of LW1. Occurring in the Cape Peninsula, LW1 shows potential admixture with both Subspicata and Rehmannii s.s populations. Collection 1658 was originally identified as an _E. rehmannii filiformis_, but the phylogenetic analysis placed it within the Subspicata group.  The sNMF results support this relationship, as 1658 shares a large proportion of its genomic information with the other Subspicata collections. Interestingly, the three populations sampled from the Agulhas area, 1658, 1659 and 1660, had reasonably different genetic profiles. In particular, 1660 shares a slightly greater proportion of ancestry with Filiformis than with Subspicata. 
-
-The cross-entrophy criterion suggests that the optimal number of ancestral populations given the data is ten (K = 10). At this value of K there is strong population level genetic structuring, with almost every locality comprising of a distinct ancestral population. This is particularly apparent in the Filiformis group. Within Subspicata, there appears to be admixture between a Cape Peninsula population (LW3) and an Agulhas population (1659), but not within Agulhas populations (1658, 1659, 1660). Of the three clades, Rehmannii shows the most admixture between populations at this level. There is strong admixture between the Robinson's pass and Nature's valley populations (1649 and 1652), as well as some between Nature's Valley and Joubertina. However, it should be noted that the relationships presented for K = 10 were only reconstructed in 39% of the sNMF replications.
-
-
-A PCOA of the GBS data largely agrees with sNMF findings. Each group formed a distinct cluster along PC1 and PC2 axes. Subspicata was somewhat dispersed, with each population forming a tight cluster within the greater cloud. The Filiformis and Subspicata groups showed also showed strong genetic variation along the PC3 and PC4 axes respectively.
-
-#### Morphology
-
-An LDA of the morphological data was able to separate the groups into discrete clusters, with the exception of a few Rehmannii s.s individuals misclassified as Subspicata (Figure \@ref(fig:reh_lda)). However, Rehmannii s.s tended to be taller than Subspicata, with a greater number of spikelets and an inflorescence that extended further above the leaves. The Filiformis group is more delicate than Rehmannii and Subspicata, with finer leaves, thinner culms, and smaller and fewer spikelets (Figure \@ref(fig:reh_boxplots)).
+An LDA of the morphological data separates the Rehmannii into three fairly discrete clusters, with the exception of a few Rehmannii group individuals which were misclassified as Subspicata (Fig. \@ref(fig:reh_lda)). The Subspicata accession initially identified as *E. rehmannii* subsp. *filiformis* (1658) clustered with the other Subspicata accessions. Univariate comparisons reveal that Rehmannii plants are generally taller than those of Subspicata, their inflorescences having more spikelets protruding higher above the leaves (Fig. \@ref(fig:reh_boxplots)). Conversely, Filiformis plants are more delicate than either Rehmannii or Subspicata, with finer leaves, thinner culms, and smaller and fewer spikelets (Fig. \@ref(fig:reh_boxplots)).
 \newpage
 
-```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Rehmannii clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
+```{r rehmannii_phylogeny, echo=F, warning=F, fig.width=10, fig.height=9, message=F, cache=F, results='hide',fig.keep='all', fig.cap="Phylogenetic relationships of Rehmannii clade. A) Maximum-likelihood tree constructed using IQTREE with Partitionfinder from 307 concatenated supercontig loci. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) ASTRAL tree constructed using IQTREE gene trees from 307 supercontig loci. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 
 if(!require(pacman)){install.packages("pacman", dependencies=TRUE); library(pacman)}
@@ -530,9 +517,16 @@ ast_reh <- ggtree(reh_ast_clade, right = T, size = 1, ladderize = T) +
 
 ast_reh <- flip(ast_reh, 24,19)
 
+#require(ggpubr)
+#ggarrange(ml_reh, ast_reh, labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98, plotlist = F)
 
-ggpubr::ggarrange(ml_reh, ast_reh, labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98)
+cowplot::plot_grid(ml_reh, ast_reh, nrow = 1)
+
+#require(gridExtra)
+#require(grid)
+#arrangeGrob(test) + grid.draw(test)
 ```
+
 
 ```{r reh_ce, fig.width=5, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 20 for the Rehmannii clade. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
 
@@ -740,7 +734,7 @@ ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.lab
 ```
 
 
-```{r, map_reh}
+```{r map_reh, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population at K = 9 for the Setacea clade. Colours correspond to those of Figure'}
 clump_file3 <- readQ(here("Data", "calc.clumpp.merged.K3.txt"))
 
 gen_dat <- as.data.frame(clump_file3$`calc.clumpp.merged.K3-1`)
@@ -871,7 +865,7 @@ ggplot(lda.data, aes(LD1, LD2)) +
 
 ```
 
-```{r reh_boxplots, fig.height=8, message=F, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+```{r reh_boxplots, fig.height=8, message=F, fig.show='first', fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
           panel.grid = element_blank(),
@@ -948,24 +942,23 @@ ggpubr::ggarrange(c,d, NULL,b,a,e,ea, f,g,h,k,l, z,m,ma,mc, mb,n,q,
                   heights = c(1,1,1,1,1,1.45))
 ```
 
+### Ramosa clade
 
-### Ramosa
+In contrast to the existing taxonomy, which describes two subspecies within *E. ramosa*, both the ML and ASTRAL trees resolve three principal subclades within the Ramosa clade (Fig.  \@ref(fig:ram_minor_clades)). The composition of these subclades, however, differs subtly between the two analyses. The Eastern Ramosa group (from the Swartberg and Langeberg) is monophyletic within the Astral tree (LPP = 0.88), but consists of a grade in the ML tree. The converse is true for the Western ramosa group, (Boland Mountains to Cederberg), which is monophyletic in the ML tree (BS = 83) but paraphyletic in the ASTRAL tree (LPP = 0.71).  In contrast, the Aphylla group (Cape Peninsula to Betty's Bay) is monophyletic with strong support in both trees (BS = 100, LPP = 0.95). The _E. ramosa_ subsp. _aphylla_ and _E. ramosa_ subsp. _ramosa_ specimens sampled from sites of sympatry at Milner Peak and Limietberg are not recovered as sisters in either tree, potentially indicating the presence of multiple taxa within the Western Ramosa clade.
 
-The ML and MQS phylogenies resolve the Ramosa clade into three groups, Aphylla, Eastern ramosa and Western ramosa, in contrast to the existing taxonomy of two subspecies within _E. ramosa_ (Figure  \@ref(fig:ram_minor_clades). In both trees, Eastern ramosa is resolved as sister to the Aphylla and Western ramosa groups. Eastern ramosa group forms a well-supported clade within the MQS tree (LPP = 0.88), but consists of a grade in the ML tree. The Eastern ramosa group group consists of specimens collected along the Langeberg and Swartberg mountain ranges. The Aphylla group is monophyletic with strong support in both trees (BS = 100, LPP = 0.95), and contains collections from the Cape Peninsula to Betty's Bay. Within the Aphylla group the topology varies between the trees, with some poorly resolved internal nodes in the MQS tree. The Western ramosa group contains the remaining taxa, which mainly occur inland in the mid and western regions of the Western Cape. This group forms a grade in the MQS tree, with several poorly supported internal nodes.  _E. ramosa aphylla_ and _E. ramosa ramosa_ specimens that were sampled from the same localities in Milner peak and Limietberg are not recovered as sisters in either tree, suggesting that there may be multiple taxa with the Western ramosa group.
+While the phylogenetic trees resolved three potential groups within Ramosa, the admixture results showed limited support for three ancestral populations (K = 3) (Fig.  \@ref(fig:ram_gbs) A) that correspond to the phylogenetic groups. While all Aphylla individuals were assigned to the same ancestral population with high probability, most Western Ramosa individuals shared a large proportion of genomic information with the Aphylla group. A population from Milner Peak (1624) is exceptional in being genomically distinct from the Aphylla cluster, as all individuals from this locality were assigned to a largely distinct genetic cluster. Although the dominant gene pool in the Aphylla cluster (blue in Fig. \@ref(fig:ram_gbs) also occur in the Eastern Ramosa cluster, a high frequency of a third gene pool (red in Fig. \@ref(fig:ram_gbs) distinguishes the latter.
 
-While the phylogenetic trees resolved three potential groups within Ramosa, the admixture results showed limited support for three ancestral populations (K = 3) (Figure  \@ref(fig:ram_gbs ) A) that correspond to the phylogenetic groups. While all Aphylla individuals were assigned to the same ancestral population with high probability, most Western Ramosa individuals shared a large proportion of genomic information with the Aphylla group. A population from Milner peak near Ceres (1624) was the exception, as all individuals from this locality were assigned to a largely distinct genetic cluster. However, this cluster also was present at low proportions with the other Western ramosa populations.  The Eastern ramosa populations were characterised by a shared ancestral gene pool, although several populations displayed admixture with the dominant gene pool in the Aphylla group.
+The cross-entrophy criterion identifies K = 8 (Fig. \@ref(fig:ram_ce)) as optimal for the Ramosa clade. At this level, the Aphylla group is dominated by a single ancestral gene pool that is largely absent from the Western and Eastern Ramosa groups, thereby corroborating the phylogenetic distinctness of Aphylla (Fig.  \@ref(fig:ram_gbs) B). In contrast, the Western and Eastern Ramosa clades both show strong structure at K = 8, with most populations representing a distinct ancestral gene pool. The exceptions are the Milner Peak (1622) and Limietberg (1609) populations of the Western Ramosa group, which share an ancestral gene pool, and are resolved as sister taxa in the phylogenetic trees (Fig.  \@ref(fig:ram_gbs) B,  Fig. \@ref(fig:ram_minor_clades)), and the Swartberg (1656) and Seweweekspoort (1654) populations of the Eastern Ramosa group, which again are resolved as sisters in the phylogenetic tree (Fig.  \@ref(fig:ram_gbs) B,  Fig. \@ref(fig:ram_minor_clades)). Interestingly, the sympatric Milner Peak populations (1622 and 1624) do not share genetic information, despite being collected within a few kilometres of each other. The strong genetic structure of the Western Ramosa group is also evident in the PCoA (Fig.  \@ref(fig:ram_pcoa)), especially in the PC3 vs PC4 biplot. By contrast, the Eastern Ramosa cluster appears much more coherent in the PCoA.
 
-The cross-entrophy criterion suggests that eight ancestral populations (K = 8) (Figure  \@ref(fig:ram_ce) is the best fit for the dataset. At this level, the Aphylla group shows strong admixture between populations and consists of an ancestral gene pool that is not dominant in the other ramosa groups, supporting the phylogenetic evidence the Aphylla group is a cohesive clade. Conversely, the Western ramosa group shows strong substructure, as most populations are derived from distinct ancestral gene pools. The exception is populations 1622 and 1609 which show admixture, and were also resolved as sister taxa in the phylogenetic analyses. The two populations from Milner peak (1622 and 1624) do not share genetic information, despite being collected within a few kilometres of each other. The genetic variability of the Western ramosa group is also displayed in the PCOA (Figure  \@ref(fig:ram_pcoa), as although the group forms a rough cluster along the PC1 and PC2 axes, individual populations group together tightly, and are highly disparate along PC3 and PC4 axes. The Eastern ramosa group also shows some substructure, as populations collected from the Langeberg are distinct from both each other, and from the Swartberg populations. However, this substructure appears to be less strong than that of the Western ramosa group, as Eastern ramosa shows a cohesive cluster along all PC axes.
-
-An LDA is able to separate the three groups using the morphological data, although there is some degree of similarity between the Western and Eastern ramosa. The traits of Western ramosa tended to be variable, often encompassing the much of the trait range of the other two groups (Figure  \@ref(fig:ram_boxplots)). Aphylla tended to have longer leaves and longer glumes relative to the spikelet length than the ramosa groups, while Eastern ramosa often had longer inflorescences and a larger spikelet shape.
-
+An LDA based on trait data confirms the morphological distinctness of the three Ramosa groups, although there is some overlap between the Western and Eastern Ramosa groups. Consistent with the genetic data, the Western Ramosa group tends to show greater variability in most traits, often encompassing much of the trait range of the other two groups (Figure  \@ref(fig:ram_boxplots)). In general, Aphylla group plants tend to have longer leaves and longer glumes relative to the spikelets than plants in the Eastern and Western Ramosa groups. On the other hand, Eastern Ramosa plants have generally longer inflorescences and spikelets which are longer relative to their width.
 
 
 
 
 
 
-```{r ram_minor_clades, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
+
+```{r ram_minor_clades, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) Maximum-likelihood tree constructed using IQTREE with Partitionfinder from 307 concatenated supercontig loci. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) ASTRAL tree constructed using IQTREE gene trees from supercontig 307 loci. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 #Ramosa
 
@@ -1343,8 +1336,14 @@ ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv",labels = c("A", "B"), font.labe
 
 ```
 
-```{r ram_map}
+```{r ram, cache=T}
 
+map_test <- get_map(location = c(17.8, -35, 22.7, -32.5 ), maptype = "terrain-background", source = "stamen", zoom = 11)
+map_res <- ggmap(map_test)
+
+```
+
+```{r ram_map, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population for the Ramosa clade A) K = 3, B) K = 8. Colours correspond to those of Figure'}
 clump_file <- readQ(here("Data", "calc.clumpp.merged.K3.2.txt"))
 
 gen_dat <- as.data.frame(clump_file$`calc.clumpp.merged.K3.2-1`)
@@ -1392,7 +1391,7 @@ my_colours <- c("#00A0B0", #aphylla
 ) 
 
 
-map_res +
+m1 <- map_res +
     geom_scatterpie(data = combined, 
                     aes(x = Edeg, y = Sdeg,  r = rep(0.13, 36)), 
                     cols = c("C1", "C2",  "C3"),
@@ -1459,7 +1458,7 @@ my_colours <- c(
     "#1D72F5","#DF0101","#77CE61", "#FF9326","#A945FF","#0089B2","#FDF060","#FFA6B2","#BFF217","#60D5FD"
 )
 
-map_res +
+m2 <- map_res +
     geom_scatterpie(data = combined2, 
                     aes(x = Edeg, y = Sdeg, r = rep(0.12, 96)), 
                     cols = c("C1", "C2",  "C3", "C4", "C5", "C6",  "C7", "C8"),
@@ -1472,11 +1471,13 @@ map_res +
               nudge_y = -0.2,
               size = 2.5
     )+
-    theme(legend.position = "none",
-          axis.title.y = element_text(colour = "white"),
-          axis.title.x = element_text(colour = "white")) +
-    coord_equal()
+    theme(legend.position = "none"
+          ) +
+    coord_equal() +
+  xlab("Longitude")+
+  ylab("Latitude")
 
+ggpubr::ggarrange(m1,m2, ncol = 1, align = "hv", labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.1, label.y = 0.98 )
 
 ```
 
@@ -1528,7 +1529,7 @@ ggplot(lda.data, aes(LD1, LD2)) +
 ```
 
 
-```{r ram_boxplots, fig.height=8, message=F, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+```{r ram_boxplots, fig.height=8, message=F, fig.show='first', fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
           panel.grid = element_blank(),
@@ -1578,25 +1579,21 @@ ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,k,l,m,z,ma,mc, mb,n,q,
 
 
 
-### Rupestris
+### Setacea clade
 
-The Rupestris clade consists of two species, _E. setacea_ and _E. rupestris_, that are highly polyphyletic. The clade is characterised by extremely short internal branch lengths and poor internal support. Although the weak internal resolution results in topological incongruencies between the trees, there are four major subclades that are consistently recovered with good support in both analyses, which in turn can be divided into smaller groups. The first two major subclades are consist of the Eastern rupestris group (BS = 100, LPP = 1.0) and the Rupestris s.s group (BS = 100, LPP = 1.0) respectively, demonstrating that the existing subspecies _E. rupestris_ subsp. _rupestris_ is not monophyletic. Another major subclade consists of the Fernkloof setacea, Uniflora, and the Restiod tricostata groups (BS = 99, LPP = 0.74), with Uniflora and Restiod tricostata recovered as sisters in both trees (BS = 100, LPP = 0.72). The final major subclade encompasses the Setacea, Dodii, Leafy tricostata and Scabra groups (BS = 97, LPP = 0.68), although the position of these groups are incongruent between the trees. The ML tree also places Rupestris s.s within this subclade with weak support (BS = 52).
+The phylogeny of the Setacea clade is characterised by extremely short internal branch lengths which are often poorly supported (Fig. \@ref(fig:rup_minor_clades)).  Nonetheless, it is clear that both _E. setacea_ and _E. rupestris_, as currently defined, are highly polyphyletic.  Four major clades are recovered with good support by the ML and ASTRAL analyses. These are: (i) the Eastern Rupestris clade (BS = 100, LPP = 1.0); (ii) the Western Rupestris clade (BS = 100, LPP = 1.0); (iii) a clade comprising the Fernkloof, Uniflora, and Restioid Tricostata clades (BS = 99, LPP = 0.74), with Uniflora and Restiod tricostata recovered as sisters in both trees (BS = 100, LPP = 0.72); and (iv) a clade consisting of the Setacea, Dodii, Leafy Tricostata and Scabra clades (BS = 97, LPP = 0.68). There is some incongruence at this level, however, with the ML analysis embedding the Western Rupestris clade within clade (iv), and so rendering the latter paraphyletic.
 
-There are nine smaller groups within the subclades. The Fernkloof group consists of _E. setacea setacea_ and _E. setacea disticha_ taxa collected from Fernkloof reserve in Hermanus, and well as _E. setacea disticha_ from the nearby Buffelstalberg close to Betty's Bay. This group shows incongruencies between the two trees, forming a grade in the ML tree and a poorly supported clade in the MQS tree (LPP = 0.37). The main uncertainty arises from the position of the Buffelstalberg _E. setacea disticha_, which is sister to the rest of the group in the ML tree (BS = 99), but is reconstructed within the group by the MQS analyses, albeit with poor support (LPP = 0.45). In both trees, the populations 1600 and 1595 are sisters with strong support (BS = 100, LPP = 1.00), and the _E. setacea disticha_ from Fernkloof forms a clade with two other Fernkloof collections identified as _E. setacea setacea_ (BS = 98, LPP = 0.88). The other two groups in this subclade, Uniflora and Restiod tricostata, have similar topologies in both trees, and form well supported clades (BS = 100, LPP = 1.00 and BS = 100, LPP = 0.97 respectively). The Setacea group formed a large, poorly supported clade in in the MQS tree (LPP = 0.56), and a grade in the ML tree. The internal support within this group was poor in both trees, resulting in high incongruence between the two phylogenies. The ML tree also placed an individual identified as an _E. rupestris_ subsp. _tricostata_ (1657) within this clade. The Scabra group was resolved as strongly supported clade in both trees (BS = 100, LPP = 1.00), although an individual previously identified as _E. rupestris_ subsp. _tricostata_ (1640) was reconstructed as sister to the rest of the group. Similarly, the Dodii group was found to be monophyletic with a nearly identical internal topology in both analyses (BS = 96, LPP = 0.95). There was slightly weaker support for monophyly of the Leafy tricostata group in the MQS tree (LPP = 0.70), and the group formed a grade in ML tree.
+Within clade (iii), the monophyly of both the Uniflora clade (BS = 100, LPP = 1.00), composed of all accessions of *E*. *setacea* subsp. *uniflora*, and the Restioid Tricostata clade (BS = 100, LPP = 0.97), comprising *E. rupestris* subsp. *tricostata* accessions from the Cape Peninsula, Hottentots Holland to Fernkloof area, are well supported, and these clades are retrieved as sister with good support (BS = 100, LPP = 0.72, Fig. \@ref(fig:rup_minor_clades)). However, where the ML analysis retrieves a weakly supported (BS = 59) Fernkloof clade, comprising *E. setacea* subsp *setacea* and *E. setacea* subsp *disticha* plants from the Fernkloof Reserve in Hermanus and *E. setacea* subsp *disticha* plants from the Buffelstalberg near Betty’s Bay, this assemblage is paraphyletic (LPP = 0.37) in the ASTRAL tree. Both trees, however, reflect good support for the monophyly of a clade comprising two Fernkloof accessions of *E. setacea* subsp. *setacea* (1595 and 1600) sampled from boggy depressions (BS = 100; LPP = 1.00) and a clade consisting of two Fernkloof accessions of *E. setacea* subsp *disticha* (1597 and 1598) plus two Fernkloof accessions of *E. setacea* subsp *setacea* (1593 and 1599) sampled from dry, rocky slopes (BS = 98, LPP = 0.88).
 
-The sNMF analysis largely supports the nine groups found by the phylogenetic analysis. Dodii, Leafy tricostata, Restiod tricostata, Eastern rupestris, Uniflora and Rupestris s.s. populations show strong within-group admixture, but all have a distinct genomic composition. This is also displayed in the PCOA, where each group aggregates into cohesive clusters. The Setacea group shows some admixture with other groups, which is unsurprising given that it is one of the most widespread taxa in the Rupestris clade. The sNMF analysis also reveals a potential tenth group, a population from Wemmershoek near Paarl (1657), which was not well resolved in the phylogenetic analysis. Unexpectedly, Scabra has genomic information in common with multiple ancestral pools, with the greatest proportion shared with the Leafy tricostata group. However, there is little evidence that admixture has occurred between Scabra and the sympatric Setacea population (1633), and the Scabra group forms a distinct cluster in the PCOA. The Fernkloof group also has a complex genetic profile. Populations 1589 and 1597, both currently classified as *E. setacea disticha*, have a similar genomic composition, although no ancestral group dominates. Conversely, 1600, collected within a few kilometres of 1597, shows very few shared alleles with the other Fernkloof populations. The three Fernkloof collections do cluster together in the PCOA, albeit with some population level structure. 
+ Although clade (iv), comprising of most accessions of *E. setacea* subsp *setacea*, *E. setacea* subsp *scabra, E. rupestris* subsp *dodii* and eastern accessions of *E. rupestris* subsp *tricostata*, is monophyletic in the ASTRAL tree, it is paraphyletic in the ML tree owing to the inclusion of the Western Rupestris clade (Fig. \@ref(fig:rup_minor_clades)). Within clade (iv), there are high levels of incongruence due to poorly supported internal relationships. However, both trees reflect good support for the monophyly of: the Scabra clade, comprising all accessions of *E. setacea* subsp *scabra* (BS = 100, LPP = 1.00); and the Dodii clade, comprising all accessions of *E. rupestris* subsp. *dodii* from the western GCFR (BS = 96, LPP = 0.95). In addition, the ASTRAL tree resolves both a monophyletic Leafy Tricostata clade, comprising inland *E. rupestris* subsp. *tricostata* accessions from Ceres to Robinson's Pass (LPP = 0.70), and a monophyletic Setacea clade, comprising all non-Fernkloof accessions of *E. setacea* subsp *setacea*, albeit with weak support (LPP = 0.56). However, the ML analysis retrieves neither of these clades, with both assemblages being paraphyletic in the ML tree. Finally, two accessions, originally designated as *E. rupestris* subsp *tricostata* (1640 and 1657) occupy isolated positions within clade (iv). Although accession 1640 is retrieved as sister to the Scabra clade in both trees with good support (BS = 100, LPP = 1.00), the position of accession 1657 in the ASTRAL tree is uncertain while in the ML tree it is embedded in the Setacea grade. 
 
-The best number of ancestral populations within the Rupestris clade according to the cross-entrophy criterion was k = 19. At this level, almost every group shows substructure, although there is some evidence of within-group admixture in the Setacea, Restiod tricostata and Dodii groups. Notably, within the Fernkloof group, the two *E. setacea disticha* (1589, 1597) populations share genomic information with each other but not with 1600.
+The sNMF analysis with K = 9 largely corroborates the genetic coherence of the nine named clades revealed by the phylogenetic analysis. Although the Dodii, Leafy Tricostata, Restioid Tricostata and Setacea clades show some evidence of between-group admixture, the genomic composition of most clades is highly distinct (Fig. \@ref(fig:rup_gbs) A). This is also apparent from the PCoA, in which each group forms a distinct cluster (Fig. \@ref(fig:rup_pcoa)). The exceptions to this pattern are the Fernkloof (1589 and 1597) and Scabra clades, which share a very similar, and highly admixed, genomic profile under K = 9, though the PCoA resolves these clades as distinct. Beyond the nine named clades, the sNMF with K = 9 assigns the Wemmershoek population represented by accession 1657 to a unique ancestral population. In addition, within the Fernkloof clade, the genomic profile of accession 1600 (*E. setacea* subsp. *setacea* from Fernkloof) is distinct from that of the other Fernkloof clade accessions included in the analysis. 
 
+The cross-entrophy criterion identifies K = 19 as optimal within the Setacea clade. Under K = 19, almost every clade shows substructure, although there is evidence of within-group admixture in the Setacea, Restioid Tricostata, Leafy Tricostata, Dodii and Eastern Rupestris clades (Fig. \@ref(fig:rup_gbs) B). Within the Fernkloof clade, the two *E. setacea disticha* (1589 and 1597) populations share some genomic information with each other, but not with 1600. Based on the results of the phylogenetic and sNMF analyses, the Fernkloof group was split into two for the morphological analysis, with Fernkloof A consisting of accessions assigned to *E. setacea* subsp *disticha* (1589 and 1597) and accessions from dry, rocky slopes assigned to *E. setacea* subsp *setacea* (1593 and 1599), and Fernkloof B containing the accessions from flat, boggy sites assigned to *E. setacea* subsp *setacea* (1595 and 1600).
 
+A LDA of the morphological data shows that both the Uniflora and Restioid Tricostata groups are morphologically divergent from the remainder of the Setacea clade  (Fig. \@ref(fig:rup_lda) A). Where Restioid Tricostata plants are characterised by long culm internodes which are barely covered by the leaf sheaths, short pedicels and a small glume to spikelet length ratio, Uniflora plants are tall and gracile, having exceptionally thin culms and fine leaves. In addition, the inflorescences of Uniflora plants almost always contain two spikelets, in which the glumes considerably exceed the florets  (Fig. \@ref(fig:rup_boxplots)). In addition, the LDA, particularly with the Restioid Tricostata and Uniflora groups omitted, reveals clear pairwise separation between most groups at least along one of the discriminant axes (LD1-LD4; Fig. \@ref(fig:rup_lda) C & D). Exceptions to this pattern are the Dodii and Leafy Tricostata groups, which show considerable overlap on all discriminant axes, and potentially the Eastern Rupestris and Western Rupestris groups which, despite being morphologically close, show minimal overlap (Fig. \@ref(fig:rup_lda) C & D). Despite the multivariate overlap shown by the Dodii and Leafy Tricostata groups, these groups can be clearly differentiated on the basis of spikelet number per infloresence (Fig. \@ref(fig:rup_boxplots)). Likewise, Western Rupestris plants are distinguishable from Eastern Rupestris plants on the basis of their more robust character, having thicker culms, generally larger leaves (leaf length and width), and relatively more elongate spikelets (spikelet length:width ratio; Fig. \@ref(fig:rup_boxplots)). Significantly, despite both containing accessions initially assigned to *E. setacea* subsp *setacea*, the LDA classifies the Fernkloof A and Fernkloof B groups into different clusters, these groups being distinguishable primarily on the basis of floral characteristics, such as the position of the inflorescence above the leaves, spikelet length and the ratio of lemma lengths ( Fig. @ref(fig:rup_boxplots)). In addition, the LDA identifies both these groups as being distinct from the Setacea group, Setacea plants being distinguishable from Fernkloof A plants on the basis of inflorescence length and from Fernkloof B plants on the basis of shorter spikelets (Fig. \@ref(fig:rup_lda), Fig. @ref(fig:rup_boxplots)).
 
-#### Morphology
-
-Based on the sNMF and phylogenetic analysis, I split the Fernkloof group into two for the morphological analysis, with Fernkloof A consisting of the disticha forms, and Fernkloof B consisting of collections 1595 and 1600.  A linear discriminant analysis (LDA) of the morphological data shows that both the Uniflora and Restiod tricostata groups have distinctive morphologies compared to the remainder of the Rupestris clade. Restiod tricostata is characterised by large internode distances, long sheathes and a small glume to spikelet length ratio, while Uniflora is a tall, gracile plant with thin culms and fine leaves. In order to investigate the variation between the remaining groups, Restiod tricostata and Uniflora were removed from the dataset. Within the resulting LDA, Dodii and Leafy tricostata show considerable overlap across all LDs. Dodii and Leafy tricostata mainly differ in the number of spikelets, with most other traits having similar values. The Fernkloof A and Setacea groups are also unable to be separated along LD1 and LD2, although they show clear separation within LD3 and LD4. Fernkloof A and B are distinct from each other, differing primarily in floral characteristics. The Scabra and Wemmershoek groups each form a cluster within LD1 and LD2, with the latter appearing to have an intermediate morphology between Dodii/Leafy tricostata and Setacea. Finally, the Eastern rupestris and Rupestris s.s. groups cluster close together, but have minimal overlap. Rupestris s.s. is a more robust plant in comparison to Eastern rupestris, with larger leaves and a thicker culm. 
-
-
-
-```{r, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of Ramosa clade. A) ML tree constructed using IQtree. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) MQS tree made with ASTRAL III. Branch lengths represent coalescent units (generations/effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
+```{r rup_minor_clades, echo=F, warning=F, fig.width=10, fig.height=9, fig.cap="Phylogenetic relationships of the Setacea clade. A) Maximum-likelihood tree constructed using IQTREE with Partitionfinder from 307 concatenated supercontig loci. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) ASTRAL tree constructed using IQTREE gene trees from 307 supercontig loci. Branch lengths represent coalescent units (generations/effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)"}
 
 #Rupestris minorclades
 
@@ -1640,7 +1637,7 @@ ml_rup <- ggtree(rup_clade, size = 1, right = T) +
                  colour = "#DF0101",
                  size = 3) +
     geom_cladelabel(node = 95, 
-                    label = "East. rupestris",
+                    label = "East. Rupestris",
                     colour = "#1D72F5",
                     extend = 0.3,
                     offset = 0.035,
@@ -1747,7 +1744,7 @@ ml_rup <- ggtree(rup_clade, size = 1, right = T) +
     geom_hilight(node=71, fill="#027368", alpha = 0.15, extend = 0.034) +
     
     geom_cladelabel(node = 67, 
-                    label = "Rupestris s.s",
+                    label = "West. Rupestris",
                     colour = "#CC1577",
                     extend = 0.3,
                     offset = 0.035,
@@ -1814,7 +1811,7 @@ ast_rup <- ggtree(rup_ast_clade, right = T, size = 1, ladderize = T) +
                  colour = "#DF0101",
                  size = 3) +
     geom_cladelabel(node = 50, 
-                    label = "Rupestris s.s",
+                    label = "West. Rupestris",
                     colour = "#CC1577",
                     extend = 0.2,
                     offset = 1.5,
@@ -1862,7 +1859,7 @@ ast_rup <- ggtree(rup_ast_clade, right = T, size = 1, ladderize = T) +
     geom_hilight(node=62, fill="#DF0101", alpha = 0.15, extend = 2.2) +
     
     geom_cladelabel(node = 70, 
-                    label = "East. rupestris",
+                    label = "East. Rupestris",
                     colour = "#1D72F5",
                     extend = 0.2,
                     offset = 1.5,
@@ -1940,7 +1937,7 @@ ggpubr::ggarrange(ml_rup, ast_rup, labels = c("A", "B"), font.label = list(size 
 ```
 
 
-```{r rup_ce, fig.width=5, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 25 for the Rupestris clade. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
+```{r rup_ce, fig.width=5, fig.cap="The cross-entropy criterion plotted for each value of K between K = 1 and K = 25 for the Setacea clade. Red point shows K corresponding to number of phylogenetic clades, green point shows the K with the lowest cross-entropy criterion"}
 
 means <- read.csv(here("Data", "rupestris_ce.csv"))
 
@@ -1957,7 +1954,7 @@ points(x = 19, y = means$ce[19],
 
 ```
 
-```{r rup_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Rupestris clade for A) K = 9, and B) K = 19. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.' }
+```{r rup_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Setacea clade for A) K = 9, and B) K = 19. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.' }
 library(pophelper)
 library(gridExtra)
 library(label.switching)
@@ -2094,14 +2091,14 @@ dat.pop.assign<-data.frame(pop.assign$Species_current, pop.assign$Clade)
 dat.pop.assign <- dat.pop.assign %>% 
     mutate(clade_labs =
                case_when(pop.assign.Clade %in% c("setacea") ~ "Setacea", 
-                         pop.assign.Clade %in% c("rupestris_original") ~ "Rupestris s.s",
+                         pop.assign.Clade %in% c("rupestris_original") ~ "Western Rupestris",
                          pop.assign.Clade %in% c("dodii_original") ~ "Dodii",
-                         pop.assign.Clade %in% c("tricostata_original") ~ "Restiod tricost.",
+                         pop.assign.Clade %in% c("tricostata_original") ~ "Restiod Tricost.",
                          pop.assign.Clade %in% c("fernkloof_setacea") ~ "Fernkloof",
                          pop.assign.Clade %in% c("uniflora") ~ "Uniflora",
-                         pop.assign.Clade %in% c("milner_group") ~ "Leafy tricost.",
+                         pop.assign.Clade %in% c("milner_group") ~ "Leafy Tricost.",
                          pop.assign.Clade %in% c("scabra") ~ "Scabra",
-                         pop.assign.Clade %in% c("rupestris_swartberg") ~ "Eastern rupestris",
+                         pop.assign.Clade %in% c("rupestris_swartberg") ~ "Eastern Rupestris",
                          pop.assign.Clade %in% c("wemmershoek") ~ "Wemmershoek"
                )
     )
@@ -2166,10 +2163,8 @@ ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.lab
 
 ```
 
-```{r map_rup, fig.height=7}
+```{r map_rup, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population at K = 9 for the Setacea clade. Colours correspond to those of Figure'}
 
-map_test <- get_map(location = c(17.8, -35, 22.7, -32.5 ), maptype = "terrain-background", source = "stamen", zoom = 11)
-map_res <- ggmap(map_test)
 
 clump_file9 <- readQ(here("Data", "calc.clumpp.merged.K9.txt"))
 
@@ -2266,7 +2261,7 @@ map_res +
 ```
 
 
-```{r lda_rup, fig.cap='A linear discriminant analysis of the morphological data for the Rupestris clade. Traits included are described in Table . For the full dataset, plot A) shows axes PC1 and PC2, B) shows PC3 and PC4. Restiod tricostata and Uniflora are removed from the analysis in C) and D).'}
+```{r lda_rup, fig.cap='A linear discriminant analysis of the morphological data for the Setacea clade. Traits included are described in Table . For the full dataset, plot A) shows axes PC1 and PC2, B) shows PC3 and PC4. Restiod tricostata and Uniflora are removed from the analysis in C) and D).'}
 
 my_colours <- c("#77CE61", #dodii
                 "#1D72F5", #E. rup
@@ -2275,7 +2270,6 @@ my_colours <- c("#77CE61", #dodii
                 "#027368", #leafy
                 "#FF9326", #restiod
                 "#851D41", #rup
-                 
                 "#F2B950", #scab
                 "#60D5FD", #set
                 "#9471B4",
@@ -2310,14 +2304,14 @@ trait_data <- trait_data %>%
                                            "1587", "1557", "1558", "1629", 
                                            "1633", "1617", "1577", "1564",
                                            "1580", "1582") ~ "Setacea",
-                         Collection %in% c("1579", "1661", "1603", "1594") ~ "Restiod tricost.",
+                         Collection %in% c("1579", "1661", "1603", "1594") ~ "Restiod Tricost.",
                          Collection %in% c("1639", "1573",
                                            "1578", "1565", "1602", "1616") ~ "Dodii",
                          Collection %in% c("1618", "1619", 
-                                           "1621", "1648", "1632", "1586") ~ "Leafy tricost.",
-                         Collection %in% c("1634", "1559", "123",  "1605", "1563") ~ "Rupestris s.s.",
+                                           "1621", "1648", "1632", "1586") ~ "Leafy Tricost.",
+                         Collection %in% c("1634", "1559", "123",  "1605", "1563") ~ "West. Rupestris",
                          Collection %in% c("1644", "1636", "1631", "1642", "1640", "1641") ~ "Scabra",
-                         Collection %in% c("2", "1655") ~ "East. rupestris",
+                         Collection %in% c("2", "1655") ~ "East. Rupestris",
                          Collection %in% c("1572", "1604") ~"Uniflora",
                          Collection %in% c("1657") ~ "Wemmershoek"
                ))
@@ -2340,6 +2334,7 @@ trait_data <- trait_data[, -c(4,8,14,15,16,18,19)]
 
 scale_rup <- data.frame(Clade = as.character(trait_data$Clade), scale(trait_data[, c(4:12, 15:21)]))
 
+require(MASS)
 lda_rup <- lda(scale_rup$Clade ~ ., data = scale_rup)
 
 lda.data <- cbind(scale_rup, predict(lda_rup)$x)
@@ -2364,12 +2359,11 @@ my_colours2 <- c("#77CE61", #dodii
                 "#027368", #leafy
                 #"#FF9326", #restiod
                 "#851D41", #rup
-                 
                 "#F2B950", #scab
                 "#60D5FD", #set
                 "dark grey") #uni
 scale_rup2 <- scale_rup %>% 
-    filter(!Clade == "Restiod tricost." & !Clade == "Uniflora") %>% droplevels()
+    filter(!Clade == "Restiod Tricost." & !Clade == "Uniflora") %>% droplevels()
 
 lda_rup <- lda(scale_rup2$Clade ~ ., data = scale_rup2)
 
@@ -2391,8 +2385,9 @@ ggpubr::ggarrange(ld1, ld2, ld3, ld4, ncol = 2, nrow = 2, align = "hv", labels =
 
 ```
 
+\newpage
 
-```{r rup_boxplots, fig.width=8, fig.height=10.5, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+```{r rup_boxplots, fig.show='first', fig.width=8, fig.height=10.5, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
 
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),

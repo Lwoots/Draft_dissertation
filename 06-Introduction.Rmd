@@ -1,0 +1,111 @@
+---
+title: "Intro"
+author: "Lara Wootton"
+date: "11/08/2020"
+output: html_document
+---
+
+
+
+# What is driving speciation in the cape?
+
+Adaptive radiation, driven by ecological speciation, is undoubtedly an instrumental force in generating the high species richness of the GCFR. Ecological speciation occurs when barriers to gene flow evolve among populations due to ecologically based divergent selection [@Rundell2009]. The rugged topography of the Cape provides strong environmental gradients, which together with fine-scale edaphic mosaics, promote adaption to local selection pressures, driving ecological shifts between closely related species [@Vanderniet2009]. Many of the iconic GCFR radiations, such as _Erica_, _Protea_, _Phylica_, _Muraltia_, _Pelargonium_ and Aizoaceae, are thought to have ecological components, whether that be shifts in climate or edaphic preference, pollinator syndrome or fire strategy [@Richardson2001; @Forest; @Schnitzler2011; @Klak2004; @Pirie; @Vanderniet2014]. However, early researchers in the Cape theorised that the mountains played an altogether different role in fostering speciation. @Adamson 1958 and @Goldblatt 1978 speculated that high elevation communities were a relics of a previously widespead flora that contracted upslope in the face of an increasingly arid climate. Once isolated, populations gradually speciated over time.  This hypothesis of non-adaptive speciation driven by isolation-by-distance has recently regained traction [refs].    
+
+
+
+*Initial research suggested isolation by distance/topology
+
+*Strong allopatry, small ranges, high beta, elevation band diversification support this
+
+*Particularly clades with poor dispersal, poor plasticity, moisture needs etc
+
+However, the structure of many species distributions in the GCFR also fit the model of. The region is characterised by extremely high levels of species turnover and local endemism, rather than the more uniform alpha diversity that define other biological hotspots such as tropical rain forests. Many species have small ranges, and are geographically replaced by closely related, often ecologically similar species. Within a species, populations are often fragmented due to topographical barriers, and poor seed dispersal (many Cape species dispersed by ants) resulting in low migration rates. This fits with predictions of neutral theory, which states that low migration systems should have high beta diversity, while allopatric distributions, as found in the Cape, can be a signature of non-adaptive radiation. Initial researchers in the While undoubtedly  Cape has a mixture of the two, the importance of non-adaptive is perhaps understated. There is evidence of within-elevational band diversification, which is significant as elevational bands are likely to be ecologically similar, potentially suggesting neutral speciation, as opposed to diversification along elevational gradients, which have a wide range environments. Since by definition adaptive radiations generate morphologically divergent species, there may be a taxonomic bias towards description of morphologically varied taxahides importance of non adaptive
+
+
+
+How can you test for non adaptive vs adaptive?
+
+
+
+A characteristic of the fynbos is high species turnover, poor dispersal, fragmented populations, small ranges.
+
+The pattern is predicted by both neutral and adaptive radiations
+
+Main difference could be rates of genetic and phenotypic change, and ecological differentiation. Neutral radiations, occurring through drift,  slower genetic and phenotypic change. Many examples of strong trait disparity and adaption - ericas, lowlands, also cryptic radiations (although have their morphological rates been quantified?)
+
+Speciation within elevational bands suggests neutral
+
+ ecological speciation is largely or mainly the result of divergent selection to different niches of organisms, and ecological interactions such as competition, predation or parasitism drives the evolution of reproductive isolation. Its importance is exaggerated Svensson 2012
+
+
+
+
+
+
+
+How does neutral vs selection change rates?
+
+
+
+Affects of small popsize on rate?
+
+
+
+How do you compare rates of evolution? 
+
+* a priory hypotheses
+* Shift simulation
+
+
+
+How does disparity differ from rates
+
+
+
+phenotypic change not necessarily linked to genotype change @davies2006
+
+## DNDS
+
+
+
+What is omega? 
+
+* Define dN, dS and omega
+
+* useful measure of the strength and mode of natural selection acting on protein-coding genes @2015 book
+* If >1, indicates positive selection, =1 neutral evolution, <1 purifying selection.  @2015 book, @Yang and nielsen2002
+*  
+
+
+
+Why is it relevant? 
+
+* Identifies genes or sites that are conserved or have undergone selection @2015 book
+* Adaptive radiations with phenotypic change imply genetic change @Weadick 
+* test hypotheses about the relative effects of selection in certain lineages of interest @delatorres, @Nielsen2005
+
+
+
+How is it measured?
+
+* Pairwise, branches, sites, clades
+* Branches and sites more powerful than pairwise @delatorres
+* Branch model ref Yang Z, Nielsen R: Synonymous and nonsynonymous rate variation in nuclear genes of mammals.
+* Clade models [19,20], meanwhile, can be used to detect more subtle differences in site-specific selective constraint among entire clades or partitions of a phylogeny @Weadick
+* Branch models [65] assume that the ω ratio varies across branches of the phylogeny (specified a priori) but that it is invariant across sites of the alignment; comparing complex Branch models (i.e., ones with multiple ω ratios) against simpler, nested models tests whether ω varies significantly between sections of the phylogeny. Since Branch models make the unrealistic assumption of among-site homogeneity, they often lack power to detect subtle patterns of divergence across phylogenies, @Weadick
+
+ What are its drawbacks? 
+
+Model assumptions,
+
+Local peaks
+
+
+
+The strength and direction of natural selection on protein-coding genes can be measured using the ratio of non-synonymous to synonymous substitutions ($\omega$). A non-synonymous substitution is a mutation that changes an amino acid within a protein, and can therefore experience selection, while a synonymous substitution does not cause changes to the protein, allowing their accumulation at the same rate as the overall genomic mutation rate [@Kimura1968]. Consequently, if the rate of non-synonymous substitutions is higher than synonymous substitutions ($\omega$ > 1), there is evidence that the protein is experiencing positive or adaptive selection, if the two rates are equal ($\omega$ = 1), the protein is evolving neutrally, while if $\omega$ < 1 it suggests that non-synonymous substitions are deleterious and the protein is likely undergoing purifying selection. By Identifying genes and sites that have undergone selection, $\omega$ allows testing of evolutionary hypotheses, such as how different environmental pressures affect adaptation [@Mohandesan2017], and how genetic change underpins radiation events [@Weadick2012]. However, determining $\omega$ is a non-trivial matter, as it can vary over time, between sites and between lineages. While there are both heuristic (ref) and Bayesian [@Angelis2014] (see book) methods of estimating $\omega$, maximum likelihood methods, such as those implemented in codeml, are widely used as they are able to flexibly account for both transition–transversion rate differences and unequal codon frequencies.  
+
+
+
+Within the Cape _Ehrharta_, ecological speciation is an important aspect in the diversification of the Lowlands clade, where a transition from Fynbos into the Succulent Karoo stimulated a rapid radiation in response to new edaphic niche space [@Verboom2004]. 
+
+The aim of this chapter is to present a dated, species-level phylogenetic hypothesis, and to use this as a framework for estimating and comparing rates of diversification, phenotypic and $\omega$ evolution between high-, mid- and low-elevation clades. It is hypothesized is that stronger population isolation paired with a more uniform selective regime increases the influence of neutral processes as a driver of differentiation at high elevations. As such, I predict lower rates of phenotypic evolution and lower $\omega$ in the high-elevation Setacea clade relative to the Ramosa and Lowlands clades.

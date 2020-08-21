@@ -2,38 +2,20 @@
 title: "Results"
 author: "Lara Wootton"
 date: "26/07/2020"
-output: pdf_document
+output:
+    pdf_document:
+      fig_caption: yes
+      keep_tex: yes
+    
+header-includes:
+ \usepackage{float}
+ \floatplacement{figure}{H}
 ---
 
-# Results
-
-After combining all replicate runs and removing burn in, each of the twelve BEAST analyses reached convergence, with all parameters adequately sampled as indicated by ESS values >100. The median node age of most recent common ancestor between _Oryza_ and _Ehrharta_ was inferred to be on average 68.361 MA, with estimates varying between 67.926 and 69.269 MA, while the crown age of _Ehrharta_ was placed at XXX. The Lowlands clade was always inferred to be older than the Ramosa and Setacea clades, at an average median age of 15.770 MA, but with substantial variation from 12.9MA to 18.9MA between the BEAST analyses. On average, the Succulent Karoo clade originated 1.4 million years later than the crown node of the Lowlands clade. The Ramosa clade, originating at 6.15MA, was on average 1.1 million years older than the Setacea clade, but in two trees (trees 6 and 10) was reconstructed as the younger clade. Overall, Setacea was the most recent clade, originating 5.11 MA. The BEAST tree constructed with the Sortadate 'worst' loci had older than average node ages for all the clades, although they were not extreme values in comparison to the other BEAST trees. On the other hand, the Sortadate 'best' loci had the youngest or second youngest estimates for all nodes, except the root, which had the oldest node estimate of all the trees. 
-
-
-Diversification rate gradually decreased over time within the Cape _Ehrharta_, with little support for a sudden shift in diversification rate within the tree. For all twelve BEAST trees, the 95% credible set of shift configurations contained no evidence that a shift in diversification rate had occurred, as zero shifts were sampled from the posterior with a frequency of 100%. Although several trees showed a somewhat elevated diversification rate for the Setacea clade (eg Fig and Fig) a Kruskal-Wallis test found no significant differences diversification rate between clades ($\chi^2$ = 2.74, df = 3, p = 0.43). Similarly, despite previous evidence for an adaptive radiation in the Lowlands clade [@Verboom2003; @Verboom2004], no shifts in diversification rate were detected in the BEAST trees constrained to the taxa included in @GibbsRussel198. 
-
-Morphological rates of evolution were strongly clade specific. Strikingly, the Ramosa clade displayed very low rates of morphological evolution, with almost all traits evolving at a slower rate than the rest of the tree, conversely, Setacea displayed elevated rates of evolution, with the notable exceptions of inner lemma length, spikelet length, and leaf length. The Lowlands clade had strongly elevated rates of evolution for inner lemma length, outer glume length and spikelet length, while the remainder of the traits showed slow to moderate rates of evolution. Overall, the inferred rates were consistent across the twelve BEAST trees.
-
-In contrast, there was no consistent pattern in the observed morphological variation across the phylogeny, which differed across both traits and clades. For example, the internode distance was highly variable within the Setacea clade, and more consistent within the Lowlands clade, while the opposite was true for inner lemma length (Fig. cont_map). However, the Lowlands clade tended to show a greater trait disparity for floral traits, such as lemma length, spikelet width and spikelet length, than the Ramosa and Setacea clades (Fig. boxplots). In addition, although for several traits the Ramosa and Setacea showed an equivalent degree of trait disparity to the Lowlands clade, they never show a larger trait disparity than the Lowlands clade. 
-
-The terminal branches of the Lowlands clade showed the highest rate of estimated non-synonymous (dN) and synonymous (dS) changes, followed by those of the Ramosa and Setacea clades (Fig. ). Conversely, the terminal branches of Setacea clade had a significantly greater $\omega$ than the Lowlands clade (p <0.05, Fig), although the estimated $\omega$ for all clades was low at <0.5.  For each of the three clades, a branch model allowing the $\omega$ of foreground branches to differ from background $\omega$ fit the data better than a model with a single $\omega$ across the tree. Both the Ramosa and Setacea clades showed a higher $\omega$ than the background rate, while Lowlands clade had a lower $\omega$ compared to the rest of the tree. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache = T, echo=FALSE, warning=FALSE, message=FALSE)
+knitr::opts_chunk$set(cache = T, echo=FALSE, warning=FALSE, message=FALSE, fig.pos = 'h')
 
+require(tinytex)
 require(kableExtra)
 require(motmot)
 require(ape)
@@ -42,6 +24,9 @@ library(multcompView)
 require(tidyverse)
 require(here)
 require(BAMMtools)
+require(phytools)
+require(treeio)
+require(geiger)
 
 
 # I need to group the treatments that are not different each other together.
@@ -59,6 +44,18 @@ generate_label_df <- function(TUKEY, variable){
 
 ```
 
+Based on the median age estimates obtained from each of the twelve 25-locus sets used for dating (i.e. the 10 randomly sampled sets, plus the ‘best’ and ‘worst’ Sortadate sets), the mean age of the split between _Oryza_ and _Ehrharta_ was estimated at 68.4 Ma, with estimates varying between 67.9 and 69.3 Ma. For the crown node of _Ehrharta_, the mean age estimate was 28.4 Ma, with a range of 26.5 to 29.7 Ma. The crown age of the Lowlands clade was always inferred to be older than those of the Ramosa-Rehmannii and Setacea clades, having a mean of 15.8 Ma, but with substantial variation in the estimates obtained from the different locus sets (12.9 to 18.9 Ma). On average, the crown node of the Succulent Karoo clade was 1.4 Myr younger than that of the Lowlands clade. The Ramosa-Rehmannii clade, originating at 6.15 Ma (range: 3.7 to 9.0 Ma), was, on average, 1.1 Myr older than the Setacea clade, but in two trees (trees 6 and 10) was reconstructed as the younger clade. Overall, Setacea was the most recent clade, emerging 5.1 Ma (range: 2.9 to 8.9 Ma). On average, the dates inferred using the Sortadate 'worst' locus set were older than those obtained using the other locus sets, although not extremely so. On the other hand, the Sortadate 'best' locus set yielded the youngest or second youngest estimates for all nodes, except for the split between _Oryza_ and _Ehrharta_, for which the Sortadate ‘best’ locus set produced the oldest estimate.
+
+With the inclusion of accessions representing each of the taxa delimited in Chapter 2, and one accession per subspecies or species in the Lowlands and Dura clades, BAMM provided little evidence of a significant shift in diversification rate in Cape *Ehrharta* (Fig. bamm_trees). For all twelve BEAST trees, the 95% credible set of shift configurations contained no evidence that a shift in diversification rate had occurred, as 100% of samples from the posterior distribution contained zero shifts. Although several trees suggested a slight elevation in diversification rate for the Setacea clade (eg Fig bamm and Fig boxplot) a Kruskal-Wallis test revealed no significant between-clade differences ($\chi^2$ = 2.74, df = 3, p = 0.43). Although we had expected [cf. @Verboom2003] the exclusion of all but one accession representing each of *E. setacea*, *E. rupestris*, *E. rehmannii*, *E. calycina*, *E. villosa* and *E. brevifolia* as currently defined [@GibbsRussel1987] to reveal a shift in the Lowlands clade, this was not the case. As before, none of the trees based on the 12 locus sets yielded a 95% credible set of shift configurations containing any evidence of a rate shift. The MEDUSA results found diversification rate shifts in three of the twelve BEAST trees, all located at the split between Western Rupestris and the remainder of the Setacea clade.  
+
+
+
+The Lowlands clade tended to have a greater morphological trait variance than the other two clades. Of the nine traits that showed a significant difference in variance between clades, the Lowlands clade had a greater variance than the Setacea and Ramosa-Rehmannii clades in eight and five of the traits respectively (Fig. boxplots). Mapping trait values on a sample phylogeny revealed greater across-species variation in most traits in the Setacea and Lowland clades than in the Ramosa-Rehmannii clade (Fig. cont_map), implying a greater evolutionary lability in the former. An analysis of morphological evolutionary rates, where branch lengths are taken into account, revealed that variation in evolutionary rates is strongly clade specific and independent of actual trait variance. Relative to the rest of the tree, the Setacea clade showed elevated rates of evolution in the majority of the measured traits, while the converse was true for the Ramosa-Rehmannii clade. The Lowlands clade displayed slow to moderate rates of evolution relative to the rest of the tree for all traits, with the exception of the strongly elevated rates for inner lemma length, outer glume length and spikelet length. Overall, the inferred rates were consistent across the twelve BEAST trees.
+
+The terminal branches of the Lowlands clade had the highest rate of estimated non-synonymous (dN) and synonymous (dS) changes, followed by those of the Ramosa-Rehmannii and Setacea clades (Fig. ). Conversely, the terminal branches of Setacea clade had a significantly greater $\omega$ than the Lowlands clade (p <0.05, Fig), although the estimated $\omega$ for all clades was low at <0.5.  For each of the three clades, a branch model allowing the $\omega$ of foreground branches to differ from background $\omega$ fit the data better than a model with a single $\omega$ across the tree (Table 3). Both the Ramosa-Rehmannii and Setacea clades showed a higher $\omega$ than the background rate, while Lowlands clade had a lower $\omega$ compared to the rest of the tree. 
+
+
+
 
 ```{r accessions}
 
@@ -75,7 +72,8 @@ kable(accessions,
                     full_width = F,
                   position = "right") 
 ```
-\newpage
+
+
 
 \renewcommand{\arraystretch}{1.5}
 ```{r date_table}
@@ -97,7 +95,7 @@ tree12 <- read.nexus(here("Data","sorta_bad_full_annotated.tre"))
 
 all_trees <- c(tree1, tree2,tree3, tree4,tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12)
 
-tree_ages <- matrix(nrow = 12, ncol = 7)
+tree_ages <- matrix(nrow = 12, ncol = 8)
 
 for (i in 1:12) {
     
@@ -106,11 +104,12 @@ for (i in 1:12) {
     
     age <- dispRity::tree.age(tree)
     tree_ages[i, 2] <- round(as.numeric(age[c(43),1]), 3)
-    tree_ages[i, 3] <- round(as.numeric(age[c(73),1]), 3)
-    tree_ages[i, 4] <- round(as.numeric(age[c(47),1]), 3)
-    tree_ages[i, 5] <- round(as.numeric(age[c(48),1]), 3)
-    tree_ages[i, 6] <- round(as.numeric(age[c(66),1]), 3)
-    tree_ages[i, 7] <- round(as.numeric(age[c(74),1]), 3)
+    tree_ages[i, 3] <- round(as.numeric(age[c(44),1]), 3)
+    tree_ages[i, 4] <- round(as.numeric(age[c(73),1]), 3)
+    tree_ages[i, 5] <- round(as.numeric(age[c(47),1]), 3)
+    tree_ages[i, 6] <- round(as.numeric(age[c(48),1]), 3)
+    tree_ages[i, 7] <- round(as.numeric(age[c(66),1]), 3)
+    tree_ages[i, 8] <- round(as.numeric(age[c(74),1]), 3)
     tree_ages[i, 1] <- i
 }
 
@@ -122,22 +121,121 @@ tree_ages <- rbind(tree_ages, c("Mean age",
                     round(mean(as.numeric(tree_ages[,4]), na.rm = T), 3),
                     round(mean(as.numeric(tree_ages[,5]), na.rm = T), 3),
                     round(mean(as.numeric(tree_ages[,6]), na.rm = T), 3),
-                    round(mean(as.numeric(tree_ages[,7]), na.rm = T), 3)
+                    round(mean(as.numeric(tree_ages[,7]), na.rm = T), 3),
+                    round(mean(as.numeric(tree_ages[,8]), na.rm = T), 3)
                     ))
 
 
 kable(tree_ages,
-      caption = "Median node ages (Ma) for the crown node of the Setacea, Ramosa, Succulent Karoo (SK) and Lowlands clades for BEAST trees either each constructed from 25 randomly chosen supercontig loci from the ninety coverage dataset, or from the gene 'shopping' method of Sortadate (Smith et al. 2018).",
+      caption = "Median node ages (Ma) for the most recent common ancestor of \\textit{Oryza} and \\textit{Ehrharta} (MRCA), as well as for the crown nodes of the Setacea, Ramosa-Rehmannii (RR), Succulent Karoo (SK) and Lowlands clades for BEAST trees either each constructed from 25 randomly chosen supercontig loci from the ninety coverage dataset, or from the gene 'shopping' method of Sortadate (Smith et al. 2018).",
       format = "latex",
       align = "r",
       linesep = "",
       digits = c(1,3,3,3,3,3,3),
       booktabs = T,
-      col.names = c("Tree", "Root", "Microlaena", "Lowlands","SK", "Ramosa", "Setacea"))  %>%
+      col.names = c("Tree", "MRCA", "Ehrharta", "Microlaena", "Lowlands","SK", "RR", "Setacea"))  %>%
   row_spec(12, hline_after = T) %>%  
   kable_styling(latex_options = c("striped", "hold_position"),
                     full_width = F,
                   position = "left") 
+
+```
+
+afdgd
+
+```{r beast_tree, fig.height=8.5, fig.cap="Beast"}
+treeb1 <- read.beast(here("Data", "run5_full_annotated.tre"))
+tree_dat <- as.tibble(treeb1)
+
+sep <- tree_dat %>% unnest_wider(height_0.95_HPD) #unlist hpd
+names(sep)[6] <- "min"
+names(sep)[7] <- "max"
+
+sep <- sep %>% select(node, min, max) %>% filter(node >42)
+hpd <- sep[,2:3]
+
+
+tree <- ladderize(tree5)
+accessions$Accession[41:42] <- c("M. stipoides", "O. sativa")
+accessions$Accession <- as.character(accessions$Accession)
+accessions$Accession <-str_trim(accessions$Accession, side = "right") 
+
+for (i in 1:nrow(accessions)) {
+    tree$tip.label[tree$tip.label == accessions$Accession[[i]]] <- paste(
+        accessions$New[[i]]
+    )
+}
+
+
+
+plotTree(tree,xlim = c(80,-20),
+         direction ="leftwards",
+         mar=c(4.1,1.1,1.1,1.1),
+         ftype="reg",
+         cex = 0.75)
+abline(v=seq(0, 80, by = 10),
+       lty="dashed",
+       col=make.transparent("grey",0.5))
+axis(1, at = seq(0, 80, by = 20))
+
+obj<-get("last_plot.phylo", envir=.PlotPhyloEnv)
+
+for(i in 1:tree$Nnode+Ntip(tree)) {
+    lines(x=c(hpd[i-Ntip(tree),1],hpd[i-Ntip(tree),2]),
+          y=rep(obj$yy[i],2),lwd=9,lend=1,
+          col=make.transparent("#CCC591",0.4))
+}
+
+points(obj$xx[46]+1, obj$yy[46],
+       pch=19,
+       col= "#FAD77B",
+       cex=1.8)
+
+points(obj$xx[63]+1, obj$yy[63],
+       pch=19,
+       col= "#85D4E3",
+       cex=1.8)
+
+points(obj$xx[78]+1, obj$yy[78],
+       pch=19,
+       col= "#C27D38",
+       cex=1.8)
+
+points(obj$xx[59]+1, obj$yy[59],
+       pch=19,
+       col= "#798E87",
+       cex=1.8)
+
+points(obj$xx[43], obj$yy[43],
+       pch=4,
+       col= "#29211F",
+       cex=1.8)
+
+points(obj$xx[45], obj$yy[45],
+       pch=4,
+       col= "#29211F",
+       cex=1.8)
+
+#ram
+arrows(60, 15, x1 = obj$xx[78]+4, y1 = obj$yy[78]-0.5,
+       length = 0.15, lwd = 1.5)
+text(60, 14, label = "Ramosa-Rehmannii")
+
+#SK
+arrows(27, 4.5, obj$xx[63]+3, obj$yy[63]-1,
+       length = 0.15, lwd = 1.5)
+text(27, 3.5, label = "Succulent Karoo")
+
+#Rup
+arrows(61, 28, obj$xx[46]+4, obj$yy[46]-0.5,
+       length = 0.15, lwd = 1.5)
+text(61, 27, label = "Setacea")
+
+#lowlands
+
+arrows(39, 8, obj$xx[59]+3.5, obj$yy[59] - 1,
+       length = 0.15, lwd = 1.5)
+text(39, 7, label = "Lowlands")
 
 ```
 
@@ -161,10 +259,7 @@ kable(branch_mods,
                   position = "left") 
 ```
 
-\newpage
-
-
-```{r bamm_tree_reduced, results = 'hide', fig.cap= "Diversification rates (species per MA) within a representative BEAST tree containing species included in Verboom et al., 2003, calculated with BAMM. None of the twelve BEAST trees contained significant rate shifts."}
+```{r bamm_tree_reduced, results = 'hide', fig.cap= "Diversification rates (species per MA) within a representative BEAST tree containing species included in Verboom et al., 2003, calculated with BAMM. None of the twelve BEAST trees contained significant rate shifts.", cache=F}
 
 tree5 <- read.tree(here("Data", "tree5_BAMM_reduced.tre"))
 x <- getEventData(tree5, here("Data", "tree5_event_data_reduced.txt"), burnin = 0.1)
@@ -185,7 +280,7 @@ for (i in 1:nrow(accessions)) {
 plot.bammdata(x, border = F, 
                       pal = "BrBG", 
                       lwd = 2.5, 
-                      cex=0.5,
+                      cex=0.7,
                       labels = T,
                       legend = T)
 
@@ -221,7 +316,7 @@ for (i in 1:nrow(accessions)) {
 plot.bammdata(x, border = F, 
                       pal = "BrBG", 
                       lwd = 2.5, 
-                      cex=0.5,
+                      cex=0.7,
                       labels = T,
                       legend = T)
 
@@ -235,7 +330,7 @@ plot.bammdata(x, border = F,
 ```
 
 
-```{r bamm_clade_rates, results='hide', fig.cap= "Variation in diversification rates (species per MA) within the Lowlands, Succulent Karoo, Ramosa and Setacea clades across the twelve BEAST trees, where diversification rates were inferred using BAMM. A Kruskal-Wallis test found no significant differences between clades ($\\chi^2$ = 2.74, df = 3, p = 0.43)." }
+```{r bamm_clade_rates, results='hide', fig.cap= "Variation in diversification rates (species per MA) within the Lowlands, Succulent Karoo, Ramosa-Rehmannii and Setacea clades across the twelve BEAST trees, where diversification rates were inferred using BAMM. A Kruskal-Wallis test found no significant differences between clades ($\\chi^2$ = 2.74, df = 3, p = 0.43)." }
 
 rup <- vector(length = 12)
 ram <- vector(length = 12)
@@ -286,7 +381,7 @@ ggplot(clades, aes(Clade, Rate, fill = Clade)) +
     geom_boxplot() +
     my_theme +
         scale_fill_manual(values = my_colours, 
-                          labels = c("Lowlands", "S. Karoo","Ramosa","Setacea"),
+                          labels = c("Lowlands", "S. Karoo","RR","Setacea"),
                           name = " ")
 
 ```
@@ -435,166 +530,8 @@ slow_rates_mid <- rate_data %>% filter(Rate_mid < 1)
 slow_rates_low <- rate_data %>% filter(Rate_low < 1)
 ```
 
-\begin{figure}[t]
 
-```{r contmap, results = 'hide', fig.width=8, fig.height=10,cache=T}
-
-require(phytools)
-par(mfrow = c(2,2))
-
-tree <- drop.tip(tree1, c("M1_S1_L001", "Oryza_sativa"))
-tree <- ladderize(tree)
-
-#rename tips
-
-#accessions$Accession[41:42] <- c("M. stipoides", "O. sativa")
-accessions$Accession<- as.character(accessions$Accession)
-accessions$Accession <-str_trim(accessions$Accession, side = "right") 
-
-for (i in 1:nrow(accessions)) {
-    tree$tip.label[tree$tip.label == accessions$Accession[[i]]] <- paste(
-        accessions$New[[i]]
-    )
-}
-
-#veg height
-vegHeight <- date_trait$Veg_height
-names(vegHeight) <- date_trait$ID
-vegHeight <- vegHeight[order(match(names(vegHeight), accessions$Accession))]
-names(vegHeight) <- accessions$New[1:40]
-
-a <- contMap(tree, log(vegHeight), plot = F)
-
-plot(a, legend=FALSE,
-     fsize = 0.5,
-     ylim=c(1-0.09*(Ntip(a$tree)-1),Ntip(a$tree)),
-    mar=c(5.1,0.4,0.4,0.4))
-add.color.bar(15, a$cols,title="log Veg. height", 
-    lims=a$lims,digits=2,prompt=FALSE,x=0,
-    y=1-0.08*(Ntip(a$tree)-1),lwd=4,fsize=1,subtitle="")
-
-#internode dist
-inter <- date_trait$Internode_dist
-names(inter) <- date_trait$ID
-inter <- inter[order(match(names(inter), accessions$Accession))]
-names(inter) <- accessions$New[1:40]
-
-
-b <- contMap(tree, log(inter), plot = F)
-
-plot(b, legend=FALSE,
-     fsize = 0.5,
-     ylim=c(1-0.09*(Ntip(b$tree)-1),Ntip(b$tree)),
-    mar=c(5.1,0.4,0.4,0.4))
-add.color.bar(15, b$cols,title="log Internode dist.", 
-    lims=b$lims,digits=2,prompt=FALSE,x=0,
-   y=1-0.08*(Ntip(a$tree)-1),lwd=4,fsize=1,subtitle="")
-
-#Glume inner a
-gl_in <- date_trait$Glume_length_inner
-names(gl_in) <- date_trait$ID
-gl_in <- gl_in[order(match(names(gl_in), accessions$Accession))]
-names(gl_in) <- accessions$New[1:40]
-
-c <- contMap(tree, log(gl_in), plot = F)
-
-plot(c, legend=FALSE,
-     fsize = 0.5,
-     ylim=c(1-0.09*(Ntip(c$tree)-1),Ntip(c$tree)),
-    mar=c(5.1,0.4,0.4,0.4))
-add.color.bar(15, c$cols,title="log Inner glume len.", 
-    lims=c$lims,digits=2,prompt=FALSE,x=0,
-   y=1-0.08*(Ntip(c$tree)-1),lwd=4,fsize=1,subtitle="")
-
-#Lemma inner
-lem_in <- date_trait$Lemma_inner_length
-names(lem_in) <- date_trait$ID
-lem_in <- lem_in[order(match(names(lem_in), accessions$Accession))]
-names(lem_in) <- accessions$New[1:40]
-
-d <- contMap(tree, log(lem_in), plot = F)
-
-plot(d, legend=FALSE,
-     fsize = 0.5,
-     ylim=c(1-0.09*(Ntip(d$tree)-1),Ntip(d$tree)),
-    mar=c(5.1,0.4,0.4,0.4))
-add.color.bar(15, d$cols,title="log Inner lemma len.", 
-    lims=c$lims,digits=2,prompt=FALSE,x=0,
-   y=1-0.08*(Ntip(d$tree)-1),lwd=4,fsize=1,subtitle="")
-
-
-
-
-```
-
-
-
-```{r trait_rate, fig.width=8.5, cache=F, fig.cap= "Maximum likelihood estimates of the rate of morphological evolution of 16 traits, calculated separately for each of the Lowlands, Ramosa and Setacea clades relative to the remainder of the tree, using the non-censored model of O'Meara et al 2006. Each column represents a BEAST tree. For ease of visualisation, rates less and greater than one have different colour scales, with the former in shades of blue and the latter in warm colours."}
-library(viridis)
-library(ggnewscale)
-
-a <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_high)) +
-    geom_tile() +
-    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,10), name = "Rate of morphological evolution (log mm/MA)") +
-    ylab("Setacea clade") +
-    new_scale_fill() + 
-    geom_tile(data = slow_rates_high, aes(y = Var, x = Tree, fill = Rate_high))+
-                  scale_fill_distiller(palette = "YlGnBu", limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
-    theme(axis.title = element_blank(),
-          axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          panel.background = element_blank(),
-          plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = 1:12) +
-    labs(title = "Setacea clade")
-
-b <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_mid)) +
-    geom_tile()+
-    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,10))+
-    ylab("Ramosa clade")+
-    new_scale_fill() +
-    geom_tile(data = slow_rates_mid, aes(y = Var, x = Tree, fill = Rate_mid)) +
-    scale_fill_distiller(palette = "YlGnBu", limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
-    theme(axis.title.y = element_blank(),
-          axis.title.x = element_text(colour = "black", size = 13),
-          axis.text.y = element_blank(),
-          axis.ticks.y = element_blank(),
-          panel.background = element_blank(),
-          plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = 1:12) +
-    labs(title = "Ramosa clade")
-
-c <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_low)) +
-    geom_tile()+
-    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,10), breaks = c(1,5,10), name = "")+
-    ylab("Lowlands clade")+
-    labs(fill = "ML rate") +
-    new_scale_fill() +
-    geom_tile(data = slow_rates_low, aes(y = Var, x = Tree, fill = Rate_low)) +
-    scale_fill_distiller(palette = "YlGnBu",limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
-    theme(axis.ticks.y = element_blank(),
-          axis.title = element_blank(),
-          axis.text.y = element_text(size = 12, colour = "black"),
-          #axis.text.x = element_blank(),
-          panel.background = element_blank(),
-          #legend.title = element_text(angle = -90),
-          #legend.title.align = 0.5,
-          plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = 1:12) +
-    labs(title = "Lowlands clade", fill = " ")
-
- all <- ggpubr::ggarrange(c,b,a, 
-                  nrow = 1, 
-                  common.legend = T,
-                  legend = "right",
-                  widths = c(1,0.6,0.6),
-                  align = "h")
-
-require(cowplot)
-ggdraw(all) + draw_label(label = "Rate of morphological evolution (log mm/MA)", angle = -90, x = 0.99)
-```
-
-```{r disparity, cache=T, fig.width = 8, fig.height=8, results= 'hide', fig.cap = "Trait disparity within clades. Letters signify significance based on Leven's test for equal variance"}
+```{r disparity, cache=T, fig.width = 8, fig.height=8, results= 'hide', fig.cap = "Trait disparity within clades. Letters signify significance based on Leven's test for equal variance and a post-hoc Tukey HSD test."}
 
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
@@ -614,7 +551,7 @@ univariate_boxplot_trait_data <- function(x) {
                      width = 0.6) +
         my_theme +
         scale_fill_manual(values=wes_palette(n=3, name="Moonrise2"), 
-                          labels = c("Lowlands", "Ramosa", "Setacea"),
+                          labels = c("Lowlands", "Ramosa-Rehmannii", "Setacea"),
                           name = " ")
         
 }
@@ -875,12 +812,175 @@ p <- univariate_boxplot_trait_data("Lemma_inner_length") +
               size = 6)
 
 
-ggpubr::ggarrange(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p, align = "v", common.legend = T, legend = "right")
+ggpubr::ggarrange(p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a, align = "v", common.legend = T, legend = "right")
 ```
 
 
 
-```{r codeml_pairs, fig.height = 4, fig.cap="The rate of non-synonymous (dN), synonymous (dS) and $\\omega$ for the terminal branches of each clade, estimated with the free-ratios model in codeml on 44 concatenated exons (model = 1,  NSsites = 0)."}
+```{r contmap, fig.cap = "The variation in four representative traits (log mm) mapped to a BEAST tree. Warmer colours represent smaller values", results = 'hide', fig.width=8, fig.height=11,cache=T}
+
+require(phytools)
+par(mfrow = c(2,2))
+
+tree <- drop.tip(tree1, c("M1_S1_L001", "Oryza_sativa"))
+tree <- ladderize(tree)
+
+#rename tips
+
+#accessions$Accession[41:42] <- c("M. stipoides", "O. sativa")
+accessions$Accession<- as.character(accessions$Accession)
+accessions$Accession <-str_trim(accessions$Accession, side = "right") 
+
+for (i in 1:nrow(accessions)) {
+    tree$tip.label[tree$tip.label == accessions$Accession[[i]]] <- paste(
+        accessions$New[[i]]
+    )
+}
+
+#veg height
+vegHeight <- date_trait$Veg_height
+names(vegHeight) <- date_trait$ID
+vegHeight <- vegHeight[order(match(names(vegHeight), accessions$Accession))]
+names(vegHeight) <- accessions$New[1:40]
+
+a <- contMap(tree, log(vegHeight), plot = F)
+
+plot(a, legend=FALSE,
+     fsize = 0.8,
+     ftype = "reg",
+     ylim=c(1-0.09*(Ntip(a$tree)-1),Ntip(a$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(17, a$cols,title="log Veg. height", 
+    lims=a$lims,digits=2,prompt=FALSE,x=0,
+    y=1-0.08*(Ntip(a$tree)-1),lwd=4,fsize=1,subtitle="")
+
+#internode dist
+inter <- date_trait$Internode_dist
+names(inter) <- date_trait$ID
+inter <- inter[order(match(names(inter), accessions$Accession))]
+names(inter) <- accessions$New[1:40]
+
+
+b <- contMap(tree, log(inter), plot = F)
+
+plot(b, legend=FALSE,
+     fsize = 0.8,
+     ftype = "reg",
+     ylim=c(1-0.09*(Ntip(b$tree)-1),Ntip(b$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(17, b$cols,title="log Internode dist.", 
+    lims=b$lims,digits=2,prompt=FALSE,x=0,
+   y=1-0.08*(Ntip(a$tree)-1),lwd=4,fsize=1,subtitle="")
+
+#Glume inner a
+gl_in <- date_trait$Glume_length_inner
+names(gl_in) <- date_trait$ID
+gl_in <- gl_in[order(match(names(gl_in), accessions$Accession))]
+names(gl_in) <- accessions$New[1:40]
+
+c <- contMap(tree, log(gl_in), plot = F)
+
+plot(c, legend=FALSE,
+     fsize = 0.8,
+     ftype = "reg",
+     ylim=c(1-0.09*(Ntip(c$tree)-1),Ntip(c$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(17, c$cols,title="log Inner glume len.", 
+    lims=c$lims,digits=2,prompt=FALSE,x=0,
+   y=1-0.08*(Ntip(c$tree)-1),lwd=4,fsize=1,subtitle="")
+
+#Lemma inner
+lem_in <- date_trait$Lemma_inner_length
+names(lem_in) <- date_trait$ID
+lem_in <- lem_in[order(match(names(lem_in), accessions$Accession))]
+names(lem_in) <- accessions$New[1:40]
+
+d <- contMap(tree, log(lem_in), plot = F)
+
+plot(d, legend=FALSE,
+     fsize = 0.8,
+     ftype = "reg",
+     ylim=c(1-0.09*(Ntip(d$tree)-1),Ntip(d$tree)),
+    mar=c(5.1,0.4,0.4,0.4))
+add.color.bar(17, d$cols,title="log Inner lemma len.", 
+    lims=c$lims,digits=2,prompt=FALSE,x=0,
+   y=1-0.08*(Ntip(d$tree)-1),lwd=4,fsize=1,subtitle="")
+
+
+
+
+```
+
+
+
+```{r trait_rate, fig.width=8.5, cache=F, fig.cap= "Maximum likelihood estimates of the relative rate of morphological evolution of 16 traits, calculated separately for each of the Lowlands, Ramosa and Setacea clades relative to the remainder of the tree, using the non-censored model of O'Meara et al 2006. Each column represents a BEAST tree. For ease of visualisation, rates less and greater than one have different colour scales, with the former in shades of blue and the latter in warm colours."}
+library(viridis)
+library(ggnewscale)
+
+a <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_high)) +
+    geom_tile() +
+    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,10), name = "Rate of morphological evolution (log mm/MA)") +
+    ylab("Setacea clade") +
+    new_scale_fill() + 
+    geom_tile(data = slow_rates_high, aes(y = Var, x = Tree, fill = Rate_high))+
+                  scale_fill_distiller(palette = "YlGnBu", limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
+    theme(axis.title = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)) +
+    scale_x_continuous(breaks = 1:12) +
+    labs(title = "Setacea clade")
+
+b <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_mid)) +
+    geom_tile()+
+    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,10))+
+    ylab("Ramosa clade")+
+    new_scale_fill() +
+    geom_tile(data = slow_rates_mid, aes(y = Var, x = Tree, fill = Rate_mid)) +
+    scale_fill_distiller(palette = "YlGnBu", limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
+    theme(axis.title.y = element_blank(),
+          axis.title.x = element_text(colour = "black", size = 13),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)) +
+    scale_x_continuous(breaks = 1:12) +
+    labs(title = "Ramosa clade")
+
+c <- ggplot(rate_data, aes(y = Var, x = Tree, fill = Rate_low)) +
+    geom_tile()+
+    scale_fill_viridis(option = "magma", direction = -1, limits = c(1,10), breaks = c(1,5,10), name = "")+
+    ylab("Lowlands clade")+
+    labs(fill = "ML rate") +
+    new_scale_fill() +
+    geom_tile(data = slow_rates_low, aes(y = Var, x = Tree, fill = Rate_low)) +
+    scale_fill_distiller(palette = "YlGnBu",limits = c(0, 1), breaks = c(0,0.3,0.6,0.9)) +
+    theme(axis.ticks.y = element_blank(),
+          axis.title = element_blank(),
+          axis.text.y = element_text(size = 12, colour = "black"),
+          #axis.text.x = element_blank(),
+          panel.background = element_blank(),
+          #legend.title = element_text(angle = -90),
+          #legend.title.align = 0.5,
+          legend.margin = margin(r = 25),
+          plot.title = element_text(hjust = 0.5)) +
+    scale_x_continuous(breaks = 1:12) +
+    labs(title = "Lowlands clade", fill = " ")
+
+all <- ggpubr::ggarrange(c,b,a, 
+                  nrow = 1, 
+                  common.legend = T,
+                  legend = "right",
+                  widths = c(1,0.6,0.6),
+                  align = "h")
+
+require(cowplot)
+ggdraw(all) + draw_label(label = "Relative rate of trait evolution", angle = -90, x = 0.99)
+```
+
+
+```{r codeml_pairs, fig.height = 3, fig.cap="The rate of non-synonymous (dN), synonymous (dS) and $\\omega$ for the terminal branches of each clade, estimated with the free-ratios model in codeml on 44 concatenated exons (model = 1,  NSsites = 0)."}
 
 #pairs <- read.csv(here("Data", "pairwise.csv"))
 #
@@ -994,3 +1094,71 @@ ggpubr::ggarrange(free_dn, free_ds, free_dnds, align = "h",
 
 ```
 
+```{r medusa, fig.height=9, echo = F, message=F, results = 'hide', fig.cap = "Medusa shifts"}
+
+par(mfrow = c(6,2), mar = c(2,0.5,0.5,0.5))
+
+tree1 <- drop.tip(tree1, c("M1_S1_L001", 
+                           "Oryza_sativa"))
+tree1 <- ladderize(tree1, right = T)
+med1 <- medusa(tree1, model = "mixed", cut = "both")
+plot(med1)
+
+tree2 <- drop.tip(tree2, c("M1_S1_L001", 
+                           "Oryza_sativa"))
+tree2 <- ladderize(tree2, right = T)
+med1 <- medusa(tree2, model = "mixed", cut = "both")
+plot(med1)
+
+tree3 <- drop.tip(tree3, c("M1_S1_L001", "Oryza_sativa"))
+tree3 <- ladderize(tree3, right = T)
+med1 <- medusa(tree3)
+plot(med1)
+
+
+tree4 <- drop.tip(tree4, c("M1_S1_L001", "Oryza_sativa"))
+tree4 <- ladderize(tree4, right = T)
+med1 <- medusa(tree4, model = "mixed", cut = "both")
+plot(med1)
+
+tree5 <- drop.tip(tree5, c("M1_S1_L001", "Oryza_sativa"))
+tree5 <- ladderize(tree5, right = T)
+med1 <- medusa(tree5, model = "mixed", cut = "both")
+plot(med1)
+
+tree6 <- drop.tip(tree6, c("M1_S1_L001", "Oryza_sativa"))
+tree6 <- ladderize(tree6, right = T)
+med1 <- medusa(tree6, model = "mixed", cut = "both")
+plot(med1)
+
+tree7 <- drop.tip(tree7, c("M1_S1_L001", "Oryza_sativa"))
+tree7 <- ladderize(tree7, right = T)
+med1 <- medusa(tree7, model = "mixed", cut = "both")
+plot(med1)
+
+tree8 <- drop.tip(tree8, c("M1_S1_L001", "Oryza_sativa"))
+tree8 <- ladderize(tree8, right = T)
+med1 <- medusa(tree8, model = "mixed", cut = "both")
+plot(med1)
+
+tree9 <- drop.tip(tree9, c("M1_S1_L001", "Oryza_sativa"))
+tree9 <- ladderize(tree9, right = T)
+med1 <- medusa(tree9, model = "mixed", cut = "both")
+plot(med1)
+
+
+tree10 <- drop.tip(tree10, c("M1_S1_L001", "Oryza_sativa"))
+tree10 <- ladderize(tree10, right = T)
+med1 <- medusa(tree10, model = "mixed", cut = "both")
+plot(med1)
+
+tree11 <- drop.tip(tree11, c("M1_S1_L001", "Oryza_sativa"))
+tree11 <- ladderize(tree11, right = T)
+med1 <- medusa(tree10, model = "mixed", cut = "both")
+plot(med1)
+
+tree12 <- drop.tip(tree12, c("M1_S1_L001", "Oryza_sativa"))
+tree12 <- ladderize(tree12, right = T)
+med1 <- medusa(tree10, model = "mixed", cut = "both")
+plot(med1)
+```

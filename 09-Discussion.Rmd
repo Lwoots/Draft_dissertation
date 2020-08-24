@@ -1,0 +1,68 @@
+---
+title: "Discussion"
+author: "Lara Wootton"
+date: "11/08/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+The hypothesis that the Cape _Ehrharta_ has undergone an adaptive radiation at low elevations and a non-adaptive radiation at high elevations was not supported by the data. While there was some evidence for elevated diversification rate within the Setacea clade, there was little evidence for a shift in diversification rate associated with the transition to the Succulent Karoo in the Lowlands Clade. In addition, the rate of morphological change showed the opposite pattern to the expected, with elevated rates of change in _Setacea_, rather than in the Lowlands clade. Similarly, the strongest signal of positive selection was shown in the Setacea clade.
+
+
+
+The split between _Oryza_ and _Ehrharta_ is estimated at 68 Ma, and _Ehrharta_ - _Microlaena_ at 20 Ma, which is substantially older than previous estimates. @Hoffmann2015, @Verboom and @Vicenti2008 dated the MRCA of  _Oryza_ and _Ehrharta_ at 25 and 35 Ma respectively, while @Bouchenak estimated the split to be 50 Ma, and  _Ehrharta_ - _Microlaena_ ~ 8 Ma.@Prasad2011 included several new fossils in _Oryza_, resulting in an age estimate of 72 Myr for the Ehrhartoideae, which was substantially older than previous estimates.
+
+
+
+The results presented here suggest that _Ehrharta_, at ~28 Myr, is one of the older Cape genera, predating more diverse lineages such as _Erica_ () even rivalling several of the Cape families in age.  
+
+This study used the tree of @Prasad2011 as calibration, resulting in age estimates which, at 68 Myr for  _Oryza_ and _Ehrharta_ and 20 Myr for _Ehrharta_ - _Microlaena_, are substantially older than previous estimates for the origin of _Ehrharta_. For example @Hoffmann2015 and @Vicenti2008 dated the MRCA of _Oryza_ and _Ehrharta_ at 25 and 35 Ma respectively, while @Bouchenak estimated the split to be 50 Ma, and _Ehrharta_ - _Microlaena_ at approximately 8 Ma.  Unexpectedly, our results place the origin of the Succulent Karoo clade before the erosion events that revealed the shales of the SK, and makes it one of the oldest SK radiations. Also, the setacea radiation would predate the pleistocene cycles.         
+
+
+
+Although there was some evidence for an increase in diversification rate shift within the Setacea, overall, diversification occurred at a constant rate across the Cape _Ehrharta_, even when constrained to the taxa of @Verboom. Despite the contradictory findings of @Verboom2003 and @Hoffmann2015, this is not an unusual pattern within the GCFR, with clades such as restios @Bouchenak2016, Proteas, Moreae @schnitzler2011 showing a constant accumulation of lineages over time [see also @Hoffmann]. The pattern is generally attributed to low extinction rates in the generally stable cape climate. However, the tree shape and lineage through time plots suggest high extinction, especially along the branch leading to setacea. It's possible that the setacea, which almost all are moisture dependent, underwent substantial extinction during the aridification, and subsequently expanded and speciated during the wetter Pleistocene cycles. Although our estimated dates don't support this scenario, it is plausible that the dates of others would. 
+
+
+
+Longer generation times and larger genome sizes are some of the factors explaining the slow rates of molecular evolution found in gymnosperms @Delatorres
+Perennials slower than annuals @guat2011
+
+for diversification shifts in the Cape
+@onstein
+@Pirie2016
+@Linder&hardy2004 no shifts
+
+@Valente2010 no shifts
+
+relating pop size to rate molecular
+@lanfear2014
+
+
+
+@Ebersbach - different types of radiation can occur in the same lineage
+
+@Wen2014 geographic divergence in himalayas
+
+In contrast to rapid ecological speciation, collections of
+
+allospecies occupying ecologically similar niches and forming
+
+the components of nonadaptive radiation are often old
+
+(on the order of millions of years @Rundell. But what if small pop sizes?
+
+
+
+Morphological bias - less non-adaptive bse not as many cryptic description
+
+
+
+Disparification. Increase in morphological divergence within a clade without an increase in the clade's rate of diversification @simoes2016
+
+
+

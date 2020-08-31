@@ -53,7 +53,7 @@ generate_label_df <- function(TUKEY, variable){
 
 Based on the median age estimates obtained from each of the twelve 25-locus sets used for dating (i.e. the 10 randomly sampled sets, plus the ‘best’ and ‘worst’ Sortadate sets), the mean age of the split between _Oryza_ and _Ehrharta_ was estimated at 68.4 Ma, with estimates varying between 67.9 and 69.3 Ma. For the crown node of _Ehrharta_, the mean age estimate was 28.4 Ma, with a range of 26.5 to 29.7 Ma. The crown age of the Lowlands clade was always inferred to be older than those of the Ramosa-Rehmannii and Setacea clades, having a mean of 15.8 Ma, but with substantial variation in the estimates obtained from the different locus sets (12.9 to 18.9 Ma). On average, the crown node of the Succulent Karoo clade was 1.4 Myr younger than that of the Lowlands clade. The Ramosa-Rehmannii clade, originating at 6.2 Ma (range: 3.7 to 9.0 Ma), was, on average, 1.1 Myr older than the Setacea clade, but in two trees (trees 6 and 10) was reconstructed as the younger clade. Overall, Setacea was the most recent clade, emerging 5.1 Ma (range: 2.9 to 8.9 Ma). On average, the dates inferred using the Sortadate 'worst' locus set were older than those obtained using the other locus sets, although not extremely so. On the other hand, the Sortadate 'best' locus set yielded the youngest or second youngest estimates for all nodes, except for the split between _Oryza_ and _Ehrharta_, for which the Sortadate ‘best’ locus set produced the oldest estimate.
 
-With the inclusion of accessions representing each of the taxa delimited in Chapter 2, and one accession per subspecies or species in the Lowlands and Dura clades, BAMM provided little evidence of a significant shift in diversification rate in Cape *Ehrharta* (Fig. bamm_trees). For all twelve BEAST trees, the 95% credible set of shift configurations contained no evidence that a shift in diversification rate had occurred, with 100% of samples from the posterior distribution containing zero shifts. Although several trees suggested a slight elevation in diversification rate for the Setacea clade (eg Fig bamm and Fig boxplot) a Kruskal-Wallis test revealed no significant between-clade differences ($\chi^2$ = 2.74, df = 3, p = 0.43). Although we had expected [cf. @Verboom2003] the exclusion of all but one accession representing each of *E. setacea*, *E. rupestris*, *E. rehmannii*, *E. calycina*, *E. villosa* and *E. brevifolia* as currently defined [@GibbsRussell1987] to reveal a significant acceleration in the Lowlands clade, this was not the case. As before, none of the trees based on the 12 locus sets yielded a 95% credible set of shift configurations containing any evidence of a rate shift. The MEDUSA results found diversification rate shifts in three of the twelve BEAST trees, all located at the split between the Western Rupestris and the remainder of the Setacea clade.  
+With the inclusion of accessions representing each of the taxa delimited in Chapter 2, and one accession per subspecies or species in the Lowlands and Dura clades, BAMM provided little evidence of a significant shift in diversification rate in Cape *Ehrharta* (Fig. bamm_trees). For all twelve BEAST trees, the 95% credible set of shift configurations contained no evidence that a shift in diversification rate had occurred, with 100% of samples from the posterior distribution containing zero shifts. Although several trees suggested a slight elevation in diversification rate for the Setacea clade (eg Fig bamm and Fig boxplot) a Kruskal-Wallis test revealed no significant between-clade differences ($\chi^2$ = 2.74, df = 3, p = 0.43). Although we had expected [cf. @Verboom2003] the exclusion of all but one accession representing each of *E. setacea*, *E. rupestris*, *E. rehmannii*, *E. calycina*, *E. villosa* and *E. brevifolia* as currently defined [@GibbsRussell1987] to reveal a significant acceleration in the Lowlands clade, this was not the case. As before, none of the trees based on the 12 locus sets yielded a 95% credible set of shift configurations containing any evidence of a rate shift. The MEDUSA results found diversification rate shifts in three of the twelve BEAST trees, all located at the split between the Western Rupestris and the remainder of the Setacea clade. The lineage through time plot curves upwards, showing an increased rate of lineage accumulation closer to the present (Fig. ltt)
 
 The Lowlands clade tended to have a greater morphological trait variance than the other two clades. Of the nine traits that showed a significant difference in variance between clades, the variance in the Lowlands clade was greater than that in the Setacea and Ramosa-Rehmannii clades in eight and five of the traits respectively (Fig. boxplots). Mapping trait values on a sample phylogeny revealed greater across-species variation in most traits in the Lowlands and Setacea clades than in the Ramosa-Rehmannii clade (Fig. cont_map), implying greater evolutionary lability in the former. An analysis of morphological evolutionary rates, in which branch lengths are taken into account, revealed that variation in evolutionary rates is strongly clade specific and independent of actual trait variance. Relative to the rest of the tree, the Setacea clade showed elevated rates of evolution in the majority of the measured traits, while the converse was true for the Ramosa-Rehmannii clade. The Lowlands clade displayed slow to moderate rates of evolution relative to the rest of the tree for all traits, with the exception of the strongly elevated rates for inner lemma length, outer glume length and spikelet length. Overall, the inferred rates were consistent across the twelve BEAST trees.
 
@@ -143,6 +143,22 @@ kable(tree_ages,
                     full_width = F,
                   position = "left") 
 
+```
+
+```{r rescaled_dates}
+dates <- read.csv(here("Data", "rescaled_dates.csv"))
+
+kable(dates,
+      caption = "The date estimates (Ma) of the present study, which are based on the calibrations of Prasad et al., 2011, rescaled using the date estimates of previous works. Ory-Ehr = the split between \\textit{O. sativa} and \\textit{Ehrharta}, SK = Succulent Karoo, RR = Ramosa-Rehmannii.",
+      format = "latex",
+      align = "l",
+      linesep = "",
+      booktabs = T,
+      col.names = c("Author", "Ory-Ehr", "Lowlands","SK", "RR", "Setacea"))  %>%
+  row_spec(12, hline_after = T) %>%  
+  kable_styling(latex_options = c("striped", "hold_position"),
+                    full_width = F,
+                  position = "left") 
 ```
 
 
@@ -257,7 +273,7 @@ text(27, 3.5, label = "Succulent Karoo")
 #Rup
 arrows(61, 28.4, obj$xx[46]+4, obj$yy[46]-0.5,
        length = 0.15, lwd = 1.5)
-text(61, 27, label = "Setacea")
+text(61, 27.4, label = "Setacea")
 
 #lowlands
 
@@ -401,6 +417,27 @@ ggplot(clades, aes(Clade, Rate, fill = Clade)) +
 
 ```
 
+
+```{r ltt, results='hide', fig.cap="Lineage through time plot of the Cape Ehrharta (i.e. O. sativa and M. stipoides excluded), whereeach line represents a BEAST tree."}
+
+par(mfrow = c(1,2))
+#ltt(all_trees)
+#ltt(all_trees, log.lineages = F)
+
+reduced_trees<-lapply(all_trees, drop.tip, tip=c("M1_S1_L001", "Oryza_sativa"))
+class(reduced_trees) <- "multiPhylo"
+ltt(reduced_trees, 
+    xaxt='n',
+    xlab = "Time (Ma)",
+    ylab = "log(Lineages)")
+axis(side = 1, at = seq(0,30, 10), labels = c("30", "20", "10", "0"))
+ltt(reduced_trees, log.lineages = F,
+     xaxt='n',
+    xlab = "Time (Ma)",
+    ylab = "Lineages")
+axis(side = 1, at = seq(0,30, 10), labels = c("30", "20", "10", "0"))
+
+```
 
 ```{r, cache=T}
 

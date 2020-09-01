@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-The hypothesis that the Cape _Ehrharta_ has undergone an adaptive radiation at low elevations and a non-adaptive radiation at high elevations was not supported by the data. While there was some evidence for elevated diversification rate within the Setacea clade, there was little evidence for a shift in diversification rate associated with the transition to the Succulent Karoo in the Lowlands Clade. In addition, the rate of morphological change showed the opposite pattern to the expected, with elevated rates of change in _Setacea_, rather than in the Lowlands clade. Similarly, the strongest signal of positive selection was shown in the Setacea clade.
+The hypothesis that the Cape _Ehrharta_ has undergone an adaptive radiation at low elevations and a non-adaptive radiation at high elevations was not well supported by the data. Substantially older age estimates were recovered for _Ehrharta_ than previous works, and while there was some evidence for elevated diversification rate within the Setacea clade, there was little evidence for a shift in diversification rate associated with the transition to the Succulent Karoo in the Lowlands Clade. In addition, the rate of morphological change showed the opposite pattern to that predicted, with elevated rates of change in _Setacea_, rather than in the Lowlands clade. Similarly, the strongest signal of positive selection was shown in the Setacea clade. It appears that diversification in both the Lowlands and Setacea clades has been influenced to a greater extent by ecological speciation, while non-ecological speciation may be more important in the mid-elevation Ramosa-Rehmannii clade. 
 
 Establishing age estimates for lineages within Poaceae have been hindered by the scarcity of macrofossils [@Stromberg2011], leading @Prasad2011 to make use of phytolith microfossils in calibrating their tree of the rice tribe. The present study used the dates of @Prasad2011 as calibration, resulting in age estimates which, at 68 Myr for _Oryza_ - _Ehrharta_ and 20 Myr for _Ehrharta_ - _Microlaena_, are substantially older than previous estimates for the origin of _Ehrharta_. For example, @Hoffmann2015, @Vicentini2008 and @Bouchenak2010 dated the split between _Oryza_ and _Ehrharta_ at 25, 35 and 50 Ma respectively, while @Bouchenak2010 also estimated _Ehrharta_ - _Microlaena_ at approximately 10 Ma. The older date estimates with the @Prasad2011 calibrations are difficult to contextualise given the climatic history of the GCFR. The results place the origin of the Succulent Karoo clade during the Mid-Miocene, predating the onset of a summer-arid climate during the Pliocene [@Dupont2011], the erosion events that revealed the fertile shales of the Succulent Karoo [@Cowling2009], and the origin of the Succulent Karoo vegetation type itself [@Verboom2009]. Similarly, the moisture-loving Setacea clade would originate and diversify during the arid Pliocene. Rescaling the dates presented here with the age estimates of @Vicentini2008, @Bouchenak2010 and @Hoffmann2015 (Supp. Table rescaled_dates) would place the crown age of the Succulent Karoo clade between 10.6 and 5.3 Ma, coinciding with the origin of the Succulent Karoo flora, and the crown age of the Setacea clade between 3.7 and 1.9 Ma, coinciding with the cooler and wetter Pleistocene. Given the difficulty of assigning microfossils to a particular lineage [@Christin2014], and the lack of concordance with previous studies, the absolute dates in this work should perhaps be interpreted with caution. Nonetheless, as the branch length relationships would remain the same regardless of their absolute time calibrations, changes in date estimates would not alter downstream analyses of morphological and molecular evolution.         
 
@@ -26,71 +26,15 @@ Adaptive radiations are expected to result in lineages with high morphological v
 
 None of the clades were evolving under positive selection ($\omega$ > 1), which, as the branch models used find the average rate of $\omega$ across all sites [@Yang2007] and the loci incorporated are likely to be conserved [@Johnson2019], is perhaps not unexpected. However, it is still informative to compare $\omega$ between clades in order in evaluate relative strength of selection [@Delatorres2017; @Buschiazzo2012]. The Setacea clade contained the highest value of $\omega$ (Setacea clade $\omega$ = 0.23, background $\omega$ = 0.18), and therefore showed the strongest evidence for divergent selection amongst the clades. Although this is contradicts the hypothesis of non-adaptive speciation in the high-elevations, it corroborates with the elevated rate of trait evolution in the clade. The value of  $\omega$ was also greater in the Ramosa-Rehmannii clade in comparison to the rest of the tree ($\omega$ = 0.21vs  $\omega$ = 0.19), although given the suppressed rate of trait evolution in the clade, this may be an artefact of a large positive outlier corresponding to Eastern Ramosa (Fig. free_ratios). The Lowlands clade showed a higher rate of molecular evolution than the Setacea and Ramosa-Rehmannii clades, as shown by the greater values of dS and dN, possibly due to the shorter generation time of the annuals in the clade [@Smith2008rates]. Yet, unexpectedly given the evidence for adaptive radiation, $\omega$ had the lowest value in the Lowlands clade. While it is possible that there has been very little divergent selection within the clade, and that the observed trait variance is due to neutral divergence over long periods of time, this seems unlikely given the affinity of Lowlands taxa to their local substrates [@Verboom2004]. Alternatively, the analyses used here are not sensitive or comprehensive enough to find evidence of divergent selection in the clade. For example, selection pressures act heterogeneously across the genome [@Wolf2009; @Kunstner2010], and the 44 loci used may not be representative of the genome as a whole. Additionally, divergent selection on just one or two amino acid sites can make a substantial difference to protein function, and this signal can lost using the average branch value of $\omega$ [@Yang2007; @Weadick2012].
 
-The results therefore show that, while the type of radiation in the Cape _Ehrharta_ does vary between clades, speciation does not become progressively non-adaptive with elevation as hypothesised. The Lowlands clade does appear to have diversified via an adaptive radiation, with changes to life history (eg. annuals, geophytes) allowing access to arid environments previously unavailable to _Ehrharta_ [@Verboom2004]. It is not, however, an explosive radiation [@Givnish2015]. Rather, the Lowlands clade seems to have undergone gradual speciation over long periods of time as the lineages filled available niches, which, coupled with low extinction, has lead to the high diversity of the clade. In contrast, the mid-elevation Ramosa-Rehmannii clade is the radiation most likely to have been influenced by non-adaptive processes. The species in the Ramosa clade occur in similar habitats, consisting of dry, rocky slopes in the fynbos, which, together with very little morphological differentiation, suggests that ecological speciation has had minimal influence on their diversification. Instead, poor seed set (_pers. obs._), potentially limited dispersal and reliance on clonal reproduction may make the precipitous Cape mountains an effective barrier to gene flow in this group [@Givnish2010; @Kisel2010]. Similarly, although Rehmannii species have undergone ecological differentiation (eg. Subspicata occurring in coastal habitats), given the limited overlap in their distributions they may have first experienced non-ecological, allopatric speciation. Finally, the radiation of the high-elevation Setacea clade is almost certainly has a substantial ecological component, given the fast rates of morphological and genetic change, with the cryptic nature of many of the species potentially a result of a younger clade age. There also appears to be subtle ecological differentiation within the clade, for example the sympatric Fernkloof A and B species occurring on rocky slopes and damp hollows respectively. Many montane clades have undergone substantial diversification during the Pleistocene, as climate oscillations caused suitable habitat to expand and contract along mountain slopes, altering population connectivity [@Muellner2019; @Mairal2017; @Flantua2018].  While it is difficult to pinpoint the exact trigger of diversification in the Setacea clade given the uncertainty in the age estimates, it is possible that climate oscillations during the Pleistocene may have been a contributing factor.
+The results therefore show that, while the type of radiation in the Cape _Ehrharta_ does vary between clades, speciation does not become progressively non-adaptive with elevation as hypothesised. The Lowlands clade does appear to have diversified via an adaptive radiation, with changes to life history (eg. annuals, geophytes) allowing access to arid environments previously unavailable to _Ehrharta_ [@Verboom2004]. It is not, however, an explosive radiation [@Givnish2015]. Rather, the Lowlands clade seems to have undergone gradual speciation over long periods of time as the lineages filled available niches, which, coupled with low extinction, has lead to the high diversity of the clade. In contrast, the mid-elevation Ramosa-Rehmannii clade is the radiation most likely to have been influenced by non-adaptive processes. The species in the Ramosa clade occur in similar habitats, consisting of dry, rocky slopes in the fynbos, which, together with very little morphological differentiation, suggests that ecological speciation has had minimal influence on their diversification. Instead, poor seed set (_pers. obs._), potentially limited dispersal and reliance on clonal reproduction may make the precipitous Cape mountains an effective barrier to gene flow in this group [@Givnish2010; @Kisel2010]. Similarly, although Rehmannii species have undergone ecological differentiation (eg. Subspicata occurring in coastal habitats), given the limited overlap in their distributions they may have first experienced non-ecological, allopatric speciation. Finally, the radiation of the high-elevation Setacea clade is almost certainly has a substantial ecological component, given the fast rates of morphological and genetic change, with the cryptic nature of many of the species potentially a result of a younger clade age. There also appears to be subtle ecological differentiation within the clade, for example the sympatric Fernkloof A and B species occurring on rocky slopes and damp hollows respectively. It is difficult to pinpoint the exact trigger of diversification in the Setacea clade given the uncertainty in the age estimates. However, it is possible that climate oscillations during the Pleistocene may have been a contributing factor, as many montane clades have undergone substantial diversification during this epoch, with the fluctuating climate causing suitable habitat to expand and contract along mountain slopes, altering population connectivity and gene flow patterns[@Muellner2019; @Mairal2017; @Flantua2018].  
 
-The present work therefore contributes to a growing body of research that demonstrates that it is difficult to generalise what causes radiations, as each clade's unique history, together with a wealth of intrinsic and extrinsic factors contribute differently to diversification [@Lago; @Muellner2019; @Simoes; @Bouchenak].
-
-
-
-While it is difficult to pinpoint the exact trigger of diversification in this clade given the uncertainty in the age estimates, it is possible that climate oscillations during the Pleistocene may have been a contributing factor. potential alternation of allopatric and ecological associated with pleistocene cycles  and subsequently expanded and speciated during the wetter Pleistocene cycles.Fits mountain‐geobiodiversity hypothesis [@Muellner]
-
- Lagomarsino 
+Substantial research has gone into predicting patterns of radiation in the GCFR [eg @Linder2004; @Linder2008; @Vanderniet2009; @Schnitzler2011; @Verboom2015; @Bouchenak2017], making it clear that the evolutionary history in this region is complex, with a range of climatic, geological and historical events influencing diversification [@Cowling2002; @Linder2015; @Verboom2014]. This study has shown that even within a single lineage such as the Cape _Ehrharta_, multiple intrinsic and extrinsic factors are driving diversification, tying in with a growing body of research arguing that it is no longer sufficient to generalise a radiation as 'adaptive' or 'non-adaptive' [@Simoes2016; @Lagomarsino2016; Ebersbach2017; @Muellner2019]. In particular, mountain radiations require a holistic approach to untangle the subtle interaction of geographic and ecological triggers [@Muellner2019].
 
 
 
-Need time estimates to unravel causes.
-
-The only non-geophytic  harsh environment may require a particular morphology leading to cryptic species.
-
-While elevated rates are consistent with ecological selection, although impossible to rule out plasticity. Interestingly, the traits that are considered functional (leaf length and width, height, spikelet size as a proxy for seed size), were evolving at a faster rate in Lowlands, and conserved in Setacea. It is possible that the smaller population sizes are causing drift on the less vital traits, while stabilising selection acts on the functional traits. the Ramosa-Rehmannii clade had a striking pattern of slow rates for almost all traits in comparision to the rest of the tree. Ramosa-Rehmannii tend to occur to drier, rocky habitats and poor fynbos soils, but with none of the aridity traits that are found in Lowlands (annuals, geophytes), potentially suggesting strong stabilising selection is necessary to survive inhospitable environment. Overall, the Lowlands clade did not display the elevated rate of trait evolution that is associated with many adaptive radiations, but given the slow diversification rates  
+# References
 
 
 
-* Setacea - Fast rates except for functional traits
-
-  The Setacea clade
-
-* Ramosa - Slow rates for everything - stabilising selection
-
-All together, morphology results suggest that Lowlands and Setacea have experienced directional, ecological selection, while RR is experiencing stabilising or neutral selection
-
-Longer generation times and larger genome sizes are some of the factors explaining the slow rates of molecular evolution found in gymnosperms @Delatorres
-Perennials slower than annuals @guat2011
-
-Likely to have bias towards slow genes bse of baits
-
-for diversification shifts in the Cape
-@onstein
-@Pirie2016
-@Linder&hardy2004 no shifts
-
-@Valente2010 no shifts
-
-relating pop size to rate molecular
-@lanfear2014
 
 
-
-@Ebersbach - different types of radiation can occur in the same lineage
-
-@Wen2014 geographic divergence in himalayas
-
-In contrast to rapid ecological speciation, collections of
-
-allospecies occupying ecologically similar niches and forming
-
-the components of nonadaptive radiation are often old
-
-(on the order of millions of years @Rundell. But what if small pop sizes?
-
-
-
-Morphological bias - less non-adaptive bse not as many cryptic description
-
-
-
-Disparification. Increase in morphological divergence within a clade without an increase in the clade's rate of diversification @simoes2016
-
-
-
-Discuss - potential alternation of allopatric and ecological associated with pleistocene cycles  and subsequently expanded and speciated during the wetter Pleistocene cycles. See nevado and cactus paper Kozak, cycling can generate rapid accumulation of non adaptive vicariant species

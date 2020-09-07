@@ -1,10 +1,10 @@
 ---
-title: "Summary"
-author: "Lara Wootton"
-date: "02/09/2020"
-output: 
-  pdf_document:
-      latex_engine: xelatex
+#title: "Summary"
+#author: "Lara Wootton"
+#date: "02/09/2020"
+output:
+    word_document:
+       reference_docx: Draft_17032020.docx
 bibliography: Chapt2_refs.bib
 csl: harvard-university-of-cape-town.csl
 ---
@@ -13,77 +13,12 @@ csl: harvard-university-of-cape-town.csl
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Summary of the work, and how it affects our understanding of the processes in the GCFR
+# Synthesis
 
 The GCFR has been the subject of sustained taxonomic research for over 250 years [@Linnaeus1753], making it one of the most well-characterised biological hotspots in the world [@Joppa2011]. It is thought that there is only <1% of the flora left undiscovered in the Core Cape regions [@Treurnicht2017], although that estimate has not been evaluated for the Extra Cape Flora [@Snijman2013]. Much of the taxonomic work however, has focused on morphological characters for delimitation [@Treurnicht2017], potentially biasing species discovery towards morphologically diagnosable taxa, and undercounting cryptic species [@Adams2014]. This study found multiple new species at higher elevations, some of which were nearly morphologically indistinguishable from each other, but were genetically distinct (Chapter 2). Should this be true for other Cape clades, as has been found by @Britton2014 and @Shaik2020, it is possible that a significant portion of the montane Cape flora is still waiting to be described. In particular, species with large distributions across multiple mountain ranges are likely to contain hidden diversity [@Britton2014]. To locate and accurately delimit these hidden species complexes however, robust, integrative taxonomic practices need to be implemented that incorporate multiple sources of evidence [@Dayrat2005; @Padial2010]. Moreover, this study showed the importance of having genome-wide data at different resolutions. For example, the targeted enrichment dataset, which consists of loci that are relatively conserved across the angiosperms [@Johnson2019], revealed the polyphyly of the Setacea clade, while the GBS dataset, consisting of neutral markers, was able to uncover genetic boundaries between closely related sympatric taxa (eg. at Fernkloof and Milner Peak). This work also reiterates the necessity of dense population-level sampling to gain confidence in hypothesised species limits [@Bernardo2011; @Singhal2019], especially in the southwestern GCFR, where strong genetic structure was found within the Ramosa clade.
 
-The Cape Fold mountains have long been considered an influential force in driving diversification in the GCFR [@Linder1985]. The steep mountain slopes create strong environmental gradients, increasing potential niche space and allowing ecological speciation to occur [@Schwery2015; @Rundle2005]. Yet, the isolated peaks also form "sky islands" that promote non-ecological speciation [@Britton2014; @Rundell2009], prompting the hypothesis that the relative importance of ecological and non-ecological speciation may vary with elevation [@Verboom2015]. The present study however, did not find strong evidence to support this hypothesis. Instead, it was found that speciation processes within a lineage were clade specific, with the radiation of each clade triggered by a distinct set of intrinsic and extrinsic factors [@Bouchenak2015]. For example, the Lowlands clade evolved geophytic and annual life histories, intrinsic innovations for aridity that in turn allowed the clade to radiate into the varied substrates of the Succulent Karoo [@Verboom2004], while in the Ramosa-Rehmannii clade, extrinsic barriers to gene flow likely played an influential role in the clade's radiation. *Ehrharta* is not alone in highlighting the complexity in the triggers of plant radiations, especially in montane regions [@Muellner2019b; @Wen2014]. Other studies have also found clade-specific drivers of radiation within a lineage [@Lagomarsino2016], for example subgroups of *Saxifraga* diversified either due to key innovations, extrinsic opportunities or a combination thereof in the Hengduan Mountains [@Ebersbach2017]. It has also been shown that differing trait-environment associations, linked to different life histories, can provoke unique evolutionary responses in lineages that exist in the same environmental conditions [@Mitchell2015]. Together, these factors suggest that even if historical and environmental conditions are well known, as they are in the Cape [@Cowling2002; @Verboom2014; @Linder2015], without sufficient knowledge of the natural history of the lineage in question it is difficult to quantify triggers of diversification.
+The Cape Fold mountains have long been considered an influential force in driving diversification in the GCFR [@Linder1985]. The steep mountain slopes create strong environmental gradients, increasing potential niche space and allowing ecological speciation to occur [@Schwery2015; @Rundle2005]. Yet, the isolated peaks also form "sky islands" that promote non-ecological speciation [@Britton2014; @Rundell2009], prompting the hypothesis that the relative importance of ecological and non-ecological speciation may vary with elevation [@Verboom2015]. The present study however, did not find strong evidence to support this hypothesis. Instead, it was found that speciation processes within a lineage were clade specific, with the radiation of each clade triggered by a distinct set of intrinsic and extrinsic factors [@Bouchenak2015]. For example, the Lowlands clade evolved geophytic and annual life histories, intrinsic innovations for aridity that in turn allowed the clade to radiate into the varied substrates of the Succulent Karoo [@Verboom2004], while in the Ramosa-Rehmannii clade, extrinsic barriers to gene flow likely played an influential role in the clade's radiation. *Ehrharta* is not alone in highlighting the complexity in the triggers of plant radiations, especially in montane regions [@Muellner2019b; @Wen2014]. Other studies have also found clade-specific drivers of radiation within a lineage [@Bentley2014; @Lagomarsino2016], for example subgroups of *Saxifraga* diversified either due to key innovations, extrinsic opportunities or a combination thereof in the Hengduan Mountains [@Ebersbach2017]. It has also been shown that differing trait-environment associations, linked to different life histories, can provoke unique evolutionary responses in lineages that exist in the same environmental conditions [@Mitchell2015]. Together, these factors suggest that even if historical and environmental conditions are well known, as they are in the Cape [@Cowling2002; @Verboom2014; @Linder2015], without sufficient knowledge of the natural history of the lineage in question it is difficult to quantify triggers of diversification.
 
-Yet, despite the individualism of lineage diversification, montane regions are contain a much greater proportion of the Earth's biodiversity than is expected from their relatively small global area [@Rahbek2019a], and the Cape mountains are no exception [@Cowling2002; @Thuiller2006]. This implies that there must be biome-level processes unique to these regions that facilitate the accumulation of species richness [@Rahbek2019b]. Current biogeographical hypotheses however, struggle to explain this phenomenon, with models generally under-predicting diversity [@Rahbek2019a]. Nonetheless, a new framework, known as the 'mountain geo-biodiversity hypothesis' (MGH) has recently been proposed to explain montane species richness in the context of Tibeto‐Himalayan mountain region [@Mosbrugger2018], which could potentially be applied to the Cape Fold Mountains. The MGH takes a holistic approach to explaining species richness by intertwining biological, geological and historical factors, and states that there are three conditions that, if present, maximise regional montane biodiversity. These conditions are i) full elevational zonation (lowland, montane and alpine zones), allowing both local adaptation to a large niche space, and the immigration of pre-adapted lineages, ii) high-relief terrain with environmental gradients, which reduce migratory distances during climate change, and is able to function as refugia, and iii) historical climatic fluctuations that create a 'species pump' effect [@Mosbrugger2018; @Muellner2019]. The Cape mountains meet the first two conditions as they do have strong elevational moisture and temperature gradients, and while there is not an as extensive an alpine zone as the Tibeto‐Himalayan region, does require high elevation plants to have a tolerance of subzero conditions [@Manning2012]. In addition, there is evidence of refugia, especially in the Kogelberg [@Linder2019].
+Yet, despite the individualism of lineage diversification, montane regions contain a much greater proportion of the Earth's biodiversity than is expected given their relatively small global area [@Rahbek2019a], and the Cape mountains are no exception [@Cowling2002; @Thuiller2006]. This implies that there must be biome-level processes unique to these regions that facilitate the accumulation of species richness [@Rahbek2019b]. Current biogeographical hypotheses however, struggle to explain this phenomenon, with models generally under-predicting montane diversity [@Rahbek2019a]. Nonetheless, a new framework, known as the 'mountain geo-biodiversity hypothesis' (MGH) has recently been proposed to explain montane species richness in the context of Tibeto‐Himalayan mountain region [@Mosbrugger2018], which could potentially be applied to the Cape Fold Mountains. The MGH takes a holistic approach to explaining species richness by intertwining biological, geological and historical factors, and states that there are three conditions that, if present, maximise regional montane biodiversity. These conditions are i) full elevational zonation (lowland, montane and alpine zones), allowing both local adaptation to the resulting extensive niche space, and the immigration of pre-adapted lineages, ii) high-relief terrain with environmental gradients, which reduce migratory distances during climate change, and is able to function as refugia, and iii) historical climatic fluctuations that create a 'species pump' effect [@Mosbrugger2018; @Muellner2019]. The Cape Fold mountains meet the first two conditions as they have strong elevational, moisture and temperature gradients, and while the alpine zone is not as extensive as that of the Tibeto‐Himalayan region, high-elevation plants do need a tolerance of subzero conditions [@Manning2012]. In addition, there is evidence of refugia within the Cape Fold mountains, especially in the Kogelberg region [@Grant2007; @Linder2019].
 
-The third condition of the MGH, that of fluctuating climate, is perhaps the most controversial for the GCFR. Glacial cycles during the Pleistocene had a large impact on global species dynamics, causing both large-scale extinction events as well as dramatic radiations [@ref]. In contrast, the Pleistocene climate of the Cape was relatively stable [@refs], and as such the species richness of the GCFR has been partially attributed to limited extinction during this time [@refs]. Nonetheless, climate-induced fluctuations in species distributions did occur [@Scott2006; refs], and I argue that, given the poor dispersal ability of many Cape plants[@ref], this may have been sufficient to create 'flickering connectivity' between populations [@Flantua2018book], as has been shown in other montane regions [@Flantua2018; @refs]. Flickering connectivity is thought promote speciation via a recently proposed mixing-isolation-mixing (MIM) model of speciation [@He2018]. Here, speciation involves 
-
-
-
-here that potentially there was just enough change to foster elevated speciation, which together with reduced extinction, contributed to the current biodiversity. Firstly, during Pleistocene Cape was ~6 degrees cooler and wetter, but would have fluctuated somewhat, causing the habitual niche of species to expand and contract up the mountain. Enough to cause flickering connectivity, speciation with gene flow. Mixture of allopatric ecological.Results in fast speciation. Potentially explain Setacea with near simultaneous speciation and adaptation.
-
-Mountains are important in Cape
-
-Ecological speciation along environmental gradients
-
-Non-ecological on peaks
-
-Lead to hypothesis of elevation specific effects
-
-We found clade specific instead
-
-Evidence for different processes within a clade eg ebersbach
-
-Combination of trait@Mitchell and historical factors - importance of holistic approach
-
-Population sizes
-
-
-
-*Paragraph 3*
-
-Mountain geobiodiversity hypothesis recently proposed holistic approach 
-
-What it is
-
-Where it has been implemented
-
-How cape fits into it
-
-
-
-*Paragraph 4*
-
-Cape considered stable through the Pleistocene. Compared to the rest of the world, this is true, but still some climate change
-
-
-
-Can expain allopatric signatures even when clades diversify after mountain uplift, while buffering extinction through refugia [@Ebersbach2017] Plus MGH shows why delay 
-
-
-
-* Makes lowland radiations more dramatic, 
-* Emphasizes importance of ecological
-* No cape specific causes
-* Suggests that pleistocene cycles may be more important
-* Importance of dating analyses
-
-
-
-
-
-Underestimating cryptic montane diversity in the GCFR has repercussions for our understanding of the causes of diversification in the Cape flora. The species richness of the mid- and high elevation clades calls into question our understanding of the evolutionary history of _Ehrharta_. @Verboom2003 found that the species richness of the genus was generated from a single lineage within _Ehrharta_, that corresponding to the Lowlands clade, which underwent an adaptive radiation event within the Cape winter-rainfall zone in response to increased aridity and rainfall seasonality during Late-Miocene climate change [@Verboom2003; @Verboom2004]. Instead, the evidence presented here suggests that both the Setacea and Ramosa-Rehmannii clades have also undergone appreciable diversification. While the Lowlands clade shows clear trait optimisation in response to climatic and edaphic properties [@Verboom2004], neither the Setacea nor Ramosa clades show the trait disparity expected by an adaptive radiation (@Gavrilets2009).
-
-How increased number of species affect our understanding of the cape flora
-
-
-
-## What future studies should focus on
-
-- High elevation taxa, especially widespread
-- Need population-level genome wide, ideally at different resolutions - eg would have missed fernkloof species
+The third condition of the MGH, that of fluctuating climate, perhaps applies less obviously to the GCFR. Glacial cycles during the Pleistocene had a large impact on global species dynamics, causing both wide-scale extinction and extensive radiations events [@Gill2009; @Willis2004; Hughes2006]. In contrast, the Pleistocene climate of the Cape was relatively stable [@Dynesius2000; ], and as such the species richness of the GCFR has been partially attributed to limited extinction during this time [@Cowling2002; @Linder2008; @Linder2015]. Nonetheless, climate-induced fluctuations in species distributions did occur [@Scott2007; @Huntley2016]. I argue that, given the poor dispersal ability of many Cape plants[@Goldblatt1997], this may have been sufficient to create 'flickering connectivity' between populations [@Flantua2018book], where the migration of species up and down elevational bands in response to climate change alters the degree of population fragmentation [@Flantua2019; @Mairal2017]. Flickering connectivity is thought promote speciation via a recently proposed mixing-isolation-mixing model of speciation [MIM, @He2019]. Here, speciation involves recurrent cycles of gene flow between genetically distinct populations followed by geographic isolation, until total genetic isolation eventually occurs [@He2019]. In the context of this study, the Setacea clade may be an example of MIM. The near simultaneous origin of this clade's taxa suggests an abrupt climatic trigger such as the onset of glacial cycles [@ref], while poor phylogenetic resolution suggestive of incomplete lineage sorting [@Sayyari2017] and evidence of interspecies admixture (eg. Fernkloof, Setacea, Leafy Tricostata groups) hint at speciation with gene flow [@Martin2013; @refs]. The MIM model of speciation can result in a rapid accumulation of species [@He2019], as has been found in many Cape clades during the Pleistocene [@Linder2005; @Colville2020; @refs].Together, the MGH and MIM are therefore an attractive combination to explain montane biodiversity in the GCFR [@Abbott2019; @Muellner2019b]. These concepts should be explicitly tested by modelling Pleistocene climate fluctuations in spatially and temporally fine-scale manner [eg. @Engelbrecht2019] in order to infer population connectivity [@Flantua2019], and correlate this to past events of gene flow between closely related species [@refs]. 

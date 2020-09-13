@@ -53,7 +53,7 @@ While the majority of GBS libraries were sequenced successfully with good data y
 
 ## Major clade relationships
 
-Maximum-likelihood and ASTRAL yielded well-supported, topologically-similar trees (Fig. \@ref(fig:MLtree), Fig. \@ref(fig:astraltree)). In both trees, six major clades, (here termed the Australian, Rehmannii, Ramosa, Setacea, Dura and Lowland clades), are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the ASTRAL tree reflecting number of coalescent units (generations/effective population size). In the Setacea, Ramosa and Rehmannii clades, internal branches are short relative to both the stem and terminal branches, resulting in a “broom and handle” morphology (@Crisp2009) (Fig. \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. 
+Maximum-likelihood and ASTRAL yielded well-supported, topologically-similar trees (Fig. 1, Fig. 2). In both trees, six major clades, (here termed the Australian, Rehmannii, Ramosa, Setacea, Dura and Lowland clades), are resolved with strong support, the relationships of these clades also being consistently well supported. The branches subtending these major clades are long, with branch length in the ML tree reflecting sequence divergence and that in the ASTRAL tree reflecting number of coalescent units (generations/effective population size). In the Setacea, Ramosa and Rehmannii clades, internal branches are short relative to both the stem and terminal branches, resulting in a “broom and handle” morphology (@Crisp2009) (Fig. \@ref(fig:MLtree)). In contrast, the Lowland clade has generally longer branches, with branch lengths being more evenly distributed throughout the clade. 
 
 The Australian clade, comprising *M. stipoides* and *T. laevis* (BS = 100, LPP = 1.00), is consistently resolved as sister to the predominantly-montane Setacea clade (BS = 100, LPP = 1.00) with strong support (BS = 100, LPP = 1.00), this pair being sister to the rest of *Ehrharta* (Fig. \@ref(fig:MLtree), Fig. \@ref(fig:astraltree)). The Setacea clade itself is composed of two species, *E. setacea* and *E. rupestris*, neither of which appear be monophyletic. 
 
@@ -602,7 +602,7 @@ ggpubr::ggarrange(a,b,c, ncol = 1, nrow = 3, align = "hv", labels = c("A", "B", 
 ```
 
 
-```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Rehmannii clade for A) K = 3, and B) K = 10. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.' }
+```{r rehmannii_gbs, echo=F, warning=FALSE, cache=T, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Rehmannii clade for A) K = 3, and B) K = 10. Fractions displayed at the top right of the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify accession numbers and taxon groups.' }
 
 library(pophelper)
 library(gridExtra)
@@ -734,7 +734,7 @@ colnames(dat.pop.assign)[colnames(dat.pop.assign)=="V1"] <- "pop.assign"
 dat.pop.assign <- dat.pop.assign %>% 
   mutate(clade_labs =
          case_when(pop.assign.Species_current %in% c("E_rehmannii_filiformis") ~ "Filiformis", 
-                   pop.assign.Species_current %in% c("E_rehmannii_rehmannii") ~ "Rehmannii s.s",
+                   pop.assign.Species_current %in% c("E_rehmannii_rehmannii") ~ "Rehmannii",
                    pop.assign.Species_current %in% c("E_rehmannii_subspicata") ~ "Subspicata"
                    )
 )
@@ -762,7 +762,8 @@ my_theme <- theme_bw() +
   theme(panel.grid.minor = element_blank(),
         panel.grid = element_blank(),
         legend.key = element_rect(fill = NA, color = "grey"),
-        legend.background = element_blank()
+        legend.background = element_blank(),
+        legend.text = element_text(size = 13)
   )
 
 
@@ -782,15 +783,16 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pcoa_reh, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.' }
+```{r pcoa_reh, echo=F, warning=FALSE, cache=F, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.' }
 
 ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.12, label.y = 0.98, common.legend = T, legend = "right")
+
 
 
 ```
 
 
-```{r map_reh, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population at K = 9 for the Setacea clade. Colours correspond to those of Figure'}
+```{r map_reh, fig.width=8, fig.height=8, fig.cap='Map showing average sNMF assignments per population at K = 9 for the Setacea clade.  Colours correspond to those of Figure 5A.'}
 clump_file3 <- readQ(here("Data", "calc.clumpp.merged.K3.txt"))
 
 gen_dat <- as.data.frame(clump_file3$`calc.clumpp.merged.K3-1`)
@@ -835,6 +837,9 @@ combined$Edeg[combined$Pop == 1591] <- 18.99
 combined$Sdeg[combined$Pop == 3] <- -34.29
 combined$Sdeg[combined$Pop == 1] <- -34.05
 
+combined$Pop[1] <- "LW1"
+combined$Pop[6] <- "LW3"
+
 #Plot
 
 my_colours <- c("#0AB276", #fili
@@ -854,7 +859,7 @@ map_res +
             aes(x = Edeg, y = Sdeg),
             label = combined$Pop,
             nudge_y = -0.22,
-            size = 2.5
+            size = 3.2
   ) +
   theme(legend.position = "none") +
   coord_equal() +
@@ -863,7 +868,7 @@ map_res +
 
 ```
 
-```{r reh_lda, fig.cap='A linear discriminant analysis of the morphological data for the Rehmannii clade. Traits included are described in Table '}
+```{r reh_lda, fig.width =6.5, fig.height = 5, fig.cap='A linear discriminant analysis of morphological data for the Rehmannii clade. The 17 included traits are described in Table 1.'}
 library(MASS)
 library(dplyr)
 
@@ -876,7 +881,7 @@ trait_data <- trait_data %>%
                Species == "E_rehmannii_rehmannii" |
                Species == "E_rehmannii_subspicata" ) %>% 
     droplevels() %>% 
-    mutate(Clade = case_when(Collection %in% c("1649", "1652", "1653", "1647") ~ "Rehmannii s.s",
+    mutate(Clade = case_when(Collection %in% c("1649", "1652", "1653", "1647") ~ "Rehmannii",
                              Collection %in% c( "1571", "1591", "1592", 
                                                 "1615", "1567", "1", 
                                                 "4", "1583") ~ "Filiformis",
@@ -903,6 +908,8 @@ my_theme <- theme_bw() +
           panel.grid = element_blank(),
           legend.key = element_rect(fill = NA, color = "grey"),
           legend.background = element_blank(),
+          legend.title = element_blank(),
+          legend.text = element_text(size = 13),
           axis.title = element_text(size = 12)
          
     )
@@ -921,7 +928,7 @@ ggplot(lda.data, aes(LD1, LD2)) +
 
 ```
 
-```{r reh_boxplots, fig.height=8, message=F, fig.show='first', fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+```{r reh_boxplots, fig.height=9, message=F, fig.show='first',fig.cap='Boxplots of morphological traits used in the linear discriminant analysis for the Rehmannii clade. See Table 1 for trait decriptions. Where applicable, measurements are in mm.'}
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
           panel.grid = element_blank(),
@@ -940,64 +947,43 @@ univariate_boxplot_trait_data <- function(x, y) {
 }
 
 
-#a <- univariate_boxplot_trait_data("Clade", "Plant_height")
-#b <- univariate_boxplot_trait_data("Clade", "Veg_height")
-#c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
-#d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
+
+a <- univariate_boxplot_trait_data("Clade", "inflor_position") + ylab("Inflorescence position")
+b <- univariate_boxplot_trait_data("Clade", "Veg_height")+ ylab("Vegetative height")
+c <- univariate_boxplot_trait_data("Clade", "Leaf_width")+ ylab("Leaf width")
+d <- univariate_boxplot_trait_data("Clade", "Leaf_length") +ylab("Leaf length")
 #e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
-#f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
-#g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
-#h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
-#j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
-#k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
+f <- univariate_boxplot_trait_data("Clade", "Internode_dist")+ ylab("Internode distance")
+e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")+ ylab("Relative sheath length")
+ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")+ ylab("Relative leaf length")
+g <- univariate_boxplot_trait_data("Clade", "Culm_diam")+ ylab("Culm diameter")
+h <- univariate_boxplot_trait_data("Clade", "Inflor_length")+ ylab("Inflorescence length")
+#q <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")+ ylab("Pedicel length")
+n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 12, colour = "black"))+ ylab("Spikelet length (mm)")
 #l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
-#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
-#ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
-#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
-#n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
-#z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
-#  theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-#
-#ggpubr::ggarrange(a,b,c,d,e,f,g,h,j,k,l,m,ma,mb,n,z,q, 
-#                  ncol = 4, nrow = 4, 
-#                  align = 'v',
-#                  heights = c(1,1,1,1.4))
-
-
-
-a <- univariate_boxplot_trait_data("Clade", "inflor_position")
-b <- univariate_boxplot_trait_data("Clade", "Veg_height")
-c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
-d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
-#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
-f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
-e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
-ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
-g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
-h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
-#j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
-k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
-n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-#l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
-l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")
-m <- univariate_boxplot_trait_data("Clade", "glume_ratio")
-#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")+ ylab("Glume enclosure")
+m <- univariate_boxplot_trait_data("Clade", "glume_ratio")+ ylab("Glume ratio")
+#q <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
 #ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")
-mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")+ ylab("Spikelet shape")
+mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 12, colour = "black"))+ ylab("Spikelet no.")
 #mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-z <- univariate_boxplot_trait_data("Clade", "Striation_no")
+mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 12, colour = "black"))+ ylab("Lemma ratio")
+z <- univariate_boxplot_trait_data("Clade", "Striation_no")+ ylab("Striation no.")
 
 #z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
   #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
 
-ggpubr::ggarrange(c,d, NULL,b,a,e,ea, f,g,h,k,l, z,m,ma,mc, mb,n,q, 
+null <- ggplot() +
+  geom_point(data = means, aes(x = k, y = ce), size = 3.5, alpha = 0) + theme_void()
+
+ggpubr::ggarrange(c,d, null, b,a,e,ea, f, g,h,k,l,z,m,ma,mc, mb,n,
                   ncol = 3, nrow = 6, 
                   align = 'v',
                   heights = c(1,1,1,1,1,1.45))
-```
 
+```
 
 
 ```{r ram_minor_clades, echo=F, warning=F, fig.width=9, fig.height=11, fig.cap="Phylogenetic relationships of Ramosa clade. A) Maximum-likelihood tree constructed using IQTREE with Partitionfinder from 307 concatenated supercontig loci. Red numbers show ultrafast bootstraps (BS). Branch lengths represent number of substitutions. B) ASTRAL tree constructed using IQTREE gene trees from supercontig 307 loci. Branch lengths represent coalescent units (generations/ effective population size). Tip branches are an arbitrary length not calculated by ASTRAL III. Red numbers represent local posterior probabilities (LPP)."}
@@ -1181,7 +1167,7 @@ ggpubr::ggarrange(ml_ram, ast_ram, labels = c("A", "B"), font.label = list(size 
 
 ```
 
-```{r ram_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Ramosa clade for A) K = 3, and B) K = 8. Fractions above the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify collection numbers and taxon groups.'}
+```{r ram_gbs, echo=F, warning=FALSE, cache=F, message=F, include = T, fig.height=6.4, fig.cap='Plots of sNMF genomic assignment of individuals within the Ramosa clade for A) K = 3, and B) K = 8. Fractions displayed at the top right of the graphs show the number of times a given sNMF repetition recovered the displayed assignments. The bars below the plots identify accession numbers and taxon groups.'}
 
 library(pophelper)
 library(gridExtra)
@@ -1196,8 +1182,8 @@ pop_names <- read.table(here("Data", "popmap_ramosa_reordered"), stringsAsFactor
 
 clade_names <- c(
     rep("Aphylla", 12),
-    rep("Western ramosa", 20),
-    rep("Eastern ramosa", 16)
+    rep("Western Ramosa", 20),
+    rep("Eastern Ramosa", 16)
 )
 
 group_labs <- data.frame(collection = pop_names, clade = clade_names)
@@ -1303,9 +1289,9 @@ dat.pop.assign<-data.frame(pop.assign$Species_current, pop.assign$Pop)
 colnames(dat.pop.assign)[colnames(dat.pop.assign)=="V1"] <- "pop.assign"
 
 dat.pop.assign <- dat.pop.assign %>% 
-    mutate(clade_labs = c(rep("Aphylla", 8), rep("Western ramosa", 8), 
-                          rep("Aphylla", 4), rep("Western ramosa", 12),
-                          rep("Eastern ramosa",16)) 
+    mutate(clade_labs = c(rep("Aphylla", 8), rep("Western Ramosa", 8), 
+                          rep("Aphylla", 4), rep("Western Ramosa", 12),
+                          rep("Eastern Ramosa",16)) 
     )
 
 #convert vcf to genlight
@@ -1331,7 +1317,8 @@ my_theme <- theme_bw() +
   theme(panel.grid.minor = element_blank(),
         panel.grid = element_blank(),
         legend.key = element_rect(fill = NA, color = "grey"),
-        legend.background = element_blank()
+        legend.background = element_blank(),
+        legend.text = element_text(size = 13)
   )
 
 
@@ -1351,7 +1338,8 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pcoa_ram, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.'}
+```{r pcoa_ram, echo=F, warning=FALSE, cache=T, message=F, fig.height=7.5, fig.width=6, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.'}
+
 
 ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv",labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.12, label.y = 0.98, common.legend = T, legend = "right")
 
@@ -1365,7 +1353,7 @@ map_res <- ggmap(map_test)
 
 ```
 
-```{r ram_map, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population for the Ramosa clade A) K = 3, B) K = 8. Colours correspond to those of Figure'}
+```{r ram_map, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population for the Ramosa clade at A) K = 3, B) K = 8. Colours correspond to those of Figure 11.'}
 clump_file <- readQ(here("Data", "calc.clumpp.merged.K3.2.txt"))
 
 gen_dat <- as.data.frame(clump_file$`calc.clumpp.merged.K3.2-1`)
@@ -1424,7 +1412,7 @@ m1 <- map_res +
               aes(x = Edeg, y = Sdeg),
               label = combined$Pop,
               nudge_y = -0.22,
-              size = 2.5
+              size = 3.2
     ) +
     theme(legend.position = "none") +
     coord_equal() +
@@ -1491,7 +1479,7 @@ m2 <- map_res +
               aes(x = Edeg, y = Sdeg),
               label = combined$Pop,
               nudge_y = -0.2,
-              size = 2.5
+              size = 3.2
     )+
     theme(legend.position = "none"
           ) +
@@ -1499,11 +1487,11 @@ m2 <- map_res +
   xlab("Longitude")+
   ylab("Latitude")
 
-ggpubr::ggarrange(m1,m2, ncol = 1, align = "hv", labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.1, label.y = 0.98 )
+ggpubr::ggarrange(m1,m2, ncol = 1, align = "hv", labels = c("A", "B"), font.label = list(size = 19, face = "plain"), label.x = 0.07, label.y = 0.98 )
 
 ```
 
-```{r ram_lda, fig.cap='A linear discriminant analysis of the morphological data of the Ramosa clade. Traits included are described in Table . '}
+```{r ram_lda, fig.width =6.5, fig.height = 5, fig.cap='A linear discriminant analysis of morphological data for the Ramosa clade. The 17 included traits are described in Table 1. '}
 my_colours <- c("#00A0B0", "#DF0101",  "#9BC53D")
 
 
@@ -1517,9 +1505,9 @@ trait_data <- trait_data %>%
     
     mutate(Clade = 
               case_when(Collection %in% c("1566", "1570", "1601", "1576") ~ "Aphylla",
-                        Collection %in% c("1656", "1654", "1635", "1643", "1645") ~ "East. ramosa",
+                        Collection %in% c("1656", "1654", "1635", "1643", "1645") ~ "East. Ramosa",
                         Collection %in% c("1606", "1560", "1585", "1609", "1611",
-                                          "1588", "1626", "1622", "1624") ~ "West. ramosa"
+                                          "1588", "1626", "1622", "1624") ~ "West. Ramosa"
               )
     )
 
@@ -1544,14 +1532,14 @@ lda_ramosa <- lda(scale_ram$Clade ~ ., data = scale_ram)
 lda.data <- cbind(scale_ram, predict(lda_ramosa)$x)
 
 ggplot(lda.data, aes(LD1, LD2)) +
-    geom_point(aes(color = Clade), size = 2) +
+    geom_point(aes(color = Clade), size = 3) +
     scale_colour_manual(values = my_colours) +
     my_theme +
     theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 ```
 
 
-```{r ram_boxplots, fig.height=8, message=F, fig.show='first', fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+```{r ram_boxplots, fig.height=9, message=F, fig.show='first', fig.cap='Boxplots of morphological traits used in the linear discriminant analysis for the Ramosa clade. See Table 1 for trait decriptions. Where applicable, measurements are in mm.'}
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
           panel.grid = element_blank(),
@@ -1562,40 +1550,39 @@ my_theme <- theme_bw() +
           axis.ticks.x = element_blank()
     )
 
-#a <- univariate_boxplot_trait_data("Clade", "Plant_height")
-a <- univariate_boxplot_trait_data("Clade", "inflor_position")
-b <- univariate_boxplot_trait_data("Clade", "Veg_height")
-c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
-d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
-#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
-f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
-e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
-ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
-g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
-h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
-j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
-k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
-n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
+a <- univariate_boxplot_trait_data("Clade", "inflor_position") + ylab("Inflorescence position")
+b <- univariate_boxplot_trait_data("Clade", "Veg_height")+ ylab("Vegetative height")
+c <- univariate_boxplot_trait_data("Clade", "Leaf_width")+ ylab("Leaf width")
+d <- univariate_boxplot_trait_data("Clade", "Leaf_length") +ylab("Leaf length")
+f <- univariate_boxplot_trait_data("Clade", "Internode_dist")+ ylab("Internode distance")
+e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")+ ylab("Relative sheath length")
+ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")+ ylab("Relative leaf length")
+g <- univariate_boxplot_trait_data("Clade", "Culm_diam")+ ylab("Culm diameter")
+h <- univariate_boxplot_trait_data("Clade", "Inflor_length")+ ylab("Inflorescence length")
+#q <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")+ ylab("Pedicel length")
+n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 12, colour = "black"))+ ylab("Spikelet length (mm)")
 #l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
-l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")
-m <- univariate_boxplot_trait_data("Clade", "glume_ratio")
-#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
+l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")+ ylab("Glume enclosure")
+m <- univariate_boxplot_trait_data("Clade", "glume_ratio")+ ylab("Glume ratio")
+#q <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
 #ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")
-mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-z <- univariate_boxplot_trait_data("Clade", "Striation_no")
+ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")+ ylab("Spikelet shape")
+mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 12, colour = "black"))+ ylab("Spikelet no.")
+mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 12, colour = "black"))+ ylab("Lemma ratio")
+z <- univariate_boxplot_trait_data("Clade", "Striation_no")+ ylab("Striation no.")
 
 #z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
   #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-```
 
-```{r, fig.height=8, message=F, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
-ggpubr::ggarrange(c,d, NULL, b,a,e,ea, f,g,h,k,l,m,z,ma,mc, mb,n,q, 
+null <- ggplot() +
+  geom_point(data = means, aes(x = k, y = ce), size = 3.5, alpha = 0) + theme_void()
+
+
+ggpubr::ggarrange(c,d, null, b,a,e,ea, f,g,h,k,l,m,z,ma,mc, mb,n,
                   ncol = 3, nrow = 6, 
                   align = 'v',
-                  heights = c(1,1,1,1,1,1.4))
+                  heights = c(1,1,1,1,1,1.65))
 
 ```
 
@@ -2141,6 +2128,7 @@ my_theme <- theme_bw() +
   theme(panel.grid.minor = element_blank(),
         panel.grid = element_blank(),
         legend.key = element_rect(fill = NA, color = "grey"),
+        legend.text = element_text(size=12),
         legend.background = element_blank()
   )
 
@@ -2161,16 +2149,17 @@ p2 <- pcoa_plot2 + my_theme +
 
 ```
 
-```{r pcoa_rup, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Rehmannii clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.'}
+```{r pcoa_rup, echo=F, warning=FALSE, cache=T, message=F, fig.height=7, fig.width=5, fig.cap='Representation of genetic similarity between individuals in the Setacea clade using a principle coordinates analysis of SNP variants. A) Principal component axes 1 and 2, B) principal component axes 3 and 4.'}
 
 ggpubr::ggarrange(p1, p2, nrow = 2, align = "hv", labels = c("A", "B"), font.label = list(size = 18, face = "plain"), label.x = 0.075, label.y = 0.98,
                   #label.x = 0.12, label.y = 0.98, 
                   common.legend = T, legend = "right")
 
 
+
 ```
 
-```{r map_rup, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population at K = 9 for the Setacea clade. Colours correspond to those of Figure'}
+```{r map_rup, fig.width=8, fig.height=7, fig.cap='Map showing average sNMF assignments per population at K = 9 for the Setacea clade. Colours correspond to those of Figure 17A.'}
 
 
 clump_file9 <- readQ(here("Data", "calc.clumpp.merged.K9.txt"))
@@ -2232,6 +2221,8 @@ combined$Edeg[combined$Pop == 1565] <- 18.86608
 combined$Sdeg[combined$Pop == 1565] <- -34.00277
 combined$Sdeg[combined$Pop == 1579] <- -33.98938
 
+combined$Pop[24] <- "LW3"
+
 my_colours <- c(
     "#60D5FD", #set
     "#027368", #leafy
@@ -2257,8 +2248,8 @@ map_res +
     geom_text(data = combined, 
               aes(x = Edeg, y = Sdeg),
               label = combined$Pop,
-              nudge_y = -0.1,
-              size = 2
+              nudge_y = -0.12,
+              size = 2.5
     )+
     theme(legend.position = "none",
           axis.title.y = element_text(colour = "white"),
@@ -2268,7 +2259,7 @@ map_res +
 ```
 
 
-```{r lda_rup, fig.cap='A linear discriminant analysis of the morphological data for the Setacea clade. Traits included are described in Table . For the full dataset, plot A) shows axes PC1 and PC2, B) shows PC3 and PC4. Restiod tricostata and Uniflora are removed from the analysis in C) and D).'}
+```{r lda_rup, fig.cap='A linear discriminant analysis of the morphological data for the Setacea clade. Traits included are described in Table 1. For the full dataset, plot A) shows axes PC1 and PC2, B) shows PC3 and PC4. Restioid tricostata and Uniflora are removed from the analysis in C) and D).'}
 
 my_colours <- c("#77CE61", #dodii
                 "#1D72F5", #E. rup
@@ -2394,7 +2385,7 @@ ggpubr::ggarrange(ld1, ld2, ld3, ld4, ncol = 2, nrow = 2, align = "hv", labels =
 
 \newpage
 
-```{r rup_boxplots, fig.show='first', fig.width=8, fig.height=10.5, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis. See Table for trait decriptions'}
+```{r rup_boxplots, fig.show='first', fig.width=8, fig.height=10.5, fig.cap='Boxplots of morphological traits used in the linear discriminant analysis for the Setacea clade. See Table 1 for trait decriptions.'}
 
 my_theme <- theme_bw() +
     theme(panel.grid.minor = element_blank(),
@@ -2406,63 +2397,39 @@ my_theme <- theme_bw() +
           axis.ticks.x = element_blank()
     )
 
-#
-##a <- univariate_boxplot_trait_data("Clade", "Plant_height") #
-#b <- univariate_boxplot_trait_data("Clade", "Veg_height")
-#c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
-#d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
-##e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
-#f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
-#g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
-#h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
-#j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
-##k <- univariate_boxplot_trait_data("Clade", "pedicel_length_epu")
-##l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
-##m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
-##ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")
-##mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")
-#n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = #element_text(angle = 40, vjust = 0.9, hjust = 1))
-##z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
-#  #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-##q <- univariate_boxplot_trait_data("Clade", "Glume_ratio") +
-# # theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-#
-#ggpubr::ggarrange(a,b, NULL,c,d,e,f,g,h,j,k,l,m,ma,mb,n,z,q, 
-#                  ncol = 3, nrow = 6, 
-#                  align = 'v',
-#                  heights = c(rep(1,5),1.6))
 
-
-a <- univariate_boxplot_trait_data("Clade", "inflor_position")
-b <- univariate_boxplot_trait_data("Clade", "Veg_height")
-c <- univariate_boxplot_trait_data("Clade", "Leaf_width")
-d <- univariate_boxplot_trait_data("Clade", "Leaf_length")
-#e <- univariate_boxplot_trait_data("Clade", "Sheath_length")
-f <- univariate_boxplot_trait_data("Clade", "Internode_dist")
-e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")
-ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")
-g <- univariate_boxplot_trait_data("Clade", "Culm_diam")
-h <- univariate_boxplot_trait_data("Clade", "Inflor_length")
-j <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
-k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")
-n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") 
+a <- univariate_boxplot_trait_data("Clade", "inflor_position") + ylab("Inflorescence position")
+b <- univariate_boxplot_trait_data("Clade", "Veg_height")+ ylab("Vegetative height")
+c <- univariate_boxplot_trait_data("Clade", "Leaf_width")+ ylab("Leaf width")
+d <- univariate_boxplot_trait_data("Clade", "Leaf_length") +ylab("Leaf length")
+f <- univariate_boxplot_trait_data("Clade", "Internode_dist")+ ylab("Internode distance")
+e <- univariate_boxplot_trait_data("Clade", "relative_sheath_length")+ ylab("Relative sheath length")
+ea <- univariate_boxplot_trait_data("Clade", "relative_leaf_length")+ ylab("Relative leaf length")
+g <- univariate_boxplot_trait_data("Clade", "Culm_diam")+ ylab("Culm diameter")
+h <- univariate_boxplot_trait_data("Clade", "Inflor_length")+ ylab("Inflorescence length")
+#q <- univariate_boxplot_trait_data("Clade", "Spikelet_no")
+k <- univariate_boxplot_trait_data("Clade", "Pedicel_length_epu")+ ylab("Pedicel length")
+n <- univariate_boxplot_trait_data("Clade", "Spikelet_length") + theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 10, colour = "black"), axis.ticks.x = element_line())+ ylab("Spikelet length (mm)")
 #l <- univariate_boxplot_trait_data("Clade", "Glume_length_outer")
-l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")
-m <- univariate_boxplot_trait_data("Clade", "glume_ratio")
-#m <- univariate_boxplot_trait_data("Clade", "Glume_length_inner")
-#ma <- univariate_boxplot_trait_data("Clade", "Lemma_inner_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-#mb <- univariate_boxplot_trait_data("Clade", "Lemma_outer_length")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
-
+l <- univariate_boxplot_trait_data("Clade", "glume_enclosure")+ ylab("Glume enclosure")
+m <- univariate_boxplot_trait_data("Clade", "glume_ratio")+ ylab("Glume ratio")
+ma <- univariate_boxplot_trait_data("Clade", "spikelet_shape")+ ylab("Spikelet shape")
+mc <- univariate_boxplot_trait_data("Clade", "Spikelet_no")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 10, colour = "black"), axis.ticks.x = element_line())+ ylab("Spikelet no.")
+mb <- univariate_boxplot_trait_data("Clade", "lemma_ratio")+ theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1, size = 10, colour = "black"), axis.ticks.x = element_line())+ ylab("Lemma ratio")
+z <- univariate_boxplot_trait_data("Clade", "Striation_no")+ ylab("Striation no.")
 
 #z <- univariate_boxplot_trait_data("Clade", "Spikelet_width") +
   #theme(axis.text.x = element_text(angle = 40, vjust = 0.9, hjust = 1))
 
-ggpubr::ggarrange(b,NULL,NULL,c,d, a,e,ea, f,g,h,k,l,m,n,mc, mb,ma,q, 
+null <- ggplot() +
+  geom_point(data = means, aes(x = k, y = ce), size = 3.5, alpha = 0) + theme_void()
+null2 <- ggplot() +
+  geom_point(data = means, aes(x = k, y = ce), size = 3.5, alpha = 0) + theme_void()
+
+
+ggpubr::ggarrange(b, null, null2, c, d, a,e,ea, f,g,h,k,l,m,ma,mc, mb,n,
                   ncol = 3, nrow = 6, 
                   align = 'v',
-                  heights = c(1,1,1,1,1,1.4))
+                  heights = c(1,1,1,1,1,1.5))
 
 ```
